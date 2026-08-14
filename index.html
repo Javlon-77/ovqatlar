@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodHub Master - Taomlar Retseptlari va Akademiyasi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-zinc-900/80 backdrop-blur-md border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-amber-500 text-zinc-950 p-2.5 rounded-2xl font-bold text-xl shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-hat-chef"></i>
+                </div>
+                <span class="text-2xl font-bold tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">FoodHub Master</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="hidden md:flex items-center bg-zinc-800/60 border border-zinc-700/50 rounded-full px-4 py-2 w-96 focus-within:border-amber-500 transition">
+                <i class="fa-solid fa-magnifying-glass text-zinc-400 mr-3"></i>
+                <input type="text" id="searchInput" placeholder="Taom yoki retseptni qidiring..." class="bg-transparent border-none outline-none text-zinc-100 w-full placeholder-zinc-500 text-sm">
+            </div>
+
+            <!-- Cart / Favorites Button -->
+            <button onclick="toggleCart()" class="relative bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 p-3 rounded-2xl transition flex items-center space-x-2">
+                <i class="fa-solid fa-cart-shopping text-amber-400 text-lg"></i>
+                <span class="hidden sm:inline text-sm font-medium">Savatcha</span>
+                <span id="cartBadge" class="absolute -top-2 -right-2 bg-amber-500 text-zinc-950 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- HERO BANNER -->
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-amber-600 to-orange-600 p-8 sm:p-12 mb-10 shadow-2xl">
+            <div class="relative z-10 max-w-xl">
+                <span class="bg-zinc-950/30 text-amber-200 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm">Professional Retseptlar 📚</span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-3 leading-tight">Taomlarni o'zingiz tayyorlang yoki buyurtma bering</h1>
+                <p class="text-amber-100 text-sm sm:text-base mb-6">Har bir taom uchun maxsus video darsliklar, masalliqlar va qadam-baqadam tayyorlash yo'riqnomasi.</p>
+            </div>
+        </div>
+
+        <!-- CATEGORIES FILTER -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+            <button onclick="filterCategory('all')" class="cat-btn active px-5 py-2.5 rounded-xl font-medium text-sm transition whitespace-nowrap bg-amber-500 text-zinc-950 shadow-lg shadow-amber-500/20">Barchasi</button>
+            <button onclick="filterCategory('milliy')" class="cat-btn px-5 py-2.5 rounded-xl font-medium text-sm transition whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white border border-zinc-800">Milliy taomlar</button>
+            <button onclick="filterCategory('fastfood')" class="cat-btn px-5 py-2.5 rounded-xl font-medium text-sm transition whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white border border-zinc-800">Fast Food</button>
+            <button onclick="filterCategory('shirinlik')" class="cat-btn px-5 py-2.5 rounded-xl font-medium text-sm transition whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white border border-zinc-800">Shirinliklar</button>
+            <button onclick="filterCategory('ichimlik')" class="cat-btn px-5 py-2.5 rounded-xl font-medium text-sm transition whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white border border-zinc-800">Ichimliklar</button>
+        </div>
+
+        <!-- FOOD GRID -->
+        <div id="foodGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- JS orqali to'ldiriladi -->
+        </div>
+    </main>
+
+    <!-- RECIPE DETAIL MODAL (TAOMNI BOSGANDA OCHILADIGAN OYNA) -->
+    <div id="recipeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/90 sticky top-0 z-10">
+                <h2 id="modalTitle" class="text-xl font-bold text-white">Taom nomi</h2>
+                <button onclick="closeModal()" class="text-zinc-400 hover:text-white text-xl p-2 bg-zinc-800 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-6">
+                <!-- Video / Image Container -->
+                <div id="modalMedia" class="relative rounded-2xl overflow-hidden bg-black aspect-video shadow-lg">
+                    <!-- Video yoki Rasm shu yerga tushadi -->
+                </div>
+
+                <!-- Info tags -->
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="bg-zinc-950/60 p-3 rounded-2xl border border-zinc-800">
+                        <span class="block text-xs text-zinc-500">Tayyorlash vaqti</span>
+                        <span id="modalTime" class="font-bold text-amber-400 text-sm">45 daqiqa</span>
+                    </div>
+                    <div class="bg-zinc-950/60 p-3 rounded-2xl border border-zinc-800">
+                        <span class="block text-xs text-zinc-500">Qiyinligi</span>
+                        <span id="modalDiff" class="font-bold text-amber-400 text-sm">O'rta</span>
+                    </div>
+                    <div class="bg-zinc-950/60 p-3 rounded-2xl border border-zinc-800">
+                        <span class="block text-xs text-zinc-500">Reyting</span>
+                        <span id="modalRating" class="font-bold text-amber-400 text-sm">4.9 ⭐</span>
+                    </div>
+                </div>
+
+                <!-- Ingredients -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-3 flex items-center space-x-2">
+                        <i class="fa-solid fa-basket-shopping text-amber-500"></i>
+                        <span>Kerakli Masalliqlar:</span>
+                    </h3>
+                    <ul id="modalIngredients" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-zinc-300">
+                        <!-- Masalliqlar ro'yxati -->
+                    </ul>
+                </div>
+
+                <!-- Step-by-Step Instructions -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-3 flex items-center space-x-2">
+                        <i class="fa-solid fa-list-check text-amber-500"></i>
+                        <span>Tayyorlanish Jarayoni (1ma-1):</span>
+                    </h3>
+                    <div id="modalSteps" class="space-y-4">
+                        <!-- Qadamlar shu yerga tushadi -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer (Buyurtma berish) -->
+            <div class="p-5 border-t border-zinc-800 bg-zinc-950/80 flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-zinc-500 block">Narxi:</span>
+                    <span id="modalPrice" class="text-xl font-extrabold text-amber-400">0 so'm</span>
+                </div>
+                <button id="modalOrderBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 text-zinc-950 font-bold px-6 py-3 rounded-2xl shadow-lg hover:opacity-95 transition">Savatchaga qo'shish</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SHOPPING CART DRAWER -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
+        <div class="bg-zinc-900 w-full max-w-md h-full flex flex-col border-l border-zinc-800 shadow-2xl">
+            <div class="p-6 border-b border-zinc-800 flex items-center justify-between">
+                <h2 class="text-xl font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-cart-shopping text-amber-500"></i>
+                    <span>Sizning Savatchangiz</span>
+                </h2>
+                <button onclick="toggleCart()" class="text-zinc-400 hover:text-white text-xl p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div id="cartItemsList" class="flex-grow overflow-y-auto p-6 space-y-4">
+                <!-- Savatcha elementlari -->
+            </div>
+
+            <div class="p-6 border-t border-zinc-800 bg-zinc-950/50">
+                <div class="flex justify-between mb-4 text-lg font-bold">
+                    <span>Jami summa:</span>
+                    <span id="cartTotal" class="text-amber-400">0 so'm</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-zinc-950 font-bold py-3.5 rounded-2xl shadow-lg shadow-amber-500/20 hover:opacity-95 transition">Buyurtmani rasmiylashtirish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-900 border-t border-zinc-800 mt-16 py-8 text-center text-zinc-500 text-sm">
+        <p>&copy; 2026 FoodHub Master. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Kengaytirilgan Taomlar va Retseptlar Bazasi
+        const foods = [
+            {
+                id: 1,
+                name: "O'zbekcha Osh",
+                category: "milliy",
+                price: 45000,
+                rating: 4.9,
+                time: "1 soat 30 min",
+                difficulty: "O'rta",
+                img: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=600&q=80",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Namuna video kod
+                desc: "An'anaviy tansiq, qo'y go'shti va sarimsoqpiyoz bilan.",
+                ingredients: ["1 kg qo'y go'shti", "1 kg Alanga guruch", "400 ml paxta yog'", "1 kg piyoz", "1 kg sabzi", "Butun sarimsoq va ziravorlar"],
+                steps: [
+                    "Qozonni qizdirib, yog'ni qizarguncha qizdiring va piyozni qizarguncha qovuring.",
+                    "Go'shtni yirik to'g'rab qo'shing va u ham qizargach, somoncha to'g'ralgan sabzini soling.",
+                    "Suv quyib, ziravorlar va sarimsoqni solib, 40 daqiqa dimlab (zirvak) qaynating.",
+                    "Yuvilgan guruchni solib suvini to'g'rilang, suv bug'langach, damlab qo'ying (20 daqiqa)."
+                ]
+            },
+            {
+                id: 2,
+                name: "Burger Mega Cheez",
+                category: "fastfood",
+                price: 38000,
+                rating: 4.7,
+                time: "25 daqiqa",
+                difficulty: "Oson",
+                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                desc: "Ikki qavatli mol go'shti kotleti va erigan cheddar pishlog'i.",
+                ingredients: ["Burger bulkasi", "Mol go'shti kotleti (2 dona)", "Cheddar pishlog'i", "Maxsus sous", "Pomidor va Marul bargi"],
+                steps: [
+                    "Bulkani ikkiga bo'lib, toster yoki tovada ozgina qizartirib oling.",
+                    "Mol go'shti kotletlarini har ikki tomonini tuz va murch sepib, sharbatini saqlab qolgan holda qovuring.",
+                    "Kotlet ustiga pishloq qo'yib, u eriguncha qopqog'ini yoping.",
+                    "Bulka orasiga sous, marul, kotlet, pomidor va ikkinchi bulkani qo'yib yig'ing."
+                ]
+            },
+            {
+                id: 3,
+                name: "Pepperoni Pitsa",
+                category: "fastfood",
+                price: 85000,
+                rating: 4.8,
+                time: "40 daqiqa",
+                difficulty: "O'rta",
+                img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                desc: "Maxsus kolbasa, mozzarella pishlog'i va pomidor sousi.",
+                ingredients: ["Pitsa xamiri", "Pomidor sousi", "Mozzarella pishlog'i", "Pepperoni kolbasasi", "Zaytun moyi"],
+                steps: [
+                    "Xamirni yoyib, patnisga qo'ying va ustiga pomidor sousini tekis qilib surting.",
+                    "Maydalangan Mozzarella pishlog'ini sepib chiqing.",
+                    "Ustiga yupqa to'g'ralgan Pepperoni kolbasalarini qator qilib terib chiqing.",
+                    "220 daraja qizdirilgan pechda 12-15 daqiqa davomida pishirib oling."
+                ]
+            },
+            {
+                id: 4,
+                name: "Shashlik Assorti",
+                category: "milliy",
+                price: 60000,
+                rating: 4.9,
+                time: "50 daqiqa",
+                difficulty: "O'rta",
+                img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                desc: "Qo'y va mol go'shtidan cho'g'da pishirilgan ishtahaochar shashlik.",
+                ingredients: ["1 kg go'sht (qo'y/mol)", "Piyoz (ko'p miqdorda)", "Zira, kashnich urug'i", "Sirka yoki limon suvi", "Tuz va murch"],
+                steps: [
+                    "Go'shtni o'rtacha kubik shaklida to'g'rang.",
+                    "Piyozni halqa shaklida to'g'rab, tuz va ziravorlar bilan qo'lda ezib sharbatini chiqaring.",
+                    "Go'shtni piyoz va ziravorlar bilan aralashtirib, kamida 3 soat marinovka qilishga qo'ying.",
+                    "Shishlarga qadalib, cho'g' ustida qizarguncha muntazam aylantirib pishiring."
+                ]
+            },
+            {
+                id: 5,
+                name: "Moxito Cocktail",
+                category: "ichimlik",
+                price: 22000,
+                rating: 4.7,
+                time: "5 daqiqa",
+                difficulty: "Juda oson",
+                img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                desc: "Yalpiz, Laym va muz bo'laklari qo'shilgan tetiklashtiruvchi ichimlik.",
+                ingredients: ["Yalpiz barglari", "Laym (1 dona)", "Shakar sirti yoki sirop", "Sprite yoki soda", "Muz bo'laklari"],
+                steps: [
+                    "Stakanga yalpiz barglari va bo'laklangan laymni solib yengil ezib chiqaring.",
+                    "Stakanni maydalangan muz bo'laklari bilan to'ldiring.",
+                    "Ustidan Sprite yoki sodali suv quying.",
+                    "Naycha va yalpiz bargi bilan bezatib, dasturxonga torting."
+                ]
+            },
+            {
+                id: 6,
+                name: "Napoleon Torti",
+                category: "shirinlik",
+                price: 25000,
+                rating: 4.9,
+                time: "2 soat",
+                difficulty: "Qiyin",
+                img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&q=80",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                desc: "Nozik qavatli, maxsus krem bilan tayyorlangan shirinlik.",
+                ingredients: ["Un va saryog'", "Tuxum va muzdek suv", "Qaynatma krem uchun sut", "Shakar va vanilin"],
+                steps: [
+                    "Un va sovuq saryog'ni uvoq holatiga keltirib, tuxum va suv qo'shib xamir qoring va muzlatkichga qo'ying.",
+                    "Xamirni 8-10 ta kichik zuvalachalarga bo'lib, yupqa qilib yoying va pechda qizartirib pishiring.",
+                    "Sut, shakar, tuxum va undan qaynatma krem tayyorlab sovuting.",
+                    "Har bir qavatga krem surtib yig'ing va ustini qoldiq uvoqlar bilan bezating."
+                ]
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+        let activeFoodId = null;
+
+        // Ekranga taomlarni chiqarish
+        function renderFoods(filter = 'all', search = '') {
+            const grid = document.getElementById('foodGrid');
+            grid.innerHTML = '';
+
+            const filtered = foods.filter(item => {
+                const matchesCategory = filter === 'all' || item.category === filter;
+                const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-16 text-zinc-500">Hech qanday taom topilmadi 😕</div>`;
+                return;
+            }
+
+            filtered.forEach(food => {
+                grid.innerHTML += `
+                    <div onclick="openModal(${food.id})" class="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 transition duration-300 flex flex-col group shadow-lg cursor-pointer">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${food.img}" alt="${food.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-zinc-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-semibold text-amber-400 flex items-center space-x-1">
+                                <i class="fa-solid fa-star"></i>
+                                <span>${food.rating}</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-lg font-bold text-white mb-1">${food.name}</h3>
+                            <p class="text-zinc-400 text-xs mb-4 flex-grow line-clamp-2">${food.desc}</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-amber-400 font-extrabold text-lg">${food.price.toLocaleString()} so'm</span>
+                                <span class="text-xs bg-zinc-800 text-amber-300 px-3 py-1.5 rounded-xl font-medium group-hover:bg-amber-500 group-hover:text-zinc-950 transition">Retseptni ko'rish</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Kategoriyalar bo'yicha filter
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-zinc-950', 'shadow-lg', 'shadow-amber-500/20');
+                btn.classList.add('bg-zinc-900', 'text-zinc-400', 'border', 'border-zinc-800');
+            });
+            event.target.classList.remove('bg-zinc-900', 'text-zinc-400', 'border', 'border-zinc-800');
+            event.target.classList.add('bg-amber-500', 'text-zinc-950', 'shadow-lg', 'shadow-amber-500/20');
+            
+            const searchValue = document.getElementById('searchInput').value;
+            renderFoods(category, searchValue);
+        }
+
+        // Qidirish funksiyasi
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderFoods(currentCategory, e.target.value);
+        });
+
+        // Modalni ochish va ma'lumotlarni to'ldirish
+        function openModal(id) {
+            const food = foods.find(f => f.id === id);
+            activeFoodId = id;
+            if (!food) return;
+
+            document.getElementById('modalTitle').innerText = food.name;
+            document.getElementById('modalTime').innerText = food.time;
+            document.getElementById('modalDiff').innerText = food.difficulty;
+            document.getElementById('modalRating').innerText = food.rating + " ⭐";
+            document.getElementById('modalPrice').innerText = food.price.toLocaleString() + " so'm";
+
+            // Video yoki Rasm joylash
+            const mediaContainer = document.getElementById('modalMedia');
+            mediaContainer.innerHTML = `
+                <iframe src="${food.video}" class="w-full h-full absolute inset-0 border-0" allowfullscreen></iframe>
+            `;
+
+            // Masalliqlar
+            const ingList = document.getElementById('modalIngredients');
+            ingList.innerHTML = '';
+            food.ingredients.forEach(ing => {
+                ingList.innerHTML += `<li class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-500 text-xs"></i><span>${ing}</span></li>`;
+            });
+
+            // Qadamlar
+            const stepsList = document.getElementById('modalSteps');
+            stepsList.innerHTML = '';
+            food.steps.forEach((step, index) => {
+                stepsList.innerHTML += `
+                    <div class="flex items-start space-x-3 bg-zinc-950/40 p-4 rounded-2xl border border-zinc-800">
+                        <span class="bg-amber-500 text-zinc-950 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">${index + 1}</span>
+                        <p class="text-sm text-zinc-300">${step}</p>
+                    </div>
+                `;
+            });
+
+            // Savatchaga qo'shish tugmasi hodisasi
+            document.getElementById('modalOrderBtn').onclick = function() {
+                addToCart(food.id);
+                closeModal();
+                toggleCart();
+            };
+
+            document.getElementById('recipeModal').classList.remove('hidden');
+        }
+
+        // Modalni yopish
+        function closeModal() {
+            document.getElementById('recipeModal').classList.add('hidden');
+            document.getElementById('modalMedia').innerHTML = ''; // Videoni to'xtatish uchun tozalash
+        }
+
+        // Savatchaga qo'shish
+        function addToCart(id) {
+            const food = foods.find(f => f.id === id);
+            const exist = cart.find(c => c.id === id);
+            if (exist) {
+                exist.qty += 1;
+            } else {
+                cart.push({ ...food, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        // Savatchada miqdorni o'zgartirish
+        function changeQty(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(c => c.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Savatcha dizaynini yangilash
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const list = document.getElementById('cartItemsList');
+            const totalEl = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            badge.innerText = totalItems;
+            totalEl.innerText = totalPrice.toLocaleString() + " so'm";
+
+            if (cart.length === 0) {
+                list.innerHTML = `<div class="text-center py-20 text-zinc-500">Savatchangiz bo'sh 🛒</div>`;
+                return;
+            }
+
+            list.innerHTML = '';
+            cart.forEach(item => {
+                list.innerHTML += `
+                    <div class="flex items-center justify-between bg-zinc-950/40 p-4 rounded-2xl border border-zinc-800">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.img}" class="w-14 h-14 object-cover rounded-xl">
+                            <div>
+                                <h4 class="font-bold text-sm text-white">${item.name}</h4>
+                                <span class="text-amber-400 text-xs font-semibold">${item.price.toLocaleString()} so'm</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-zinc-900 border border-zinc-800 rounded-xl p-1">
+                            <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 flex items-center justify-center text-zinc-400 hover:text-white">-</button>
+                            <span class="text-xs font-bold w-5 text-center">${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, 1)" class="w-7 h-7 flex items-center justify-center text-zinc-400 hover:text-white">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Savatchani ochish/yopish
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // Buyurtma berish
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Savatchangiz bo'sh!");
+                return;
+            }
+            alert("Buyurtmangiz muvaffaqiyatli qabul qilindi! Tez orada operatorlarimiz siz bilan bog'lanishadi.");
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        // Dastlabki yuklanish
+        renderFoods();
+    </script>
+</body>
+</html>
