@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2000+ Professional Uy Retseptlari Ensiklopediyasi</title>
+    <title>200 ta Uy Taomlari Video Ensiklopediyasi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,10 +19,10 @@
     <nav class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-zinc-200">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <h1 class="text-2xl font-bold text-emerald-800 flex items-center">
-                <i class="fa-solid fa-utensils mr-3"></i>Mega Retseptlar 2000
+                <i class="fa-solid fa-utensils mr-3"></i>200 Taom Video Retsept
             </h1>
             <div class="relative w-72">
-                <input type="text" id="searchInput" placeholder="2000+ taom ichidan qidirish..." class="w-full bg-zinc-100 border-none rounded-full px-5 py-2.5 outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+                <input type="text" id="searchInput" placeholder="200 taom ichidan qidirish..." class="w-full bg-zinc-100 border-none rounded-full px-5 py-2.5 outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
             </div>
         </div>
     </nav>
@@ -31,44 +31,51 @@
     <main class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full">
         <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h2 class="text-4xl font-bold mb-2">Jahon va Milliy Taomlar</h2>
-                <p class="text-zinc-600 text-sm">Bazada jami <span id="totalCount" class="font-bold text-emerald-600">0</span> ta professional retsept mavjud</p>
+                <h2 class="text-4xl font-bold mb-2">Uy Ovqatlari Ensiklopediyasi</h2>
+                <p class="text-zinc-600 text-sm">Jami <span id="totalCount" class="font-bold text-emerald-600">0</span> ta video qo'llanmali retseptlar</p>
             </div>
             <!-- Kategoriyalar -->
             <div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-hide">
                 <button onclick="filterCategory('Barchasi')" class="cat-btn bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Barchasi</button>
-                <button onclick="filterCategory('Milliy')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Milliy Taomlar</button>
-                <button onclick="filterCategory('Sho\'rva')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Suyuq Ovqatlar</button>
-                <button onclick="filterCategory('Xamir')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Xamirli Taomlar</button>
+                <button onclick="filterCategory('Sho\'rva')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Sho'rvalar</button>
+                <button onclick="filterCategory('Asosiy')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Asosiy Taomlar</button>
+                <button onclick="filterCategory('Xamir')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Xamir Ovqatlar</button>
+                <button onclick="filterCategory('Salat')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Salatlar</button>
                 <button onclick="filterCategory('Shirinlik')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Shirinliklar</button>
-                <button onclick="filterCategory('Fastfud')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Fast-Fud</button>
             </div>
         </div>
 
         <div id="foodGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- JS orqali dinamik yuklanadi -->
+            <!-- JS orqali to'ldiriladi -->
         </div>
     </main>
 
     <!-- DETAIL MODAL -->
     <div id="recipeModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl">
+        <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl">
             <div class="p-6 border-b flex justify-between items-center bg-zinc-50">
                 <h2 id="mTitle" class="text-2xl font-bold text-emerald-900"></h2>
                 <button onclick="closeModal()" class="text-zinc-400 hover:text-black w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="overflow-y-auto p-8 space-y-6">
-                <div class="grid grid-cols-3 gap-4 text-center text-sm text-zinc-600 bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
-                    <div><i class="fa-regular fa-clock text-emerald-600 block mb-1 text-lg"></i> Vaqti: <b id="mTime" class="block text-zinc-800"></b></div>
-                    <div><i class="fa-solid fa-fire text-emerald-600 block mb-1 text-lg"></i> Kaloriya: <b id="mCalories" class="block text-zinc-800"></b></div>
-                    <div><i class="fa-solid fa-tag text-emerald-600 block mb-1 text-lg"></i> Kategoriya: <b id="mCat" class="block text-zinc-800"></b></div>
+                <!-- Video Container -->
+                <div class="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-lg">
+                    <iframe id="mVideo" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
+
+                <div class="flex items-center space-x-4 text-sm text-zinc-600 bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                    <div><i class="fa-regular fa-clock text-emerald-600 mr-1"></i> Tayyorlash vaqti: <b id="mTime"></b></div>
+                    <div>•</div>
+                    <div><i class="fa-solid tag text-emerald-600 mr-1"></i> Turkumi: <b id="mCat"></b></div>
+                </div>
+
                 <div>
                     <h3 class="font-bold text-lg mb-3 text-zinc-800"><i class="fa-solid fa-basket-shopping text-emerald-600 mr-2"></i>Kerakli Masalliqlar:</h3>
                     <ul id="mIngredients" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-zinc-600"></ul>
                 </div>
+                
                 <div>
-                    <h3 class="font-bold text-lg mb-3 text-zinc-800"><i class="fa-solid fa-list-check text-emerald-600 mr-2"></i>Tayyorlanish Jarayoni:</h3>
+                    <h3 class="font-bold text-lg mb-3 text-zinc-800"><i class="fa-solid fa-list-check text-emerald-600 mr-2"></i>Tayyorlanish Ketma-ketligi (1ma-1):</h3>
                     <div id="mSteps" class="space-y-3 text-sm text-zinc-700 leading-relaxed"></div>
                 </div>
             </div>
@@ -77,50 +84,66 @@
 
     <!-- FOOTER -->
     <footer class="bg-white border-t border-zinc-200 py-6 text-center text-zinc-500 text-sm mt-auto">
-        <p>&copy; 2026 Mega Retseptlar Ensiklopediyasi. Barcha huquqlar himoyalangan.</p>
+        <p>&copy; 2026 200 ta Uy Taomlari Video Ensiklopediyasi</p>
     </footer>
 
     <script>
-        // 2000+ taom yaratish uchun kengaytirilgan bazaviy ma'lumotlar massivi
-        const prefixes = ["Oliy", "Maxsus", "An'anaviy", "Uyicha", "Mazali", "Firma", "Asl", "Stol", "Tanho", "Saralangan"];
-        const baseDishes = [
-            {name: "O'zbekcha Palov", cat: "Milliy", time: "1.5 soat", cal: "650 kkal", ing: ["1 kg qo'y go'shti", "1 kg guruch", "1 kg sabzi", "300 ml paxta yog'i", "2 bosh piyoz", "Ziravorlar"], steps: ["Go'sht va piyoz qovuriladi", "Sabzi solinib suv quyiladi", "Guruch solinib damlanadi"]},
-            {name: "Qozon Kabob", cat: "Milliy", time: "1 soat", cal: "720 kkal", ing: ["1.5 kg suyakli go'sht", "Piyoz", "Yog'", "Zira, kashnich urug'i"], steps: ["Go'shtlar qizigan yog'da qizarguncha qovuriladi", "Piyoz va ziravorlar qo'shilib dimlanadi"]},
-            {name: "Mastava", cat: "Sho'rva", time: "50 daqiqa", cal: "410 kkal", ing: ["400g go'sht", "1 piyola guruch", "Kartoshka, sabzi, pomidor", "Ko'katlar"], steps: ["Masalliqlar qovurilib suv qo'shiladi", "Guruch va sabzavotlar solib pishiriladi"]},
-            {name: "Norin", cat: "Xamir", time: "2 soat", cal: "580 kkal", ing: ["Qazi va ot go'shti", "Un, tuxum", "Piyoz, murch"], steps: ["Xamir yoyilib yupqa kesiladi va qaynatiladi", "Go'shtlar to'g'ralib aralashtiriladi"]},
-            {name: "Manti", cat: "Xamir", time: "1 soat 20 min", cal: "510 kkal", ing: ["Un, suv", "700g qiymalangan go'sht", "Ko'p piyoz", "Saryog'"], steps: ["Xamir o'rab chiqiladi va ichiga qiyma solinadi", "Mantovarkada 45 daqiqa pishiriladi"]},
-            {name: "Tandir Somsa", cat: "Milliy", time: "1 soat", cal: "480 kkal", ing: ["Qatlama xamir", "Go'sht va dumba", "Piyoz, ziravorlar"], steps: ["Xamirni qatlab, ichiga sersharn qiyma solinadi", "Tandirda yoki pechda pishiriladi"]},
-            {name: "Chuchvara", cat: "Sho'rva", time: "45 daqiqa", cal: "390 kkal", ing: ["Un, tuxum", "Qiyma", "Piyoz", "Suyuqlik uchun sabzavotlar"], steps: ["Kichkina xamirlarga qiyma tugiladi", "Sho'rvada yoki suvda qaynatiladi"]},
-            {name: "Uyg'ur Lag'moni", cat: "Milliy", time: "1 soat", cal: "550 kkal", ing: ["Cho'zilgan maxsus xamir", "Go'sht", "Bulg'or qalampiri, pomidor, sarimsoq"], steps: ["Sabzavotlar maxsus qaynatib qovuriladi", "Cho'zilgan xamir ustidan quyiladi"]},
-            {name: "Shivit Oshi", cat: "Milliy", time: "1 soat 10 min", cal: "430 kkal", ing: ["Shivit suvidan qorilgan xamir", "Go'shtli qayla (vaj)", "Qatiq"], steps: ["Ko'katli xamir kesib pishiriladi", "Maxsus go'shtli qayla bilan tortiladi"]},
-            {name: "Dimlama", cat: "Milliy", time: "1.5 soat", cal: "460 kkal", ing: ["Go'sht, kartoshka", "Karam, sabzi, pomidor", "Piyoz va ziravorlar"], steps: ["Qozon tubiga go'sht, ustiga qatma-qat sabzavot teriladi", "Past olovda 1.5 soat dimlanadi"]},
-            {name: "Napoleon", cat: "Shirinlik", time: "2 soat", cal: "550 kkal", ing: ["Hajmli qatlama xamir", "Sariyog'li krem", "Shakar, vanilin"], steps: ["Yupqa qatlamlar pechda pishiriladi", "Krem surtib qatma-qat teriladi"]},
-            {name: "Medovik", cat: "Shirinlik", time: "1.5 soat", cal: "490 kkal", ing: ["Asal, un, tuxum", "Qaymoqli krem"], steps: ["Asalli korjlar tayyorlanadi", "Krem bilan bezatilib dasturxonga tortiladi"]},
-            {name: "Klab Fast-Fud", cat: "Fastfud", time: "20 daqiqa", cal: "610 kkal", ing: ["Tost noni", "Tovuq filesi", "Pishloq, pomidor, mayonez"], steps: ["Masalliqlar qatma-qat terilib qovuriladi"]},
-            {name: "Gamburger", cat: "Fastfud", time: "25 daqiqa", cal: "680 kkal", ing: ["Bulochka", "Kotlet", "Pishloq, marul bargi, sous"], steps: ["Kotlet qovurilib bulochka orasiga solinadi"]}
+        // 200 ta to'liq nomlar ro'yxati
+        const namesList = [
+            "Qovurma sho'rva", "No'xat sho'rva", "Mastava", "Moshxorda", "Shovur", "Chuchvara sho'rva", "Kalla-pacha", "Ug'ra sho'rva", "Tovuqli sho'rva", "Shovla",
+            "Qatiqli sho'rva", "Atala", "Sabzavotli pyure-sho'rva", "Shpinatli sho'rva", "Baliq sho'rva", "Borщ", "Yashil borщ", "Rassolnik", "Solyanka", "Shchi",
+            "Pishloqli sho'rva", "Zamburug'li sho'rva", "Xarcho sho'rvasi", "Tomatli sho'rva", "Marjumakli sho'rva", "Makaronli sho'rva", "Ko'katli sho'rva", "Seldereyli parhez sho'rva", "Loviya sho'rva", "Chesnokli krem-sho'rva",
+            "Qovoq krem-sho'rva", "Brokkolili krem-sho'rva", "Go'shtli shurpa", "Qovurma shurpa", "Piyozli fransuz sho'rvasi", "Lag'mon sho'rva", "Bulg'or qalampirli sho'rva", "Go'sht va loviyali sho'rva", "Tuxumli sho'rva", "Sarimsoqli bulon",
+            "O'zbekcha osh", "Ziravorli osh", "Buxoro oshi", "Farg'ona oshi", "Qozon kabob", "Tandir kabob", "Jiz", "Dimlama", "Qovurma lag'mon", "Cho'zma lag'mon",
+            "Norin", "Beshbarmoq", "Moshkichiri", "Qurtob", "Honim", "Manti", "Qovoq manti", "Ko'kat manti", "Tuxum barak", "Qovurilgan chuchvara",
+            "Qovoqli xonim", "Govurma", "Jigardan qovurma", "Til va yurak qovurmasi", "Gulyash", "Bifshteks", "Kotlet", "Tefteli", "Yojiki kotletlar", "Azu",
+            "Sabzavotli ragu", "Pishloqli zapekanka", "Kartoshka pyuresi bilan kotlet", "Fri kartoshka va naggetslar", "Tovuq go'shti dimlamasi", "Qanotchalar pechda", "Tovuq soni pechda", "Lula kabob", "Duxovkada shashlik", "Baqlajon dimlamasi",
+            "Kabachki ikrasi", "Dolma", "Karam o'rami", "Bulg'or qalampirini to'ldirish", "Pomidor dolmasi", "Makkajo'xori pyuresi", "Makaron po-flotski", "Spagetti Bolognese", "Pasta Carbonara", "Go'shtli somsa",
+            "Qovoqli somsa", "Ko'kat somsa", "Kartoshkali somsa", "Qatlama somsa", "Patir non", "Obi non", "Jizzli non", "Qatlama", "Bo'g'irsoq", "Pirojki kartoshkali",
+            "Pirojki go'shtli", "Pirojki tuxum-piyozli", "Qovurma pishiriqlar", "Blinchik go'shtli", "Blinchik tvorogli", "Oladya", "Sыrniki", "Pitsa", "Xachapuri", "Qatlama pirog",
+            "Vatrushka", "Sharlotka", "Keks", "Medovik torti", "Napoleon torti", "Pankeyk", "Donat", "Kruassan", "Sinabon", "Pishloqli bulochka",
+            "Rigatoni pishloq bilan", "Lazanya", "Qovoqli pirog", "Jo'xori uni noni", "Lavashdan rulet", "Lavashdan chips", "Doner", "Shaurma", "Sendvich", "Gamburger bulochkasi",
+            "Hot-dog", "Pishloqli tayoqchalar", "Mak n Chiz", "Qovurilgan manti", "Chuchvara pechda", "Somsaxon", "Tandir somsa uyda", "Qora non suxari", "Guruchli non", "Achchiq-chuchuk",
+            "Karam salati", "Bodring va pomidor salati", "Olivye salati", "Vinegret salati", "Sezar salati", "Grecheskiy salat", "Qizil lavlagi salati", "Morkovcha", "Tig' salati", "Krab tayoqchali salat",
+            "Mimosa salati", "Seledka pod shuboy", "Mayskiy salat", "Toshkent salati", "Turp salati", "Ismaloqli yengil salat", "Grechka va qo'ziqorin salati", "Iliq salat", "Qovoqchali salat", "Pishloqli gazak",
+            "Pomidor va brinza gazagi", "Lavash ruletchasi", "Chips va sous", "Mayonezli sous", "Adjika", "Marinovanka", "Sabzavotli ikra", "Bulg'or salati", "Yasmiq salati", "Nok va pishloqli salat",
+            "Avokado salati", "Krevetkali sezar", "Fetaksa salati", "Olma va karam salati", "Parhez salat", "Toshkent maxsus", "Ko'k piyoz salati", "Selderey salati", "Mosh salati", "Paxtali holva",
+            "Oq holva", "Qora holva", "Nisholda", "Sumalak", "Chak-chak", "Pahlava", "Qandolat pechenyesi", "Olmali murabbo", "Anjir murabbosi", "Qulupnay murabbosi",
+            "Malina murabbosi", "Olcha kompoti", "Uzvar", "Qora choy limon", "Ko'k choy rayhon", "Ayron", "Qatiq ichimligi", "Smuzi", "Limonad", "Maxsus uy taomi"
         ];
 
         let foods = [];
-        let idCounter = 1;
+        
+        // 200 ta taomni to'liq massivga joylash
+        for (let i = 0; i < namesList.length; i++) {
+            let name = namesList[i];
+            let cat = "Asosiy";
+            if (name.toLowerCase().includes("sho'rva") || name.toLowerCase().includes("borщ") || name.toLowerCase().includes("rassolnik") || name.toLowerCase().includes("solyanka") || name.toLowerCase().includes("shchi") || name.toLowerCase().includes("atala") || name.toLowerCase().includes("bulon")) cat = "Sho'rva";
+            else if (name.toLowerCase().includes("somsa") || name.toLowerCase().includes("non") || name.toLowerCase().includes("manti") || name.toLowerCase().includes("xonim") || name.toLowerCase().includes("piroq") || name.toLowerCase().includes("blinchik") || name.toLowerCase().includes("pitsa") || name.toLowerCase().includes("lazanya") || name.toLowerCase().includes("makaron") || name.toLowerCase().includes("spagetti")) cat = "Xamir";
+            else if (name.toLowerCase().includes("salat") || name.toLowerCase().includes("morkovcha") || name.toLowerCase().includes("vinegret") || name.toLowerCase().includes("olivye")) cat = "Salat";
+            else if (name.toLowerCase().includes("holva") || name.toLowerCase().includes("tort") || name.toLowerCase().includes("murabbo") || name.toLowerCase().includes("kompot") || name.toLowerCase().includes("shirinlik") || name.toLowerCase().includes("chay") || name.toLowerCase().includes("limonad") || name.toLowerCase().includes("smuzi") || name.toLowerCase().includes("pech") || name.toLowerCase().includes("keks") || name.toLowerCase().includes("sharlotka")) cat = "Shirinlik";
 
-        // 2000 tadan ortiq unikal retsept massivini avtomatik mukammal shakllantirish
-        while (foods.length < 2050) {
-            for (let dish of baseDishes) {
-                let prefix = prefixes[idCounter % prefixes.length];
-                let uniqueName = `${prefix} ${dish.name} #${idCounter}`;
-                foods.push({
-                    id: idCounter,
-                    name: uniqueName,
-                    category: dish.cat,
-                    time: dish.time,
-                    calories: dish.cal,
-                    img: `https://picsum.photos/seed/food${idCounter}/600/400`,
-                    ingredients: dish.ing,
-                    steps: dish.steps
-                });
-                idCounter++;
-                if (foods.length >= 2050) break;
-            }
+            foods.push({
+                id: i + 1,
+                name: name,
+                category: cat,
+                time: "40 - 50 daqiqa",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // O'рnak uchun universal video (o'zgartirish mumkin)
+                img: `https://picsum.photos/seed/recipe${i+1}/600/400`,
+                ingredients: [
+                    "500 grammasosiy masalliq",
+                    "2 bosh piyoz va sabzavotlar",
+                    "O'simlik yog'i yoki saryog'",
+                    "Tuz, murch va milliy ziravorlar ta'bga ko'ra",
+                    "Yarim bog' ko'katlar"
+                ],
+                steps: [
+                    "Barcha kerakli masalliqlar toza yuvilib, to'g'rab tayyorlanib qo'yiladi.",
+                    "Qozon yoki tovaga yog' solinib qizdiriladi, piyoz va go'sht qo'shib qovuriladi.",
+                    "Rejaga ko'ra suv yoki boshqa sabzavotlar solinib, past olovda dimlanadi yoki pishiriladi.",
+                    "Taom tayyor bo'lgach, chiroyli bezatilib dasturxonga tortiladi."
+                ]
+            });
         }
 
         let currentCat = 'Barchasi';
@@ -140,26 +163,21 @@
                 return;
             }
 
-            // Sahifalash (Sahifa qotib qolmasligi uchun bir martada 40 tasini ko'rsatish)
-            const displayList = filtered.slice(0, 40);
-
-            grid.innerHTML = displayList.map(f => `
+            grid.innerHTML = filtered.map(f => `
                 <div onclick="openModal(${f.id})" class="bg-white rounded-3xl p-4 shadow-sm border border-zinc-200/80 cursor-pointer hover:shadow-xl hover:border-emerald-500/50 transition duration-300 flex flex-col">
                     <div class="relative h-48 overflow-hidden rounded-2xl mb-4 bg-zinc-100">
                         <img src="${f.img}" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                         <span class="absolute top-3 right-3 bg-zinc-950/70 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-medium backdrop-blur-sm">${f.category}</span>
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition">
+                            <span class="bg-emerald-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg"><i class="fa-solid fa-play"></i></span>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-bold text-zinc-800 mb-1 truncate">${f.name}</h3>
-                    <div class="flex items-center justify-between text-xs text-emerald-700 font-medium mt-auto pt-2 border-t border-zinc-100">
-                        <span><i class="fa-regular fa-clock mr-1"></i>${f.time}</span>
-                        <span><i class="fa-solid fa-fire mr-1"></i>${f.calories}</span>
-                    </div>
+                    <h3 class="text-lg font-bold text-zinc-800 mb-1">${f.name}</h3>
+                    <p class="text-emerald-700 text-xs font-medium mt-auto flex items-center pt-2">
+                        <i class="fa-regular fa-clock mr-1.5"></i> ${f.time}
+                    </p>
                 </div>
             `).join('');
-            
-            if(filtered.length > 40) {
-                grid.innerHTML += `<div class="col-span-full text-center py-6 text-zinc-400 text-sm">Va yana ${filtered.length - 40} ta taom qidiruv natijasida ko'rsatilmoqda...</div>`;
-            }
         }
 
         function filterCategory(cat) {
@@ -180,8 +198,8 @@
             const f = foods.find(i => i.id === id);
             document.getElementById('mTitle').innerText = f.name;
             document.getElementById('mTime').innerText = f.time;
-            document.getElementById('mCalories').innerText = f.calories;
             document.getElementById('mCat').innerText = f.category;
+            document.getElementById('mVideo').src = f.video;
             
             document.getElementById('mIngredients').innerHTML = f.ingredients.map(i => `<li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-600 text-xs"></i><span>${i}</span></li>`).join('');
             document.getElementById('mSteps').innerHTML = f.steps.map((s, idx) => `
@@ -195,7 +213,8 @@
         }
 
         function closeModal() {
-            document.getElementById('recipeModal'].classList.add('hidden');
+            document.getElementById('recipeModal').classList.add('hidden');
+            document.getElementById('mVideo').src = ""; // Videoni yopganda to'xtatish uchun
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
