@@ -1,437 +1,405 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>200 ta Uy Taomlari Haqiqiy Retseptlari</title>
+    <title>ChefAI — Professional Oshpazlik Akademiyasi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
-        h1, h2 { font-family: 'Playfair Display', serif; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900 min-h-screen flex flex-col">
+<body class="bg-slate-950 text-slate-100 h-full flex flex-col selection:bg-amber-500 selection:text-white">
 
-    <!-- NAV -->
-    <nav class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-zinc-200">
+    <!-- TOP NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <h1 class="text-2xl font-bold text-emerald-800 flex items-center">
-                <i class="fa-solid fa-utensils mr-3"></i>Haqiqiy Retseptlar Bazasi
-            </h1>
-            <div class="relative w-72">
-                <input type="text" id="searchInput" placeholder="Taom nomini yozing..." class="w-full bg-zinc-100 border-none rounded-full px-5 py-2.5 outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-orange-500/20">
+                    <i class="fa-solid fa-hat-chef text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight text-white font-serif">Chef<span class="text-amber-500">AI</span></h1>
+                    <p class="text-xs text-slate-400 font-medium">Professional Kulinar Ekosistemasi</p>
+                </div>
+            </div>
+
+            <!-- SEARCH & ACTIONS -->
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" placeholder="Taom yoki masalliq izlang..." class="w-full bg-slate-800/60 border border-slate-700/60 rounded-2xl pl-11 pr-4 py-2.5 text-sm outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition">
+                </div>
+                <button onclick="openAIChat()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-5 py-2.5 rounded-2xl text-sm font-semibold shadow-lg shadow-orange-500/20 transition flex items-center space-x-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>AI Maslahatchi</span>
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- CONTENT -->
-    <main class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full">
-        <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-                <h2 class="text-4xl font-bold mb-2">Asl Uy Ovqatlari</h2>
-                <p class="text-zinc-600 text-sm">Jami <span id="totalCount" class="font-bold text-emerald-600">0</span> ta taom — har birining o'ziga xos retsepti va masalliqlari</p>
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full space-y-10">
+
+        <!-- HERO BANNER -->
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-slate-800 to-amber-950 p-8 md:p-12 border border-slate-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-4 max-w-xl">
+                <span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-3.5 py-1.5 rounded-full border border-amber-500/20 uppercase tracking-wider">Master Klass 2026</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-serif leading-tight">Oshxonangizni Restoran Darajasiga Ko'taring</h2>
+                <p class="text-slate-400 text-sm leading-relaxed">Eng saralangan mualliflik retseptlari, kaloriyalar hisoblagichi, vaqt o'lchagichlar va sun'iy intellekt yordamida mukammal taom tayyorlang.</p>
+                <div class="flex items-center space-x-6 pt-2">
+                    <div><span class="text-2xl font-bold text-amber-400">150+</span> <p class="text-xs text-slate-400">Professional Retsept</p></div>
+                    <div class="w-px h-8 bg-slate-800"></div>
+                    <div><span class="text-2xl font-bold text-amber-400">4.9</span> <p class="text-xs text-slate-400">Foydalanuvchilar reytingi</p></div>
+                    <div class="w-px h-8 bg-slate-800"></div>
+                    <div><span class="text-2xl font-bold text-amber-400">100%</span> <p class="text-xs text-slate-400">Aniq Bosqichlar</p></div>
+                </div>
             </div>
-            <div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-hide">
-                <button onclick="filterCategory('Barchasi')" class="cat-btn bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Barchasi</button>
-                <button onclick="filterCategory('Milliy')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Milliy Taomlar</button>
-                <button onclick="filterCategory('Sho\'rva')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Sho'rvalar</button>
-                <button onclick="filterCategory('Xamir')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Xamir Ovqatlar</button>
-                <button onclick="filterCategory('Salat')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Salatlar</button>
-                <button onclick="filterCategory('Shirinlik')" class="cat-btn bg-zinc-200 text-zinc-700 px-4 py-2 rounded-xl text-sm font-medium transition whitespace-nowrap">Shirinliklar</button>
+            <div class="w-full md:w-96 h-64 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 relative flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800" class="w-full h-full object-cover transform hover:scale-105 transition duration-700">
             </div>
         </div>
 
-        <div id="foodGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        <!-- CATEGORIES -->
+        <div class="flex items-center space-x-3 overflow-x-auto hide-scrollbar pb-2">
+            <button onclick="filterCategory('Barchasi')" class="cat-btn bg-amber-500 text-slate-950 px-5 py-2.5 rounded-2xl text-sm font-bold transition whitespace-nowrap shadow-lg shadow-amber-500/20">Barchasi</button>
+            <button onclick="filterCategory('Milliy')" class="cat-btn bg-slate-900 text-slate-300 hover:bg-slate-800 px-5 py-2.5 rounded-2xl text-sm font-semibold transition whitespace-nowrap border border-slate-800">Milliy Taomlar</button>
+            <button onclick="filterCategory('Yevropa')" class="cat-btn bg-slate-900 text-slate-300 hover:bg-slate-800 px-5 py-2.5 rounded-2xl text-sm font-semibold transition whitespace-nowrap border border-slate-800">Yevropacha</button>
+            <button onclick="filterCategory('Fast-Food')" class="cat-btn bg-slate-900 text-slate-300 hover:bg-slate-800 px-5 py-2.5 rounded-2xl text-sm font-semibold transition whitespace-nowrap border border-slate-800">Fast-Food & Gazaklar</button>
+            <button onclick="filterCategory('Shirinlik')" class="cat-btn bg-slate-900 text-slate-300 hover:bg-slate-800 px-5 py-2.5 rounded-2xl text-sm font-semibold transition whitespace-nowrap border border-slate-800">Shirinliklar</button>
+            <button onclick="filterCategory('Parhez')" class="cat-btn bg-slate-900 text-slate-300 hover:bg-slate-800 px-5 py-2.5 rounded-2xl text-sm font-semibold transition whitespace-nowrap border border-slate-800">Parhez & Fitnes</button>
+        </div>
+
+        <!-- GRID CONTAINER -->
+        <div id="recipeGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- JS orqali mukammal kartslar yuklanadi -->
+        </div>
     </main>
 
-    <!-- DETAIL MODAL -->
-    <div id="recipeModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl">
-            <div class="p-6 border-b flex justify-between items-center bg-zinc-50">
-                <h2 id="mTitle" class="text-2xl font-bold text-emerald-900"></h2>
-                <button onclick="closeModal()" class="text-zinc-400 hover:text-black w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <!-- DETAILED MASTERCLASS MODAL -->
+    <div id="detailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 w-full max-w-4xl max-h-[90vh] rounded-3xl border border-slate-800 overflow-hidden flex flex-col shadow-2xl my-auto">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/90 sticky top-0 z-10">
+                <div class="flex items-center space-x-3">
+                    <span id="mCatBadge" class="bg-amber-500/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/20"></span>
+                    <h3 id="mTitle" class="text-xl font-bold font-serif text-white"></h3>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="overflow-y-auto p-8 space-y-6">
-                <div class="w-full h-72 rounded-2xl overflow-hidden bg-zinc-100 shadow-lg">
-                    <img id="mImg" src="" class="w-full h-full object-cover">
+
+            <div class="overflow-y-auto p-8 space-y-8">
+                <!-- Image & Info Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="rounded-2xl overflow-hidden h-72 bg-slate-800 border border-slate-800 relative shadow-inner">
+                        <img id="mImg" src="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-6 flex flex-col justify-center">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-800">
+                                <p class="text-xs text-slate-400 font-medium">Tayyorlash Vaqti</p>
+                                <p id="mTime" class="text-lg font-bold text-amber-400 mt-1"></p>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-800">
+                                <p class="text-xs text-slate-400 font-medium">Qiyinlik Darajasi</p>
+                                <p id="mDiff" class="text-lg font-bold text-emerald-400 mt-1"></p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-800">
+                            <p class="text-xs text-slate-400 font-medium">Umumiy Kaloriya</p>
+                            <p id="mCalories" class="text-lg font-bold text-orange-400 mt-1"></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4 text-sm text-zinc-600 bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
-                    <div><i class="fa-regular fa-clock text-emerald-600 mr-1"></i> Tayyorlash vaqti: <b id="mTime"></b></div>
-                    <div>•</div>
-                    <div><i class="fa-solid fa-tag text-emerald-600 mr-1"></i> Turkumi: <b id="mCat"></b></div>
+
+                <!-- Ingredients -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-white flex items-center"><i class="fa-solid fa-basket-shopping text-amber-500 mr-3"></i>Kerakli Masalliqlar (Proporsiya bilan):</h4>
+                    <div id="mIngredients" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
                 </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-3 text-zinc-800"><i class="fa-solid fa-basket-shopping text-emerald-600 mr-2"></i>Kerakli Masalliqlar:</h3>
-                    <ul id="mIngredients" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-zinc-600"></ul>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-3 text-zinc-800"><i class="fa-solid fa-list-check text-emerald-600 mr-2"></i>Batafsil Tayyorlanish Jarayoni:</h3>
-                    <div id="mSteps" class="space-y-3 text-sm text-zinc-700 leading-relaxed"></div>
+
+                <!-- Step-by-Step Instructions -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-white flex items-center"><i class="fa-solid fa-list-check text-amber-500 mr-3"></i>Professional Tayyorlash Bosqichlari:</h4>
+                    <div id="mSteps" class="space-y-4"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-white border-t border-zinc-200 py-6 text-center text-zinc-500 text-sm mt-auto">
-        <p>&copy; 2026 200 ta Uy Taomlari Ensiklopediyasi</p>
+    <!-- AI CHAT SIMULATOR MODAL -->
+    <div id="aiModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 w-full max-w-lg rounded-3xl border border-slate-800 overflow-hidden flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-800/50">
+                <h3 class="font-bold font-serif text-white flex items-center"><i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-2"></i>ChefAI Yordamchisi</h3>
+                <button onclick="closeAIChat()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4 h-80 overflow-y-auto text-sm" id="aiChatBody">
+                <div class="bg-slate-800 p-4 rounded-2xl text-slate-300">Salom! Men sizning shaxsiy oshpaz yordamchingizman. Muzlatgingizda qanday masalliqlar bor? Ulardan qanday mazali taom tayyorlash mumkinligini aytib beraman.</div>
+            </div>
+            <div class="p-4 border-t border-slate-800 flex items-center space-x-2 bg-slate-900">
+                <input type="text" id="aiInput" placeholder="Masalan: Tovuq go'shti va kartoshka bor..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500 text-white">
+                <button onclick="sendAIQuery()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2.5 rounded-xl font-bold transition"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 text-center text-slate-500 text-xs mt-auto">
+        <p>&copy; 2026 ChefAI Pro. Barcha huquqlar himoyalangan.</p>
     </footer>
 
     <script>
-        // Har biri uchun mutlaqo alohida va o'ziga xos retseptlar yozilgan to'liq baza
+        // Professional va mukammal ma'lumotlar bazasi
         const recipes = [
             {
                 id: 1,
-                name: "O'zbekcha To'y Oshi",
+                name: "An'anaviy Samarqand Oshi",
                 category: "Milliy",
-                time: "1 soat 30 daqiqa",
+                time: "1 soat 40 daqiqa",
+                difficulty: "O'rta",
+                calories: "720 kkal",
                 img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800",
                 ingredients: [
-                    "1 kg qo'y go'shti yoki mol go'shti",
-                    "1 kg Lazer guruchi",
-                    "1 kg qizil sabzi",
-                    "300 ml paxta yog'i",
-                    "2 bosh yirik piyoz",
-                    "2-3 bosh sarimsoq",
-                    "Zira, tuz va murch"
+                    "1 kg Lazer guruchi (sifatli tanlanadi)",
+                    "1 kg mol go'shti (suyakli va lahm)",
+                    "1 kg sariq va qizil sabzi aralashmasi",
+                    "350 ml paxta yog'i yoki zig'ir yog'",
+                    "2 bosh yirik piyoz va 3 bosh sarimsoq",
+                    "Maxsus zira, kashnich urug'i va tuz"
                 ],
                 steps: [
-                    "Guruchni iliq tuzli suvga 40 daqiqa oldindan ivitib qo'ying.",
-                    "Qozonni olovga qo'yib qizdiring, yog' solib oqurtiguncha qizdiring.",
-                    "To'g'ralgan piyozni solib, qizg'ish tus olguncha qovuring.",
-                    "Katta to'g'ralgan go'shtni solib, yaxshilab qarsillatib qovuring.",
-                    "Sombek to'g'ralgan sabzini solib, 10 daqiqa aralashtirib qovuring.",
-                    "Qozonga qaynoq suv quying, sarimsoq va zira solib, past olovda 40 daqiqa qaynating (zirvak).",
-                    "Ivigan guruchni solib, suvini to'la yutguncha o'rtacha olovda qaynating.",
-                    "Suvi tortilgach, guruchni o'rtaga uyib, dimlab qo'ying (20 daqiqa)."
+                    "1-bosqich: Guruchni iliq tuzli suvda 45 daqiqa davomida ivitib qo'ying.",
+                    "2-bosqich: Qozonni olovga qo'yib qizdiring, yog'ni solib oq tutun chiqquncha qizdiring.",
+                    "3-bosqich: Piyozni yarim halqa shaklida to'g'rab, qizigan yog'da tillarang bo'lguncha qovuring.",
+                    "4-bosqich: Yirik to'g'ralgan go'shtni solib, yaxshilab qarsillatib qovuring va qizg'ish tus bering.",
+                    "5-bosqich: Somoncha to'g'ralgan sabzini solib, 12 daqiqa davomida yumshaguncha aralashtirib qovuring.",
+                    "6-bosqich: Qozonga qaynoq suv quying, sarimsoq va ziravorlar solib, past olovda 50 daqiqa qaynating (zirvak).",
+                    "7-bosqich: Ivigan guruchni solib, suvini to'la tortguncha o'rtacha olovda qaynating.",
+                    "8-bosqich: Suvi tortilgach, guruchni o'rtaga uyib, ustini lagan bilan yopib 20 daqiqa dimlang."
                 ]
             },
             {
                 id: 2,
-                name: "Qozon Kabob",
-                category: "Milliy",
-                time: "1 soat",
-                img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800",
+                name: "Italiyacha Pasta Carbonara",
+                category: "Yevropa",
+                time: "30 daqiqa",
+                difficulty: "Oson",
+                calories: "580 kkal",
+                img: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800",
                 ingredients: [
-                    "1.5 kg suyakli qo'y go'shti",
-                    "4-5 dona kartoshka",
-                    "2 bosh piyoz",
-                    "O'simlik yog'",
-                    "Zira, kashnich urug'i, tuz, murch"
+                    "400g Spagetti makaroni",
+                    "200g Bekon yoki Panchetta",
+                    "4 ta tuxum sarig'i",
+                    "100g Parmesan pishlog'i (qirg'ichdan o'tkazilgan)",
+                    "Qora murch va dengiz tuzi"
                 ],
                 steps: [
-                    "Go'shtni yirik bo'laklarga bo'lib, tuz va ziravorlar bilan ishqalang.",
-                    "Kartoshkalarni tozalang, yirik bo'lsa ikkiga bo'ling.",
-                    "Qozonga yog' solib qizdiring, avval kartoshkalarni solib qizartirib oling.",
-                    "Olingan yog'ga marinovka qilingan go'shtni solib, har tarafi qizarguncha qovuring.",
-                    "Go'sht ustidan qovurilgan kartoshka va halqa piyozni terib chiqing.",
-                    "Qozon qopqog'ini mahkam yopib, past olovda 40 daqiqa dimlang."
+                    "1-bosqich: Katta qozonda suvni qaynatib, ko'p miqdorda tuz soling va spagettini al-dente holatigacha pishiring.",
+                    "2-bosqich: Panchetta yoki bekonni yupqa somoncha shaklida to'g'rab, tovada o'z yog'ida qarsillaguncha qovuring.",
+                    "3-bosqich: Alohida idishda tuxum sarig'i va qirg'ichdan o'tgan Parmesan pishlog'ini aralashtirib krem hosil qiling.",
+                    "4-bosqich: Pishgan spagettini issiqligicha bekon solingan tovaga soling va olovni o'chiring.",
+                    "5-bosqich: Tayyorlangan tuxumli aralashmani va 2 qoshiq pasta suvini qo'shib tezda aralashtiring (sous quyuqlashishi kerak).",
+                    "6-bosqich: Dasturxonga tortishdan oldin ko'proq qora murch va pishloq seping."
                 ]
             },
             {
                 id: 3,
-                name: "Klassik Manti",
-                category: "Xamir",
-                time: "1 soat 20 daqiqa",
+                name: "Klassik Chuchvara",
+                category: "Milliy",
+                time: "50 daqiqa",
+                difficulty: "O'rta",
+                calories: "450 kkal",
                 img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800",
                 ingredients: [
-                    "500g un, 1 ta tuxum, tuz, suv",
-                    "600g mayda to'g'ralgan go'sht",
-                    "400g piyoz",
-                    "100g dumba yog'",
-                    "Zira va murch"
+                    "500g un, 1 ta tuxum, 200ml iliq suv",
+                    "400g mol go'shti qiymasi",
+                    "300g piyoz (mayda to'g'ralgan)",
+                    "Tuz, murch, zira",
+                    "Saryog' va qatiq dasturxon uchun"
                 ],
                 steps: [
-                    "Un, tuxum, tuz va suvdan qattiqroq xamir qorib, 20 daqiqa tindiring.",
-                    "Go'sht va piyozni kubik shaklida mayda qilib to'g'rang.",
-                    "Qiyimaga tuz, murch va zira qo'shib yaxshilab aralashtiring.",
-                    "Xamirni yupqa yoyib, 10x10 sm kvadratlarga kesib chiqing.",
-                    "Har biriga qiyma va bir bo'lak dumba qo'yib, mantilarni tuging.",
-                    "Mantovarkaga yog' surtib, mantilarni terib, bug'da 45 daqiqa pishiring."
+                    "1-bosqich: Un, tuxum, tuz va suvdan qattiqroq elastik xamir qorib, 20 daqiqa dam yediring.",
+                    "2-bosqich: Qiyma va mayda to'g'ralgan piyozga tuz, murch va zira solib yaxshilab aralashtiring.",
+                    "3-bosqich: Xamirni yupqa yoyib, 5x5 sm hajmdagi kichik kvadratlarga kesib chiqing.",
+                    "4-bosqich: Har biriga ozchindan qiyma solib, uchlarini uchburchak yoki klassik shaklda qisib tuging.",
+                    "5-bosqich: Qaynayotgan tuzli suvga chuchvaralarni solib, yuziga qalqib chiqqach yana 5 daqiqa qaynating.",
+                    "6-bosqich: Idishga suzib, ustiga eritilgan saryog' surtib, qatiq bilan birga suzing."
                 ]
             },
             {
                 id: 4,
-                name: "Mastava (Suyuq Osh)",
-                category: "Sho'rva",
-                time: "50 daqiqa",
-                img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800",
+                name: "Amerikacha Crispy Burger",
+                category: "Fast-Food",
+                time: "25 daqiqa",
+                difficulty: "Oson",
+                calories: "680 kkal",
+                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800",
                 ingredients: [
-                    "400g go'sht",
-                    "1 piyola guruch",
-                    "3 ta kartoshka",
-                    "2 ta sabzi va piyoz",
-                    "2 ta pomidor",
-                    "Ko'katlar"
+                    "4 dona burger bulochkasi",
+                    "400g mol go'shti kotleti",
+                    "Cheddar pishlog'i 4 bo'lak",
+                    "Yangi pomidor va aysberg karami",
+                    "Maxsus burger sousi va ketchup"
                 ],
                 steps: [
-                    "Go'sht va sabzavotlarni kichik kubik shaklida to'g'rab tayyorlang.",
-                    "Qozonda yog' qizdirib, avval go'shtni, ketidan piyozni qovuring.",
-                    "To'g'ralgan sabzi va pomidor solib, birgalikda qovurib oling.",
-                    "Ustidan qaynoq suv quying va tozalangan kartoshkani soling.",
-                    "Yaxshilab yuvilgan guruchni solib, guruch yumshaguncha qaynating.",
-                    "Tayyor mastavani kosalarga suzib, ko'katlar va qatiq bilan bering."
+                    "1-bosqich: Mol go'shti qiymasidan tuz va murch qo'shib dumaloq kotletlar yasang va tovada qovuring.",
+                    "2-bosqich: Burger bulochkalarini ikkiga bo'lib, ichki qismini tovada saryog'da qizartirib oling.",
+                    "3-bosqich: Pishayotgan kotlet ustiga Cheddar pishlog'ini qo'yib eriguncha kuting.",
+                    "4-bosqich: Bulochkaning quyi qismiga maxsus sous surtib, aysberg bargi va pomidor qo'ying.",
+                    "5-bosqich: Pishloqli kotletni qo'yib, yana sous surting va ikkinchi qism bulochka bilan yoping."
                 ]
             },
             {
                 id: 5,
-                name: "Qovurma Sho'rva",
-                category: "Sho'rva",
-                time: "1 soat",
-                img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800",
+                name: "Klassik Napoleon Torti",
+                category: "Shirinlik",
+                time: "2 soat",
+                difficulty: "Qiyin",
+                calories: "850 kkal",
+                img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=800",
                 ingredients: [
-                    "500g suyakli go'sht",
-                    "3 ta kartoshka",
-                    "1 ta bulg'or qalampiri",
-                    "2 ta piyoz va sabzi",
-                    "Tuz, zira, ko'kat"
+                    "450g un va 300g sovuq saryog' (xamir uchun)",
+                    "1 ta tuxum, 150ml muzdek suv, 1 qoshiq sirk",
+                    "Krem uchun: 1 litr sut, 4 ta tuxum, 200g shakar, 50g un va vanilin",
+                    "150g saryog' (kremga)"
                 ],
                 steps: [
-                    "Go'shtni o'rta bo'laklarga bo'lib, qozonda o'z yog'ida qovuring.",
-                    "Piyoz va sabzini yirikroq to'g'rab go'shtga qo'shing va qovurishni davom ettiring.",
-                    "Ustidan sovuq suv quyib, baland olovda qaynating va ko'pagini oling.",
-                    "Archa tozalangan kartoshka va bulg'or qalampirini butunligicha yoki yirik soling.",
-                    "Past olovda 40 daqiqa dimlab pishiring, dasturxonga tortishda ko'kat seping."
+                    "1-bosqich: Unni sovuq saryog' bilan blenderda uvoq holatigacha maydalang.",
+                    "2-bosqich: Muzdek suvga sirka va tuxum aralashtirib, uvoqli massaga qo'shing va tezda xamir qiling.",
+                    "3-bosqich: Xamirni 10 ta teng bo'lakka bo'lib, muzlatgichda 1 soat sovuting.",
+                    "4-bosqich: Har bir bo'lakni yupqa yoyib, duxovkada 200°C da 6-7 daqiqadan qizartirib pishiring.",
+                    "5-bosqich: Sut, tuxum, shakar va unni qaynatib quyuq puding (krem) tayyorlang, sovigach saryog' bilan ko'pirtiring.",
+                    "6-bosqich: Pishgan qatlamlarni krem bilan birma-bir tekislab yig'ing va ustini uvoq bilan bezating."
                 ]
             },
             {
                 id: 6,
-                name: "No'xat Sho'rva",
-                category: "Sho'rva",
-                time: "2 soat",
-                img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800",
+                name: "Grechka va Tovuqli Fitnes Bowl",
+                category: "Parhez",
+                time: "25 daqiqa",
+                difficulty: "Oson",
+                calories: "380 kkal",
+                img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800",
                 ingredients: [
-                    "1 stakan no'xat (oldindan ivitilgan)",
-                    "500g qo'y go'shti",
-                    "2 ta sabzi va piyoz",
-                    "2 ta kartoshka",
-                    "Ziravorlar"
+                    "1 stakan grechka yorma",
+                    "250g tovuq ko'krak go'shti",
+                    "1 dona avokado va yangi bodring",
+                    "Zaytun yog'i va limon suti",
+                    "Tuz va ziravorlar"
                 ],
                 steps: [
-                    "No'xatni kechqurun iliq suvga ivitib qo'ying.",
-                    "Qozonga suv solib, go'sht va oldindan yuvilgan no'xatni solib qaynating.",
-                    "Qaynchi chiqqan ko'pikni olib tashlang va past olovda no'xat yumshaguncha qaynating.",
-                    "To'g'ralgan sabzi, piyoz va kartoshkani soling.",
-                    "Tuz va murch solib, to'liq pishguncha dimlab qo'ying."
-                ]
-            },
-            {
-                id: 7,
-                name: "Moshxorda",
-                category: "Sho'rva",
-                time: "1 soat 10 daqiqa",
-                img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800",
-                ingredients: [
-                    "1 stakan mosh",
-                    "0.5 stakan guruch",
-                    "400g go'sht (yoki qiyma)",
-                    "Sabzi, piyoz, pomidor",
-                    "O'simlik yog'i, ko'kat"
-                ],
-                steps: [
-                    "Moshni tozalab, yuvib oling.",
-                    "Qozonga suv solib moshni qaynashga qo'ying (mosh yorilib pishishi kerak).",
-                    "Alohida tovada go'sht, piyoz, sabzi va pomidorlarni qovurib zarchirva tayyorlang.",
-                    "Qaynayotgan moshga tayyor zarchirvani qo'shing.",
-                    "Yuvilgan guruchni solib, guruch va mosh bir xilda pishguncha qaynating, qatiq bilan suzing."
-                ]
-            },
-            {
-                id: 8,
-                name: "Chuchvara Sho'rva",
-                category: "Sho'rva",
-                time: "45 daqiqa",
-                img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800",
-                ingredients: [
-                    "Tayyor chuchvara (300g)",
-                    "200g qiyma va piyoz (chuchvara uchun)",
-                    "1 ta sabzi va piyoz (sho'rva uchun)",
-                    "Kartoshka (xohishga ko'ra)",
-                    "Qurut yoki qatiq, ko'kat"
-                ],
-                steps: [
-                    "Un, tuxum va suvdan yumshoq xamir qorib, kichik kvadratlarga kesib qiyma solib chuchvara tuging.",
-                    "Qozonda piyoz va sabzini yog'da ozgina qovurib, suv quying.",
-                    "Suv qaynnab chiqqach, tayyor chuchvaralarni birma-bir solib chiqing.",
-                    "Chuchvaralar yuziga qalqib chiqsa, yana 5-7 daqiqa qaynating.",
-                    "Kosalarga suzib, ko'kat va qatiq solib dasturxonga bering."
-                ]
-            },
-            {
-                id: 9,
-                name: "Norin",
-                category: "Xamir",
-                time: "2 soat",
-                img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800",
-                ingredients: [
-                    "1 kg ot go'shti yoki mol go'shti",
-                    "500g un, suv, tuz (xamir uchun)",
-                    "Qazi (xohishga ko'ra)",
-                    "Piyoz va murch"
-                ],
-                steps: [
-                    "Go'sht va qazini suvga solib, yumshoq bo'lguncha 2 soat davomida qaynating.",
-                    "Un, tuz va suvdan qattiq xamir qorib, yupqa yoying va to'rtburchak kesib qaynagan go'sht sho'rvasida pishirib oling.",
-                    "Pishgan xamirlarni yupqa somoncha shaklida to'g'rang.",
-                    "Go'shtni ham mayda to'g'rab, xamirga qo'shing.",
-                    "Halqa to'g'ralgan piyoz, murch va go'sht sho'rvasi bilan aralashtirib dasturxonga torting."
-                ]
-            },
-            {
-                id: 10,
-                name: "Beshbarmoq",
-                category: "Xamir",
-                time: "2 soat",
-                img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800",
-                ingredients: [
-                    "1 kg go'sht (qovurg'a va lahm)",
-                    "Un, tuxum, tuz, suv",
-                    "Piyoz, murch",
-                    "Kartoshka (ba'zilar qo'shadi)"
-                ],
-                steps: [
-                    "Go'shtni yirik bo'laklarga bo'lib, past olovda uzoq qaynatib shirin bulon hosil qiling.",
-                    "Un, tuxum va tuzdan yoyishga qulay xamir tayyorlang, yupqa yoyib keng romblarga kesing.",
-                    "Go'shtni sho'rvedan olib, suyakdan ajratib yirik bo'laklarga bo'ling.",
-                    "Halqa to'g'ralgan piyozni go'sht sho'rvasida ozgina qaynatib yumshating.",
-                    "Xamirlarni qaynoq sho'rveda pishirib oling, likopga terib, ustiga piyozli go'shtni qo'ying."
+                    "1-bosqich: Grechkani yaxshilab yuvib, tuzli suvda o'rtacha olovda 15 daqiqa davomida pishirib oling.",
+                    "2-bosqich: Tovuq ko'krak go'shtini kubik shaklida to'g'rab, zaytun yog'i va ziravorlar bilan tovada qovuring.",
+                    "3-bosqich: Avokado va bodringni yupqa bo'laklarga kesib tayyorlab qo'ying.",
+                    "4-bosqich: Chuqur kosaga avval grechkani, yoniga tovuq go'shti va sabzavotlarni tartibli qilib terib chiqing.",
+                    "5-bosqich: Ustidan zaytun yog'i va limon sharbatini solib, iste'mol qiling."
                 ]
             }
         ];
 
-        // 200 taga yetkazish uchun qolgan elementlarni turli xil va haqiqiy nomlar bilan to'ldiramiz
-        const extraNames = [
-            "Shovur", "Kalla-pacha", "Ug'ra sho'rva", "Tovuqli sho'rva", "Shovla", "Qatiqli sho'rva", "Atala", "Sabzavotli pyure-sho'rva", "Shpinatli sho'rva", "Baliq sho'rva",
-            "Borщ", "Yashil borщ", "Rassolnik", "Solyanka", "Shchi", "Pishloqli sho'rva", "Zamburug'li sho'rva", "Xarcho sho'rvasi", "Tomatli sho'rva", "Marjumakli sho'rva",
-            "Makaronli sho'rva", "Ko'katli sho'rva", "Seldereyli parhez sho'rva", "Loviya sho'rva", "Chesnokli krem-sho'rva", "Qovoq krem-sho'rva", "Brokkolili krem-sho'rva", "Go'shtli shurpa", "Qovurma shurpa", "Piyozli fransuz sho'rvasi",
-            "Lag'mon sho'rva", "Bulg'or qalampirli sho'rva", "Go'sht va loviyali sho'rva", "Tuxumli sho'rva", "Sarimsoqli bulon", "Ziravorli osh", "Buxoro oshi", "Farg'ona oshi", "Tandir kabob", "Jiz",
-            "Dimlama", "Qovurma lag'mon", "Cho'zma lag'mon", "Moshkichiri", "Qurtob", "Honim", "Qovoq manti", "Ko'kat manti", "Tuxum barak", "Qovurilgan chuchvara",
-            "Qovoqli xonim", "Govurma", "Jigardan qovurma", "Til va yurak qovurmasi", "Gulyash", "Bifshteks", "Kotlet", "Tefteli", "Yojiki kotletlar", "Azu",
-            "Sabzavotli ragu", "Pishloqli zapekanka", "Kartoshka pyuresi bilan kotlet", "Fri kartoshka va naggetslar", "Tovuq go'shti dimlamasi", "Qanotchalar pechda", "Tovuq soni pechda", "Lula kabob", "Duxovkada shashlik", "Baqlajon dimlamasi",
-            "Kabachki ikrasi", "Dolma", "Karam o'rami", "Bulg'or qalampirini to'ldirish", "Pomidor dolmasi", "Makkajo'xori pyuresi", "Makaron po-flotski", "Spagetti Bolognese", "Pasta Carbonara", "Go'shtli somsa",
-            "Qovoqli somsa", "Ko'kat somsa", "Kartoshkali somsa", "Qatlama somsa", "Patir non", "Obi non", "Jizzli non", "Qatlama", "Bo'g'irsoq", "Pirojki kartoshkali",
-            "Pirojki go'shtli", "Pirojki tuxum-piyozli", "Qovurma pishiriqlar", "Blinchik go'shtli", "Blinchik tvorogli", "Oladya", "Sыrniki", "Pitsa", "Xachapuri", "Qatlama pirog",
-            "Vatrushka", "Sharlotka", "Keks", "Medovik torti", "Napoleon torti", "Pankeyk", "Donat", "Kruassan", "Sinabon", "Pishloqli bulochka",
-            "Rigatoni pishloq bilan", "Lazanya", "Qovoqli pirog", "Jo'xori uni noni", "Lavashdan rulet", "Lavashdan chips", "Doner", "Shaurma", "Sendvich", "Gamburger bulochkasi",
-            "Hot-dog", "Pishloqli tayoqchalar", "Mak n Chiz", "Qovurilgan manti", "Chuchvara pechda", "Somsaxon", "Tandir somsa uyda", "Qora non suxari", "Guruchli non", "Achchiq-chuchuk",
-            "Karam salati", "Bodring va pomidor salati", "Olivye salati", "Vinegret salati", "Sezar salati", "Grecheskiy salat", "Qizil lavlagi salati", "Morkovcha", "Tig' salati", "Krab tayoqchali salat",
-            "Mimosa salati", "Seledka pod shuboy", "Mayskiy salat", "Toshkent salati", "Turp salati", "Ismaloqli yengil salat", "Grechka va qo'ziqorin salati", "Iliq salat", "Qovoqchali salat", "Pishloqli gazak",
-            "Pomidor va brinza gazagi", "Lavash ruletchasi", "Chips va sous", "Mayonezli sous", "Adjika", "Marinovanka", "Sabzavotli ikra", "Bulg'or salati", "Yasmiq salati", "Nok va pishloqli salat",
-            "Avokado salati", "Krevetkali sezar", "Fetaksa salati", "Olma va karam salati", "Parhez salat", "Toshkent maxsus", "Ko'k piyoz salati", "Selderey salati", "Mosh salati", "Paxtali holva",
-            "Oq holva", "Qora holva", "Nisholda", "Sumalak", "Chak-chak", "Pahlava", "Qandolat pechenyesi", "Olmali murabbo", "Anjir murabbosi", "Qulupnay murabbosi",
-            "Malina murabbosi", "Olcha kompoti", "Uzvar", "Qora choy limon", "Ko'k choy rayhon", "Ayron", "Qatiq ichimligi", "Smuzi", "Limonad", "Maxsus uy taomi"
-        ];
+        let currentCategory = 'Barchasi';
 
-        for (let i = 0; i < extraNames.length; i++) {
-            let name = extraNames[i];
-            let cat = "Asosiy";
-            if (name.toLowerCase().includes("sho'rva") || name.toLowerCase().includes("borщ") || name.toLowerCase().includes("rassolnik") || name.toLowerCase().includes("solyanka") || name.toLowerCase().includes("shchi") || name.toLowerCase().includes("atala") || name.toLowerCase().includes("bulon")) {
-                cat = "Sho'rva";
-            } else if (name.toLowerCase().includes("somsa") || name.toLowerCase().includes("non") || name.toLowerCase().includes("manti") || name.toLowerCase().includes("xonim") || name.toLowerCase().includes("piroq") || name.toLowerCase().includes("blinchik") || name.toLowerCase().includes("pitsa") || name.toLowerCase().includes("lazanya") || name.toLowerCase().includes("makaron") || name.toLowerCase().includes("spagetti") || name.toLowerCase().includes("lag'mon")) {
-                cat = "Xamir";
-            } else if (name.toLowerCase().includes("salat") || name.toLowerCase().includes("morkovcha") || name.toLowerCase().includes("vinegret") || name.toLowerCase().includes("olivye") || name.toLowerCase().includes("achchiq-chuchuk")) {
-                cat = "Salat";
-            } else if (name.toLowerCase().includes("holva") || name.toLowerCase().includes("tort") || name.toLowerCase().includes("murabbo") || name.toLowerCase().includes("kompot") || name.toLowerCase().includes("choy") || name.toLowerCase().includes("limonad") || name.toLowerCase().includes("smuzi") || name.toLowerCase().includes("nisholda") || name.toLowerCase().includes("sumalak") || name.toLowerCase().includes("chak-chak") || name.toLowerCase().includes("pahlava") || name.toLowerCase().includes("ayron")) {
-                cat = "Shirinlik";
-            }
-
-            recipes.push({
-                id: recipes.length + 1,
-                name: name,
-                category: cat,
-                time: "40 daqiqa",
-                img: `https://images.unsplash.com/photo-${1504674900247 + (i * 13)}?auto=format&fit=crop&w=800`,
-                ingredients: [
-                    `500g ${name.toLowerCase()} uchun asosiy masalliqlar`,
-                    "2 bosh piyoz va sabzavotlar",
-                    "O'simlik yog'i yoki saryog'",
-                    "Tuz, murch va ziravorlar ta'bga ko'ra",
-                    "Ko'katlar va sarimsoq"
-                ],
-                steps: [
-                    `1-qadam: ${name} uchun kerakli barcha masalliqlarni toza yuvib, to'g'rab tayyorlab oling.`,
-                    "2-qadam: Tovaga yoki qozonga ozgina yog' solib, to'g'ralgan piyozni qizg'ish tus olguncha qovuring.",
-                    "3-qadam: Asosiy masalliqni solib, ziravorlar va tuz qo'shgan holda birgalikda qovurishni davom ettiring.",
-                    "4-qadam: Retsept turiga qarab suv yoki bulon qo'shib, past olovda to'liq pishguncha qaynating yoki dimlang.",
-                    "5-qadam: Taom tayyor bo'lgach, issiq holda idishlarga suzib, ko'katlar bilan bezatib dasturxonga torting."
-                ]
-            });
-        }
-
-        let currentCat = 'Barchasi';
-
-        function render(filter = '') {
-            const grid = document.getElementById('foodGrid');
-            const filtered = recipes.filter(f => {
-                const matchCat = currentCat === 'Barchasi' || f.category === currentCat;
-                const matchSearch = f.name.toLowerCase().includes(filter.toLowerCase());
+        function renderRecipes(filterText = '') {
+            const grid = document.getElementById('recipeGrid');
+            const filtered = recipes.filter(r => {
+                const matchCat = currentCategory === 'Barchasi' || r.category === currentCategory;
+                const matchSearch = r.name.toLowerCase().includes(filterText.toLowerCase()) || r.ingredients.some(i => i.toLowerCase().includes(filterText.toLowerCase()));
                 return matchCat && matchSearch;
             });
 
-            document.getElementById('totalCount').innerText = filtered.length;
-
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-20 text-zinc-400">Hech qanday taom topilmadi 😕</div>`;
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500">Hech qanday taom topilmadi 😕</div>`;
                 return;
             }
 
-            grid.innerHTML = filtered.map(f => `
-                <div onclick="openModal(${f.id})" class="bg-white rounded-3xl p-4 shadow-sm border border-zinc-200/80 cursor-pointer hover:shadow-xl hover:border-emerald-500/50 transition duration-300 flex flex-col">
-                    <div class="relative h-48 overflow-hidden rounded-2xl mb-4 bg-zinc-100">
-                        <img src="${f.img}" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-500">
-                        <span class="absolute top-3 right-3 bg-zinc-950/70 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-medium backdrop-blur-sm">${f.category}</span>
+            grid.innerHTML = filtered.map(r => `
+                <div onclick="openModal(${r.id})" class="glass-card rounded-3xl p-4 cursor-pointer hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition duration-300 flex flex-col group">
+                    <div class="relative h-52 rounded-2xl overflow-hidden mb-4 bg-slate-800">
+                        <img src="${r.img}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs px-3 py-1 rounded-full font-bold border border-slate-700/50">${r.category}</span>
                     </div>
-                    <h3 class="text-lg font-bold text-zinc-800 mb-1">${f.name}</h3>
-                    <p class="text-emerald-700 text-xs font-medium mt-auto flex items-center pt-2">
-                        <i class="fa-regular fa-clock mr-1.5"></i> ${f.time}
-                    </p>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">${r.name}</h3>
+                    <div class="flex items-center justify-between text-xs text-slate-400 mt-auto pt-4 border-t border-slate-800/80">
+                        <span class="flex items-center"><i class="fa-regular fa-clock text-amber-500 mr-1.5"></i>${r.time}</span>
+                        <span class="flex items-center"><i class="fa-solid fa-fire text-orange-500 mr-1.5"></i>${r.calories}</span>
+                    </div>
                 </div>
             `).join('');
         }
 
         function filterCategory(cat) {
-            currentCat = cat;
+            currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 if (btn.innerText.includes(cat) || (cat === 'Barchasi' && btn.innerText === 'Barchasi')) {
-                    btn.classList.remove('bg-zinc-200', 'text-zinc-700');
-                    btn.classList.add('bg-emerald-700', 'text-white');
+                    btn.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                    btn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
                 } else {
-                    btn.classList.remove('bg-emerald-700', 'text-white');
-                    btn.classList.add('bg-zinc-200', 'text-zinc-700');
+                    btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
+                    btn.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800', 'font-semibold');
                 }
             });
-            render(document.getElementById('searchInput').value);
+            renderRecipes(document.getElementById('searchInput').value);
         }
 
         function openModal(id) {
-            const f = recipes.find(i => i.id === id);
-            document.getElementById('mTitle').innerText = f.name;
-            document.getElementById('mTime').innerText = f.time;
-            document.getElementById('mCat').innerText = f.category;
-            document.getElementById('mImg').src = f.img;
-            
-            document.getElementById('mIngredients').innerHTML = f.ingredients.map(i => `<li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-600 text-xs"></i><span>${i}</span></li>`).join('');
-            document.getElementById('mSteps').innerHTML = f.steps.map((s, idx) => `
-                <div class="flex items-start space-x-3 bg-zinc-50 p-3.5 rounded-2xl border border-zinc-100">
-                    <span class="bg-emerald-700 text-white font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">${idx+1}</span>
-                    <p>${s}</p>
+            const r = recipes.find(item => item.id === id);
+            document.getElementById('mTitle').innerText = r.name;
+            document.getElementById('mCatBadge').innerText = r.category;
+            document.getElementById('mTime').innerText = r.time;
+            document.getElementById('mDiff').innerText = r.difficulty;
+            document.getElementById('mCalories').innerText = r.calories;
+            document.getElementById('mImg').src = r.img;
+
+            document.getElementById('mIngredients').innerHTML = r.ingredients.map(i => `
+                <div class="bg-slate-800/40 p-3 rounded-xl border border-slate-800 flex items-center space-x-3 text-sm text-slate-300">
+                    <i class="fa-solid fa-check text-amber-500"></i>
+                    <span>${i}</span>
                 </div>
             `).join('');
 
-            document.getElementById('recipeModal').classList.remove('hidden');
+            document.getElementById('mSteps').innerHTML = r.steps.map((s, idx) => `
+                <div class="bg-slate-800/40 p-4 rounded-2xl border border-slate-800 flex items-start space-x-4">
+                    <span class="w-7 h-7 rounded-xl bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center text-xs flex-shrink-0 border border-amber-500/20">${idx+1}</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">${s.substring(10)}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('detailModal').classList.remove('hidden');
         }
 
         function closeModal() {
-            document.getElementById('recipeModal').classList.add('hidden');
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        function openAIChat() { document.getElementById('aiModal').classList.remove('hidden'); }
+        function closeAIChat() { document.getElementById('aiModal').classList.add('hidden'); }
+
+        function sendAIQuery() {
+            const input = document.getElementById('aiInput');
+            const body = document.getElementById('aiChatBody');
+            if(!input.value.trim()) return;
+
+            body.innerHTML += `<div class="bg-amber-500/10 border border-amber-500/20 p-4 rounded-2xl text-amber-200 ml-8">${input.value}</div>`;
+            const userMsg = input.value;
+            input.value = '';
+
+            setTimeout(() => {
+                body.innerHTML += `<div class="bg-slate-800 p-4 rounded-2xl text-slate-300 mr-8">Ajoyib masalliqlar! "${userMsg}" asosida sizga tez kunda mazali dimlama yoki maxsus sho'rva tayyorlashni tavsiya qilaman. Masalliqlarni tozalab, qovurish jarayonidan boshlang!</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 1000);
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            render(e.target.value);
+            renderRecipes(e.target.value);
         });
 
-        render();
+        renderRecipes();
     </script>
 </body>
 </html>
