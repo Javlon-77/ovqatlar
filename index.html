@@ -1,339 +1,836 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>200 ta Uy Taomlari Ensiklopediyasi</title>
-<meta name="description" content="200 ta uy va milliy taomlar ensiklopediyasi — masalliqlar, tayyorlash vaqti va bosqichma-bosqich retseptlar.">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        leaf: '#16a34a',
-        ink: '#17201a'
-      },
-      boxShadow: {
-        soft: '0 12px 40px rgba(16, 24, 16, .08)'
-      }
-    }
-  }
-}
-</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shukrona To'yxonasi — Tantanangiz uchun eng go'zal joy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-html{scroll-behavior:smooth}
-body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.card-img{transition:transform .45s ease}
-.recipe-card:hover .card-img{transform:scale(1.06)}
-.recipe-card{transition:transform .2s ease,box-shadow .2s ease}
-.recipe-card:hover{transform:translateY(-4px)}
-.modal-backdrop{backdrop-filter:blur(8px)}
-.no-scroll{overflow:hidden}
-.line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  :root{
+    --ink:#20140D;
+    --forest:#173226;
+    --forest-2:#0F241B;
+    --gold:#C9A253;
+    --gold-soft:#E4CE93;
+    --gold-deep:#9C7A34;
+    --cream:#F7F1E4;
+    --cream-2:#EFE6D2;
+    --saffron:#B8492E;
+    --line: rgba(201,162,83,0.28);
+    --shadow: 0 30px 60px -30px rgba(15,36,27,0.55);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{ font-family:'Playfair Display',serif; }
+  .eyebrow{
+    font-family:'Manrope',sans-serif;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    font-size:12px;
+    font-weight:700;
+    color:var(--gold-deep);
+  }
+  a{ text-decoration:none; color:inherit; }
+
+  /* ---------- pattern & texture ---------- */
+  .noise::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events:none;
+    mix-blend-mode:overlay;
+  }
+  .suzani-border{
+    background-image:
+      radial-gradient(circle at 10px 10px, var(--gold) 1.6px, transparent 1.7px),
+      radial-gradient(circle at 30px 30px, var(--gold) 1.6px, transparent 1.7px);
+    background-size:40px 40px;
+    opacity:.5;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:linear-gradient(180deg, rgba(23,50,38,0.92), rgba(23,50,38,0.0));
+    transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  header.nav.scrolled{
+    background:rgba(15,26,20,0.86);
+    backdrop-filter:blur(10px);
+    padding:12px 6vw;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; color:var(--cream); }
+  .brand .mark{
+    width:38px;height:38px;border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold); font-size:16px;
+  }
+  .brand span{ font-family:'Playfair Display',serif; font-weight:700; font-size:20px; letter-spacing:.02em;}
+  nav.links{ display:flex; gap:34px; color:var(--cream-2); font-size:14.5px; font-weight:600;}
+  nav.links a{ position:relative; padding-bottom:3px; opacity:.9; }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--gold);
+    transition:width .3s ease;
+  }
+  nav.links a:hover::after{ width:100%; }
+  .nav-cta{
+    background:var(--gold); color:var(--forest-2); padding:10px 22px; border-radius:999px;
+    font-weight:800; font-size:13.5px; letter-spacing:.02em;
+    box-shadow:0 8px 20px rgba(201,162,83,.35);
+  }
+  .burger{ display:none; color:var(--cream); font-size:22px; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:
+      radial-gradient(1100px 700px at 82% -10%, rgba(201,162,83,0.18), transparent 60%),
+      radial-gradient(900px 600px at 8% 110%, rgba(184,73,46,0.16), transparent 55%),
+      linear-gradient(160deg, var(--forest-2) 0%, var(--forest) 55%, #12281F 100%);
+    color:var(--cream);
+    display:flex; align-items:center;
+    padding:150px 6vw 90px;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 20px 20px, rgba(201,162,83,.12) 1.4px, transparent 1.6px);
+    background-size:46px 46px;
+    opacity:.7;
+  }
+  .hero-arch{
+    position:absolute; right:-6%; top:8%;
+    width:46vw; max-width:640px; aspect-ratio:3/4.1;
+    border:1.5px solid rgba(201,162,83,.45);
+    border-radius:50% 50% 4% 4% / 34% 34% 4% 4%;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .hero-arch img{ width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.02); }
+  .hero-arch::before{
+    content:""; position:absolute; inset:14px;
+    border:1px solid rgba(244,230,190,.5);
+    border-radius:50% 50% 3% 3% / 32% 32% 3% 3%;
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:40px; width:100%;
+    align-items:center;
+  }
+  .kicker{
+    display:inline-flex; align-items:center; gap:10px;
+    color:var(--gold-soft); font-weight:700; font-size:12.5px; letter-spacing:.24em; text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .kicker .dash{ width:34px; height:1px; background:var(--gold); display:inline-block; }
+  .hero h1{
+    font-size:clamp(40px, 5.6vw, 78px);
+    line-height:1.03;
+    font-weight:700;
+    margin:0 0 22px;
+    max-width:14ch;
+  }
+  .hero h1 em{ font-style:italic; color:var(--gold-soft); font-weight:600; }
+  .hero p.lead{
+    font-size:17.5px; line-height:1.75; color:rgba(247,241,228,.82);
+    max-width:46ch; margin-bottom:36px;
+  }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:54px; }
+  .btn-primary{
+    background:var(--gold); color:var(--forest-2); padding:16px 30px; border-radius:999px;
+    font-weight:800; font-size:14.5px; letter-spacing:.01em;
+    box-shadow:0 14px 30px rgba(201,162,83,.32);
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .25s ease, box-shadow .25s ease;
+    border:none; cursor:pointer;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 18px 34px rgba(201,162,83,.42); }
+  .btn-ghost{
+    border:1.4px solid rgba(247,241,228,.35); color:var(--cream);
+    padding:16px 28px; border-radius:999px; font-weight:700; font-size:14.5px;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:.25s ease;
+  }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-soft); }
+  .hero-stats{
+    display:flex; gap:0; border-top:1px solid rgba(247,241,228,.18); padding-top:26px;
+  }
+  .hero-stats div{ flex:1; padding-right:20px; }
+  .hero-stats h3{ font-size:30px; margin:0 0 4px; color:var(--gold-soft); }
+  .hero-stats p{ margin:0; font-size:12.5px; color:rgba(247,241,228,.6); letter-spacing:.03em; }
+
+  .scrollcue{
+    position:absolute; left:6vw; bottom:34px; display:flex; align-items:center; gap:12px;
+    color:rgba(247,241,228,.55); font-size:12px; letter-spacing:.18em; text-transform:uppercase; font-weight:700;
+  }
+  .scrollcue .line{ width:1px; height:38px; background:linear-gradient(var(--gold), transparent); position:relative; overflow:hidden;}
+  .scrollcue .line::after{
+    content:""; position:absolute; top:-40%; left:0; width:100%; height:40%; background:var(--gold);
+    animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{ 0%{top:-40%;} 100%{top:100%;} }
+
+  /* ---------- section shell ---------- */
+  section{ padding:110px 6vw; position:relative; }
+  .section-head{ max-width:640px; margin-bottom:64px; }
+  .section-head h2{ font-size:clamp(30px,3.6vw,46px); margin:14px 0 0; line-height:1.15; font-weight:700; color:var(--ink); }
+  .section-head p{ margin-top:16px; color:#5a4a3a; line-height:1.75; font-size:15.5px; max-width:56ch; }
+  .divider-gold{
+    width:60px; height:2px; background:var(--gold); border-radius:2px; margin:6px 0 0;
+  }
+
+  /* ---------- about ---------- */
+  .about{ background:var(--cream); }
+  .about-grid{
+    display:grid; grid-template-columns:.9fr 1.1fr; gap:70px; align-items:center;
+  }
+  .about-frame{
+    position:relative; border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
+    border:6px solid #fff;
+    transform:rotate(-1.4deg);
+  }
+  .about-frame img{ width:100%; display:block; aspect-ratio:4/5; object-fit:cover; }
+  .about-badge{
+    position:absolute; bottom:-26px; right:-26px;
+    background:var(--forest); color:var(--cream);
+    width:132px; height:132px; border-radius:50%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    box-shadow:var(--shadow); transform:rotate(6deg);
+    border:1px solid var(--gold);
+  }
+  .about-badge span{ font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--gold-soft); }
+  .about-badge small{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; opacity:.75; margin-top:2px; }
+  .about-copy p{ font-size:16px; line-height:1.85; color:#4a3d30; margin-bottom:18px; }
+  .feature-row{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:34px; }
+  .feature-item{ display:flex; gap:14px; align-items:flex-start; }
+  .feature-item i{ color:var(--gold-deep); font-size:19px; margin-top:3px; }
+  .feature-item h4{ margin:0 0 4px; font-size:15px; font-weight:800; }
+  .feature-item p{ margin:0; font-size:13.5px; color:#6b5c4b; line-height:1.6; }
+
+  /* ---------- halls / gallery ---------- */
+  .halls{ background:var(--cream-2); }
+  .hall-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .hall-card{
+    position:relative; border-radius:20px; overflow:hidden; height:420px;
+    box-shadow:0 20px 40px -22px rgba(32,20,13,.35);
+    isolation:isolate;
+  }
+  .hall-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s ease; }
+  .hall-card:hover img{ transform:scale(1.08); }
+  .hall-card::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(15,26,20,0) 30%, rgba(15,26,20,.92) 100%);
+  }
+  .hall-info{ position:absolute; left:0; right:0; bottom:0; z-index:2; padding:26px; color:var(--cream); }
+  .hall-info .cap{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-soft); font-weight:700; }
+  .hall-info h3{ margin:8px 0 6px; font-size:23px; }
+  .hall-info p{ margin:0; font-size:13px; color:rgba(247,241,228,.78); }
+  .hall-cap-badge{
+    position:absolute; top:20px; right:20px; z-index:2;
+    background:rgba(247,241,228,.92); color:var(--forest-2);
+    font-size:11.5px; font-weight:800; padding:7px 13px; border-radius:999px;
+    display:flex; align-items:center; gap:6px;
+  }
+
+  /* ---------- menu / services ---------- */
+  .services{ background:var(--cream); }
+  .serv-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .serv-card{
+    background:#fff; border:1px solid var(--line); border-radius:18px; padding:32px 26px;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .serv-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); border-color:var(--gold); }
+  .serv-num{ font-family:'Playfair Display',serif; font-size:14px; color:var(--gold-deep); font-weight:700; margin-bottom:18px; }
+  .serv-icon{
+    width:52px; height:52px; border-radius:14px; background:var(--forest); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:20px;
+  }
+  .serv-card h4{ font-size:18px; margin:0 0 10px; font-weight:700; font-family:'Playfair Display',serif; }
+  .serv-card p{ font-size:13.5px; color:#6b5c4b; line-height:1.7; margin:0; }
+
+  /* ---------- packages ---------- */
+  .packages{ background:var(--forest); color:var(--cream); position:relative; overflow:hidden; }
+  .packages::before{
+    content:""; position:absolute; inset:0;
+    background-image:radial-gradient(circle at 18px 18px, rgba(201,162,83,.14) 1.3px, transparent 1.5px);
+    background-size:42px 42px;
+  }
+  .packages .section-head p{ color:rgba(247,241,228,.72); }
+  .packages .section-head h2{ color:var(--cream); }
+  .pack-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; position:relative; z-index:1; }
+  .pack-card{
+    background:rgba(247,241,228,.05); border:1px solid rgba(201,162,83,.28); border-radius:22px; padding:36px 30px;
+    display:flex; flex-direction:column; gap:22px;
+    transition:.3s ease;
+  }
+  .pack-card.featured{
+    background:linear-gradient(160deg, rgba(201,162,83,.14), rgba(247,241,228,.04));
+    border-color:var(--gold);
+    transform:scale(1.035);
+  }
+  .pack-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .pack-tag{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-soft); font-weight:800; }
+  .pack-badge{ background:var(--gold); color:var(--forest-2); font-size:10.5px; font-weight:800; padding:5px 11px; border-radius:999px; }
+  .pack-card h3{ font-size:26px; margin:6px 0 0; }
+  .pack-price{ font-size:15px; color:var(--gold-soft); font-weight:700; }
+  .pack-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; flex-grow:1; }
+  .pack-list li{ display:flex; gap:10px; font-size:13.8px; color:rgba(247,241,228,.85); align-items:flex-start; }
+  .pack-list i{ color:var(--gold); margin-top:3px; font-size:12px; }
+  .pack-cta{
+    text-align:center; padding:13px; border-radius:999px; font-weight:800; font-size:13.5px;
+    border:1.4px solid var(--gold); color:var(--gold-soft); transition:.25s ease;
+  }
+  .pack-card.featured .pack-cta{ background:var(--gold); color:var(--forest-2); }
+  .pack-cta:hover{ background:var(--gold); color:var(--forest-2); }
+
+  /* ---------- testimonials ---------- */
+  .voices{ background:var(--cream-2); }
+  .voice-track{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .voice-card{
+    background:#fff; border-radius:20px; padding:34px 28px; border:1px solid var(--line);
+    display:flex; flex-direction:column; gap:20px;
+  }
+  .stars{ color:var(--gold); font-size:13px; letter-spacing:2px; }
+  .voice-card p.quote{ font-size:15px; line-height:1.8; color:#4a3d30; font-style:italic; font-family:'Playfair Display',serif; }
+  .voice-person{ display:flex; align-items:center; gap:12px; margin-top:auto; }
+  .voice-avatar{
+    width:44px; height:44px; border-radius:50%; background:var(--forest); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-family:'Playfair Display',serif;
+  }
+  .voice-person h5{ margin:0; font-size:14px; }
+  .voice-person span{ font-size:12px; color:#8a7a68; }
+
+  /* ---------- gallery strip ---------- */
+  .strip{ display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+  .strip img{ width:100%; height:230px; object-fit:cover; display:block; filter:grayscale(15%); transition:.4s ease; }
+  .strip img:hover{ filter:grayscale(0%); transform:scale(1.03); }
+
+  /* ---------- booking / CTA ---------- */
+  .booking{
+    background:linear-gradient(160deg, var(--forest-2), var(--forest));
+    color:var(--cream); position:relative; overflow:hidden;
+  }
+  .booking::before{
+    content:""; position:absolute; right:-10%; top:-20%; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,162,83,.22), transparent 70%);
+  }
+  .booking-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; position:relative; z-index:1; }
+  .booking-copy .eyebrow{ color:var(--gold-soft); }
+  .booking-copy h2{ font-size:clamp(30px,3.6vw,46px); margin:14px 0 20px; }
+  .booking-copy p{ color:rgba(247,241,228,.78); line-height:1.8; font-size:15.5px; margin-bottom:30px; max-width:48ch; }
+  .booking-contacts{ display:flex; flex-direction:column; gap:16px; }
+  .contact-row{ display:flex; align-items:center; gap:14px; }
+  .contact-row .ic{
+    width:44px; height:44px; border-radius:12px; background:rgba(201,162,83,.14); border:1px solid rgba(201,162,83,.4);
+    display:flex; align-items:center; justify-content:center; color:var(--gold-soft);
+  }
+  .contact-row div h5{ margin:0 0 2px; font-size:14.5px; }
+  .contact-row div span{ font-size:13px; color:rgba(247,241,228,.65); }
+
+  .book-card{
+    background:var(--cream); color:var(--ink); border-radius:22px; padding:38px; box-shadow:var(--shadow);
+  }
+  .book-card h3{ font-size:22px; margin:0 0 6px; }
+  .book-card p.sub{ font-size:13.5px; color:#7a6a58; margin:0 0 26px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .form-group{ display:flex; flex-direction:column; gap:7px; }
+  .form-group.full{ grid-column:1/-1; }
+  .form-group label{ font-size:12.5px; font-weight:700; color:#4a3d30; }
+  .form-group input, .form-group select, .form-group textarea{
+    border:1.4px solid #e3d8c2; background:#fff; border-radius:10px; padding:12px 14px; font-size:14px; font-family:'Manrope',sans-serif;
+    color:var(--ink); outline:none; transition:border-color .2s ease;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{ border-color:var(--gold); }
+  .submit-btn{
+    width:100%; background:var(--forest); color:var(--cream); padding:15px; border:none; border-radius:10px;
+    font-weight:800; font-size:14.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;
+    transition:.25s ease;
+  }
+  .submit-btn:hover{ background:var(--forest-2); }
+  .form-note{ font-size:11.5px; color:#9a8a76; margin-top:12px; text-align:center; }
+  .form-success{
+    display:none; text-align:center; padding:30px 10px;
+  }
+  .form-success i{ font-size:40px; color:#3f7a54; margin-bottom:14px; }
+  .form-success h4{ margin:0 0 8px; font-size:19px; }
+  .form-success p{ margin:0; font-size:13.5px; color:#7a6a58; }
+
+  /* ---------- FAQ ---------- */
+  .faq{ background:var(--cream); }
+  .faq-list{ max-width:820px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+  .faq-item{ border:1px solid var(--line); border-radius:16px; background:#fff; overflow:hidden; }
+  .faq-q{
+    display:flex; align-items:center; justify-content:space-between; padding:22px 26px; cursor:pointer;
+    font-weight:700; font-size:15.5px; font-family:'Playfair Display',serif;
+  }
+  .faq-q i{ color:var(--gold-deep); transition:transform .3s ease; }
+  .faq-item.open .faq-q i{ transform:rotate(45deg); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .faq-a p{ padding:0 26px 22px; margin:0; font-size:14px; color:#6b5c4b; line-height:1.75; max-width:70ch; }
+
+  /* ---------- footer ---------- */
+  footer{ background:#0F1F17; color:rgba(247,241,228,.7); padding:80px 6vw 30px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:50px; padding-bottom:50px; border-bottom:1px solid rgba(247,241,228,.1); }
+  .foot-brand{ display:flex; align-items:center; gap:10px; color:var(--cream); margin-bottom:16px; }
+  .foot-brand span{ font-family:'Playfair Display',serif; font-weight:700; font-size:19px; }
+  .foot-about p{ font-size:13.5px; line-height:1.8; max-width:32ch; }
+  .foot-social{ display:flex; gap:12px; margin-top:20px; }
+  .foot-social a{
+    width:38px;height:38px;border-radius:50%; border:1px solid rgba(247,241,228,.2);
+    display:flex; align-items:center; justify-content:center; transition:.25s ease;
+  }
+  .foot-social a:hover{ background:var(--gold); color:var(--forest-2); border-color:var(--gold); }
+  .foot-col h5{ color:var(--cream); font-size:13px; letter-spacing:.1em; text-transform:uppercase; margin:0 0 20px; }
+  .foot-col ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .foot-col ul a{ font-size:13.8px; transition:.2s ease; }
+  .foot-col ul a:hover{ color:var(--gold-soft); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:26px; font-size:12.5px; flex-wrap:wrap; gap:10px;}
+  .foot-bottom a{ color:var(--gold-soft); }
+
+  /* floating whatsapp */
+  .float-wa{
+    position:fixed; bottom:26px; right:26px; z-index:60;
+    width:58px; height:58px; border-radius:50%; background:#25D366; color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    box-shadow:0 14px 30px rgba(37,211,102,.45);
+    animation:float 3s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+  [data-reveal]{ opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1080px){
+    nav.links{ display:none; }
+    .burger{ display:block; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-arch{ position:relative; right:auto; width:100%; max-width:420px; margin:50px auto 0; }
+    .about-grid, .booking-grid{ grid-template-columns:1fr; }
+    .hall-grid, .serv-grid, .pack-grid, .voice-track{ grid-template-columns:repeat(2,1fr); }
+    .strip{ grid-template-columns:repeat(3,1fr); }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 640px){
+    section{ padding:80px 6vw; }
+    .hero{ padding:130px 6vw 70px; }
+    .hall-grid, .serv-grid, .pack-grid, .voice-track{ grid-template-columns:1fr; }
+    .strip{ grid-template-columns:repeat(2,1fr); }
+    .form-row{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr; }
+    .pack-card.featured{ transform:none; }
+    .hero-stats{ flex-wrap:wrap; gap:20px; }
+    .hero-stats div{ flex:1 1 40%; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-<header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 items-center justify-between gap-4">
-      <a href="#" class="flex items-center gap-3 font-black tracking-tight">
-        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-green-600 text-white shadow-lg shadow-green-600/20"><i class="fa-solid fa-utensils"></i></span>
-        <span class="hidden sm:block">200 ta <span class="text-green-600">Uy Taomlari</span></span>
-      </a>
-      <a href="#recipes" class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100"><i class="fa-solid fa-book-open mr-2 text-green-600"></i>Retseptlar</a>
-    </div>
-  </div>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="siteNav">
+  <a href="#" class="brand">
+    <span class="mark"><i class="fa-solid fa-star-and-crescent" style="font-size:13px;"></i></span>
+    <span>Shukrona</span>
+  </a>
+  <nav class="links">
+    <a href="#about">Biz haqimizda</a>
+    <a href="#halls">Zallar</a>
+    <a href="#services">Xizmatlar</a>
+    <a href="#packages">Paketlar</a>
+    <a href="#gallery">Galereya</a>
+    <a href="#faq">Savollar</a>
+  </nav>
+  <a href="#booking" class="nav-cta">Sana band qilish</a>
+  <i class="fa-solid fa-bars burger"></i>
 </header>
 
-<main>
-<section class="relative overflow-hidden bg-white">
-  <div class="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-green-100 blur-3xl"></div>
-  <div class="absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-lime-100 blur-3xl"></div>
-  <div class="relative mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
-    <div class="max-w-3xl">
-      <span class="inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold text-green-700"><i class="fa-solid fa-leaf"></i> MILLIY VA UY RETSEPTLARI</span>
-      <h1 class="mt-5 text-4xl font-black tracking-tight text-slate-900 sm:text-6xl">200 ta Uy Taomlari <span class="text-green-600">Ensiklopediyasi</span></h1>
-      <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">Har bir taom uchun masalliqlar, tayyorlash vaqti va alohida bosqichma-bosqich yo‘riqnoma. O‘zbek, Markaziy Osiyo va dunyo oshxonalari bir joyda.</p>
-    </div>
-
-    <div class="mt-8 grid gap-3 md:grid-cols-[1fr_auto]">
-      <div class="relative">
-        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-        <input id="search" type="search" placeholder="Taom nomini qidiring..." class="h-14 w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 text-base outline-none ring-green-500 transition focus:ring-2 shadow-soft">
-      </div>
-      <select id="category" class="h-14 rounded-2xl border border-slate-200 bg-white px-5 font-semibold outline-none focus:ring-2 focus:ring-green-500">
-        <option value="all">Barcha kategoriyalar</option>
-      </select>
-    </div>
-
-    <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><div class="text-2xl font-black text-green-600">200</div><div class="text-sm text-slate-500">ta retsept</div></div>
-      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><div id="resultCount" class="text-2xl font-black text-green-600">200</div><div class="text-sm text-slate-500">ko‘rsatilmoqda</div></div>
-      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><div class="text-2xl font-black text-green-600"><i class="fa-solid fa-clock"></i></div><div class="text-sm text-slate-500">vaqt ko‘rsatilgan</div></div>
-      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><div class="text-2xl font-black text-green-600"><i class="fa-solid fa-mobile-screen"></i></div><div class="text-sm text-slate-500">responsive</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="recipes" class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-  <div class="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-grid">
     <div>
-      <p class="text-sm font-bold uppercase tracking-wider text-green-600">Retseptlar</p>
-      <h2 class="mt-1 text-2xl font-black text-slate-900 sm:text-3xl">Taomlar katalogi</h2>
+      <div class="kicker"><span class="dash"></span> Toshkentdagi eng izzatli to'yxona</div>
+      <h1>Har bir <em>tantana</em><br>— unutilmas doston</h1>
+      <p class="lead">«Shukrona» to'yxonasida har bir marosim allegoriya kabi go'zal, har bir tafsilot mehr bilan ishlanadi. Nikoh to'yi, sunnat to'yi, yubiley — biz sizning eng qadrli kunlaringizni asrlar osha eslanadigan xotiraga aylantiramiz.</p>
+      <div class="hero-ctas">
+        <a href="#booking" class="btn-primary"><i class="fa-regular fa-calendar-check"></i> Sana band qilish</a>
+        <a href="#halls" class="btn-ghost"><i class="fa-solid fa-play"></i> Zallarni ko'rish</a>
+      </div>
+      <div class="hero-stats">
+        <div><h3>12+</h3><p>YILLIK TAJRIBA</p></div>
+        <div><h3>2400+</h3><p>O'TKAZILGAN TANTANA</p></div>
+        <div><h3>3</h3><p>SHINAM ZAL</p></div>
+        <div><h3>98%</h3><p>QONIQQAN MIJOZLAR</p></div>
+      </div>
     </div>
-    <button id="clearFilters" class="hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:border-green-300 hover:text-green-700">Filtrni tozalash</button>
   </div>
-  <div id="grid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
-  <div id="empty" class="hidden rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
-    <i class="fa-solid fa-bowl-food text-4xl text-slate-300"></i>
-    <h3 class="mt-4 text-xl font-black">Taom topilmadi</h3>
-    <p class="mt-2 text-slate-500">Qidiruv so‘zini yoki kategoriyani o‘zgartirib ko‘ring.</p>
+  <div class="hero-arch">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" alt="Tantana zali">
+  </div>
+  <div class="scrollcue"><span class="line"></span> Pastga suring</div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-frame" data-reveal>
+      <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1000&auto=format&fit=crop" alt="Shukrona zali ichkarisi">
+      <div class="about-badge"><span>12</span><small>Yillik shon</small></div>
+    </div>
+    <div class="about-copy" data-reveal>
+      <div class="eyebrow">Biz haqimizda</div>
+      <div class="divider-gold"></div>
+      <h2 style="margin-top:18px;">An'analarga sodiq, <br>zamonaviylikka ochiq</h2>
+      <p>«Shukrona» — bu shunchaki zal emas, bu oilaviy qadriyatlarni asrab-avaylagan makon. 2014-yildan buyon minglab oilalarga ularning eng baxtli kunlarida hamroh bo'lib kelmoqdamiz.</p>
+      <p>Har bir tafsilot — milliy naqshlardan tortib, dasturxon bezagigacha — mehmonlaringizga chinakam o'zbekona mehmondo'stlikni his ettirish uchun yaratilgan.</p>
+      <div class="feature-row">
+        <div class="feature-item"><i class="fa-solid fa-champagne-glasses"></i><div><h4>Premium xizmat</h4><p>Professional bannerlar jamoasi</p></div></div>
+        <div class="feature-item"><i class="fa-solid fa-utensils"></i><div><h4>Milliy taomlar</h4><p>Bevosita oshpazlar tomonidan</p></div></div>
+        <div class="feature-item"><i class="fa-solid fa-car"></i><div><h4>Bepul avtoturargoh</h4><p>150+ avtomobil sig'imi</p></div></div>
+        <div class="feature-item"><i class="fa-solid fa-music"></i><div><h4>Zamonaviy tovush</h4><p>Yorug'lik va DJ tizimi</p></div></div>
+      </div>
+    </div>
   </div>
 </section>
-</main>
 
-<div id="modal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-3 sm:p-6">
-  <div class="max-h-[94vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl">
-    <div class="flex max-h-[94vh] flex-col overflow-y-auto">
-      <div class="relative">
-        <img id="modalImg" src="" alt="" class="h-56 w-full object-cover sm:h-72">
-        <div class="absolute inset-x-0 top-0 flex justify-between p-4">
-          <span id="modalCategory" class="rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-green-700 shadow"></span>
-          <button id="closeModal" class="grid h-10 w-10 place-items-center rounded-full bg-white/90 text-slate-700 shadow hover:bg-white"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+<!-- ================= HALLS ================= -->
+<section class="halls" id="halls">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow">Zallarimiz</div>
+    <h2>Har bir marosimga mos zal</h2>
+    <p>350 kishilik katta zaldan tortib, intim oilaviy uchrashuvlar uchun mo'ljallangan shinam xonagacha — tanlov sizniki.</p>
+  </div>
+  <div class="hall-grid">
+    <div class="hall-card" data-reveal>
+      <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?q=80&w=1000&auto=format&fit=crop" alt="Zumrad zal">
+      <div class="hall-cap-badge"><i class="fa-solid fa-users"></i> 350 kishi</div>
+      <div class="hall-info"><div class="cap">ASOSIY ZAL</div><h3>Zumrad zal</h3><p>Baland shift, kristall qandillar va zamonaviy sahna</p></div>
+    </div>
+    <div class="hall-card" data-reveal>
+      <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=1000&auto=format&fit=crop" alt="Oltin zal">
+      <div class="hall-cap-badge"><i class="fa-solid fa-users"></i> 200 kishi</div>
+      <div class="hall-info"><div class="cap">O'RTA ZAL</div><h3>Oltin zal</h3><p>An'anaviy naqshlar bilan bezatilgan issiq muhit</p></div>
+    </div>
+    <div class="hall-card" data-reveal>
+      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000&auto=format&fit=crop" alt="Bog' zali">
+      <div class="hall-cap-badge"><i class="fa-solid fa-users"></i> 80 kishi</div>
+      <div class="hall-info"><div class="cap">OCHIQ HAVODA</div><h3>Bog' zali</h3><p>Kichik oilaviy marosimlar uchun yashil hudud</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="services">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow">Xizmatlarimiz</div>
+    <h2>To'liq tashkiliy yordam</h2>
+    <p>Taklifnomadan tortib so'nggi raqsgacha — barcha tafsilotlarni biz o'z zimmamizga olamiz.</p>
+  </div>
+  <div class="serv-grid">
+    <div class="serv-card" data-reveal>
+      <div class="serv-num">01</div>
+      <div class="serv-icon"><i class="fa-solid fa-bowl-food"></i></div>
+      <h4>Milliy taomlar</h4>
+      <p>Palov, shashlik va boshqa milliy taomlar tajribali oshpazlar tomonidan tayyorlanadi.</p>
+    </div>
+    <div class="serv-card" data-reveal>
+      <div class="serv-num">02</div>
+      <div class="serv-icon"><i class="fa-solid fa-camera-retro"></i></div>
+      <h4>Foto va video</h4>
+      <p>Professional suratchilar tantananing har bir lahzasini abadiylashtirib qoladi.</p>
+    </div>
+    <div class="serv-card" data-reveal>
+      <div class="serv-num">03</div>
+      <div class="serv-icon"><i class="fa-solid fa-lightbulb"></i></div>
+      <h4>Bezak va yorug'lik</h4>
+      <p>Gullar, LED chiroqlar va sahna bezagi individual dizayn asosida tayyorlanadi.</p>
+    </div>
+    <div class="serv-card" data-reveal>
+      <div class="serv-num">04</div>
+      <div class="serv-icon"><i class="fa-solid fa-drum"></i></div>
+      <h4>Musiqa va dastur</h4>
+      <p>Tajribali DJ va milliy ansambl mehmonlaringizni to'liq band qiladi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PACKAGES ================= -->
+<section class="packages" id="packages">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow">Narxlar</div>
+    <h2>Byudjetingizga mos paket</h2>
+    <p>Har bir paket moslashuvchan bo'lib, sizning ehtiyojlaringizga qarab o'zgartirilishi mumkin.</p>
+  </div>
+  <div class="pack-grid">
+    <div class="pack-card" data-reveal>
+      <div class="pack-top"><div><div class="pack-tag">Boshlang'ich</div><h3>Andisha</h3></div></div>
+      <div class="pack-price">Kishi boshiga 180 000 so'mdan</div>
+      <ul class="pack-list">
+        <li><i class="fa-solid fa-check"></i> Bog' zali (80 kishigacha)</li>
+        <li><i class="fa-solid fa-check"></i> Standart dasturxon</li>
+        <li><i class="fa-solid fa-check"></i> Asosiy yoritish</li>
+        <li><i class="fa-solid fa-check"></i> Bepul avtoturargoh</li>
+      </ul>
+      <a href="#booking" class="pack-cta">Tanlash</a>
+    </div>
+    <div class="pack-card featured" data-reveal>
+      <div class="pack-top"><div><div class="pack-tag">Eng ommabop</div><h3>Saxovat</h3></div><div class="pack-badge">Tavsiya etiladi</div></div>
+      <div class="pack-price">Kishi boshiga 260 000 so'mdan</div>
+      <ul class="pack-list">
+        <li><i class="fa-solid fa-check"></i> Oltin zal (200 kishigacha)</li>
+        <li><i class="fa-solid fa-check"></i> Premium dasturxon + shirinliklar</li>
+        <li><i class="fa-solid fa-check"></i> To'liq bezak va gullar</li>
+        <li><i class="fa-solid fa-check"></i> DJ va yorug'lik dasturi</li>
+        <li><i class="fa-solid fa-check"></i> Professional fotosurat</li>
+      </ul>
+      <a href="#booking" class="pack-cta">Tanlash</a>
+    </div>
+    <div class="pack-card" data-reveal>
+      <div class="pack-top"><div><div class="pack-tag">Premium</div><h3>Marvarid</h3></div></div>
+      <div class="pack-price">Kishi boshiga 380 000 so'mdan</div>
+      <ul class="pack-list">
+        <li><i class="fa-solid fa-check"></i> Zumrad zal (350 kishigacha)</li>
+        <li><i class="fa-solid fa-check"></i> VIP dasturxon xizmati</li>
+        <li><i class="fa-solid fa-check"></i> Individual dizayn bezagi</li>
+        <li><i class="fa-solid fa-check"></i> Milliy ansambl + DJ</li>
+        <li><i class="fa-solid fa-check"></i> Foto va video (drone bilan)</li>
+      </ul>
+      <a href="#booking" class="pack-cta">Tanlash</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="voices">
+  <div class="section-head" data-reveal>
+    <div class="eyebrow">Fikrlar</div>
+    <h2>Mijozlarimiz nima deydi</h2>
+  </div>
+  <div class="voice-track">
+    <div class="voice-card" data-reveal>
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Qizimning to'yi shu yerda bo'lib o'tdi. Har bir tafsilot mukammal edi, xodimlar juda mehribon va e'tiborli."</p>
+      <div class="voice-person"><div class="voice-avatar">M</div><div><h5>Malika Yusupova</h5><span>Kelin onasi</span></div></div>
+    </div>
+    <div class="voice-card" data-reveal>
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Sunnat to'yimiz uchun Oltin zalni tanladik. Bezaklar va taomlar mehmonlarimizga juda yoqdi."</p>
+      <div class="voice-person"><div class="voice-avatar">B</div><div><h5>Bahodir Karimov</h5><span>Ota</span></div></div>
+    </div>
+    <div class="voice-card" data-reveal>
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Nikoh to'yimizni «Shukrona»da nishonladik. Jamoa bizga rejalashtirish jarayonida katta yordam berdi."</p>
+      <div class="voice-person"><div class="voice-avatar">D</div><div><h5>Dilnoza va Sardor</h5><span>Kelin-kuyov</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY STRIP ================= -->
+<section id="gallery" style="padding:0;">
+  <div class="strip">
+    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600&auto=format&fit=crop" alt="Tantana lahzasi">
+    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600&auto=format&fit=crop" alt="Dasturxon bezagi">
+    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=600&auto=format&fit=crop" alt="Zal bezagi">
+    <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=600&auto=format&fit=crop" alt="Musiqiy dastur">
+    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600&auto=format&fit=crop" alt="Milliy taomlar">
+  </div>
+</section>
+
+<!-- ================= BOOKING ================= -->
+<section class="booking" id="booking">
+  <div class="booking-grid">
+    <div class="booking-copy" data-reveal>
+      <div class="eyebrow">Sana band qilish</div>
+      <h2>Orzuyingizdagi kunni <br>biz bilan rejalashtiring</h2>
+      <p>Formani to'ldiring — bizning menejerimiz 30 daqiqa ichida siz bilan bog'lanib, barcha savollaringizga javob beradi va zal band qilinishini tasdiqlaydi.</p>
+      <div class="booking-contacts">
+        <div class="contact-row"><div class="ic"><i class="fa-solid fa-phone"></i></div><div><h5>Bog'lanish uchun</h5><span>+998 90 123 45 67</span></div></div>
+        <div class="contact-row"><div class="ic"><i class="fa-solid fa-location-dot"></i></div><div><h5>Manzil</h5><span>Toshkent shahri, Yunusobod tumani</span></div></div>
+        <div class="contact-row"><div class="ic"><i class="fa-solid fa-clock"></i></div><div><h5>Ish vaqti</h5><span>Har kuni, 09:00 – 21:00</span></div></div>
       </div>
-      <div class="p-5 sm:p-8">
-        <div class="flex flex-wrap items-start justify-between gap-4">
-          <div><h2 id="modalTitle" class="text-3xl font-black text-slate-900"></h2><div class="mt-2 text-sm text-slate-500"><i class="fa-regular fa-clock mr-2 text-green-600"></i><span id="modalTime"></span></div></div>
-          <button id="favoriteBtn" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-600 hover:border-green-300 hover:text-green-700"><i class="fa-regular fa-heart mr-2"></i>Sevimli</button>
+    </div>
+
+    <div class="book-card" data-reveal>
+      <form id="publicBookingForm">
+        <h3>Bandlash so'rovi</h3>
+        <p class="sub">Ma'lumotlarni to'ldiring, biz siz bilan tez orada bog'lanamiz</p>
+        <div class="form-row">
+          <div class="form-group"><label>Ismingiz</label><input type="text" id="pbName" required placeholder="Ismingiz"></div>
+          <div class="form-group"><label>Telefon raqam</label><input type="tel" id="pbPhone" required placeholder="+998 90 123 45 67"></div>
         </div>
-        <div class="mt-8 grid gap-8 md:grid-cols-[.75fr_1.25fr]">
-          <div>
-            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-basket-shopping mr-2 text-green-600"></i>Masalliqlar</h3>
-            <ul id="modalIngredients" class="mt-4 space-y-2"></ul>
-          </div>
-          <div>
-            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-list-check mr-2 text-green-600"></i>Tayyorlash bosqichlari</h3>
-            <ol id="modalSteps" class="mt-4 space-y-4"></ol>
+        <div class="form-row">
+          <div class="form-group"><label>Tadbir sanasi</label><input type="date" id="pbDate" required></div>
+          <div class="form-group"><label>Zal turi</label>
+            <select id="pbHall">
+              <option>Zumrad zal (350 kishi)</option>
+              <option>Oltin zal (200 kishi)</option>
+              <option>Bog' zali (80 kishi)</option>
+              <option>Hali aniq emas</option>
+            </select>
           </div>
         </div>
+        <div class="form-group full" style="margin-bottom:20px;">
+          <label>Qo'shimcha izoh (ixtiyoriy)</label>
+          <textarea id="pbNote" rows="3" placeholder="Mehmonlar soni, marosim turi va boshqa tafsilotlar..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> So'rovni yuborish</button>
+        <p class="form-note">So'rov yuborilgach, menejerimiz siz bilan tez orada bog'lanadi.</p>
+      </form>
+      <div class="form-success" id="pbSuccess">
+        <i class="fa-solid fa-circle-check"></i>
+        <h4>So'rovingiz qabul qilindi!</h4>
+        <p>Menejerimiz tez orada siz bilan +998 raqamingiz orqali bog'lanadi.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<footer class="border-t border-slate-200 bg-white">
-  <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-    <div><span class="font-bold text-slate-700">200 ta Uy Taomlari Ensiklopediyasi</span> — GitHub Pages uchun tayyor.</div>
-    <div>HTML + Tailwind CSS + Font Awesome</div>
+<!-- ================= FAQ ================= -->
+<section class="faq" id="faq">
+  <div class="section-head" data-reveal style="margin-left:auto;margin-right:auto;text-align:center;">
+    <div class="eyebrow">Ko'p so'raladigan savollar</div>
+    <h2>Savollaringiz bormi?</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item" data-reveal>
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Zalni qancha oldindan band qilish kerak?</span><i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>Mavsum va sanaga qarab, biz kamida 1-2 oy oldin band qilishni tavsiya qilamiz. Bayram va to'y mavsumida bu muddat 3-4 oygacha bo'lishi mumkin.</p></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Narxga nimalar kiradi?</span><i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>Har bir paket zal ijarasi, asosiy dasturxon, yoritish va bezakni o'z ichiga oladi. Qo'shimcha xizmatlar (fotosurat, musiqa dasturi) alohida hisoblanadi va menejer bilan muhokama qilinadi.</p></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Avtoturargoh mavjudmi?</span><i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>Ha, barcha mehmonlar uchun 150 dan ortiq avtomobil sig'imiga ega bepul, xavfsiz avtoturargoh mavjud.</p></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Band qilingan sanani bekor qilish mumkinmi?</span><i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>Ha, tadbirdan kamida 14 kun oldin xabar berilgan holatlarda bekor qilish va sanani o'zgartirish mumkin. Batafsil shartlar shartnomada ko'rsatiladi.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-about">
+      <div class="foot-brand"><span class="mark" style="border:1px solid var(--gold);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);"><i class="fa-solid fa-star-and-crescent" style="font-size:12px;"></i></span><span>Shukrona</span></div>
+      <p>Sizning eng qadrli kunlaringiz uchun ishonchli hamroh. Har bir tantanani unutilmas xotiraga aylantiramiz.</p>
+      <div class="foot-social">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-telegram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h5>Navigatsiya</h5>
+      <ul>
+        <li><a href="#about">Biz haqimizda</a></li>
+        <li><a href="#halls">Zallar</a></li>
+        <li><a href="#services">Xizmatlar</a></li>
+        <li><a href="#packages">Paketlar</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Xizmatlar</h5>
+      <ul>
+        <li><a href="#">Nikoh to'yi</a></li>
+        <li><a href="#">Sunnat to'yi</a></li>
+        <li><a href="#">Yubiley</a></li>
+        <li><a href="#">Korporativ tadbir</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Bog'lanish</h5>
+      <ul>
+        <li><i class="fa-solid fa-phone" style="color:var(--gold);margin-right:8px;"></i>+998 90 123 45 67</li>
+        <li><i class="fa-solid fa-envelope" style="color:var(--gold);margin-right:8px;"></i>info@shukrona.uz</li>
+        <li><i class="fa-solid fa-location-dot" style="color:var(--gold);margin-right:8px;"></i>Toshkent, Yunusobod</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; 2026 «Shukrona» To'yxonasi. Barcha huquqlar himoyalangan.</span>
+    <a href="admin.html">Admin panel</a>
   </div>
 </footer>
 
+<a href="https://wa.me/998901234567" class="float-wa" target="_blank" title="WhatsApp orqali yozing"><i class="fa-brands fa-whatsapp"></i></a>
+
 <script>
-const recipes = [{"id": 1, "name": "Osh palov", "category": "O‘zbek", "time": "90 daqiqa", "ingredients": ["Guruch", "qo‘y go‘shti", "sariq sabzi", "piyoz", "paxta yog‘i", "zira", "tuz", "sarimsoq"], "steps": ["Yog‘ni qizdirib piyozni tillarang qiling va qo‘y go‘shtini yirik bo‘laklarda qizartiring.", "Sabzini uzun somoncha qilib solib, zira bilan zirvakni dimlang; go‘sht yumshashiga qadar ozroq suv qo‘shing.", "Yuvilgan guruchni zirvak ustiga tekislang, suvini guruch sathidan biroz oshirib pishiring.", "Suv tortilgach sarimsoqni botiring, qopqog‘ini yopib past olovda damlang va qatlamlarni aralashtirib torting."]}, {"id": 2, "name": "Samarqand palovi", "category": "O‘zbek", "time": "100 daqiqa", "ingredients": ["Devzira guruchi", "qo‘y go‘shti", "sariq sabzi", "piyoz", "yog‘", "mayiz", "no‘xat", "zira"], "steps": ["No‘xatni oldindan yumshating; qalin qozonda yog‘da piyoz va go‘shtni navbat bilan qovuring.", "Sariq sabzi, mayiz va zira qo‘shib zirvakni tayyorlang, ustidan issiq suv quyib sekin qaynatib oling.", "Devzira guruchini yuvib zirvak ustiga joylang va suvni ehtiyotkorlik bilan qo‘shing.", "Guruch donador bo‘lganda mayda teshiklar ochib, qopqoq ostida dam bering; mayiz va go‘shtni ustiga chiqaring."]}, {"id": 3, "name": "Buxoro oshi", "category": "O‘zbek", "time": "95 daqiqa", "ingredients": ["Devzira guruchi", "mol go‘shti", "sabzi", "piyoz", "no‘xat", "mayiz", "zira", "sarimsoq"], "steps": ["Qozonda piyozni qovurib, kubik mol go‘shtini yuzasi qizarguncha aylantiring.", "Sabzi, ivitilgan no‘xat va mayizni solib, zira sepilgan zirvakni past olovda pishiring.", "Guruchni alohida yaxshilab chayib, zirvak ustiga qalin qatlam qilib yotqizing.", "Suv tortilgach olovni pasaytirib damlang; tortishda no‘xat va mayizni guruch orasiga teng taqsimlang."]}, {"id": 4, "name": "Farg‘ona oshi", "category": "O‘zbek", "time": "85 daqiqa", "ingredients": ["Lazer guruchi", "mol go‘shti", "qizil sabzi", "piyoz", "kungaboqar yog‘i", "zira", "kashnich urug‘i"], "steps": ["Qizdirilgan yog‘da piyozni qizartiring, so‘ng mol go‘shtini qo‘shib kuchli olovda muhrlang.", "Qizil sabzini uzun qilib solib, kashnich urug‘i va zira bilan zirvakni xushbo‘y qiling.", "Guruchni suvda chayib, zirvak ustiga sekin yoying va qaynab turgan suv bilan namlang.", "Guruch yumshagach qoshiq dastasi bilan teshiklar oching, qopqoq ostida damlab, ehtiyotkorlik bilan ag‘daring."]}, {"id": 5, "name": "Qozon kabob", "category": "O‘zbek", "time": "75 daqiqa", "ingredients": ["Qo‘y qovurg‘asi", "kartoshka", "dumba yog‘i", "piyoz", "zira", "qora murch", "tuz"], "steps": ["Dumba yog‘ini qozonda eritib, qo‘y qovurg‘alarini kuchli olovda qizartirib oling.", "Kartoshkalarni po‘sti bilan yoki yirik bo‘lak qilib go‘sht atrofida joylashtiring.", "Qozon og‘zini mahkam yopib, o‘z bug‘ida kartoshka yumshaguncha dimlang.", "Oxirida piyoz halqalarini, zira va qora murchni qo‘shib, yog‘da bir necha daqiqa qarsildating."]}, {"id": 6, "name": "Mastava", "category": "O‘zbek", "time": "55 daqiqa", "ingredients": ["Mol go‘shti", "guruch", "kartoshka", "sabzi", "piyoz", "pomidor", "bulg‘or qalampiri", "sarimsoq"], "steps": ["Go‘shtni mayda kubik qilib piyoz bilan qovuring, so‘ng pomidor va qalampirni qo‘shing.", "Sabzi va kartoshkani solib, sabzavotlar hidini chiqarguncha aralashtiring.", "Qaynoq suv quyib go‘shtni yumshating, keyin yuvilgan guruchni sho‘rvaga tushiring.", "Guruch pishishiga yaqin sarimsoq va ko‘kat solib, mastavani besh daqiqa tindiring."]}, {"id": 7, "name": "Sho‘rva", "category": "O‘zbek", "time": "80 daqiqa", "ingredients": ["Qo‘y go‘shti", "kartoshka", "sabzi", "piyoz", "pomidor", "bulg‘or qalampiri", "no‘xat", "kashnich"], "steps": ["Go‘shtni sovuq suvdan boshlab qaynatib, yuzaga chiqqan ko‘pikni muntazam oling.", "Ivitilgan no‘xatni qo‘shib, go‘sht yarim yumshaguncha past olovda pishiring.", "Piyoz, sabzi, pomidor, qalampir va kartoshkani navbati bilan solib, sabzavotlarni ezib yubormang.", "Tuz va ziravorni oxirida rostlab, kashnich sepilgan holda issiq piyolalarda torting."]}, {"id": 8, "name": "Chuchvara", "category": "O‘zbek", "time": "70 daqiqa", "ingredients": ["Un", "tuxum", "suv", "mol qiymasi", "piyoz", "zira", "qora murch", "go‘shtli bulyon"], "steps": ["Un, tuxum va suvdan qattiqroq xamir qorib, ustini yopib yigirma daqiqa tindiring.", "Qiymaga juda mayda piyoz, zira va murch aralashtirib, bir xil namlikdagi ichlik tayyorlang.", "Xamirni yupqa yoyib kvadratlarga kesing; har biriga ozgina qiymadan solib uchlarini mahkam bosing.", "Chuchvaralarni qaynayotgan go‘shtli bulyonga tushirib, yuzaga chiqqach yana bir necha daqiqa pishiring."]}, {"id": 9, "name": "Manti", "category": "O‘zbek", "time": "75 daqiqa", "ingredients": ["Un", "tuxum", "suv", "qo‘y go‘shti", "dumba", "piyoz", "zira", "qatiq"], "steps": ["Xamirni tuxum va iliq suv bilan qorib, silliq holga kelguncha mushtlang va tindiring.", "Qo‘y go‘shti, dumba va piyozni pichoq bilan mayda chopib, zira va tuz bilan aralashtiring.", "Xamirni katta yupqa qatlam qilib yoyib, kvadratlarga bo‘ling va ichlikni markazga qo‘ying.", "Manti tugunlarini bug‘qozon qatlamlariga terib, bug‘da pishiring; qatiq bilan dasturxonga chiqaring."]}, {"id": 10, "name": "Lag‘mon", "category": "O‘zbek", "time": "90 daqiqa", "ingredients": ["Un", "suv", "tuz", "mol go‘shti", "piyoz", "sabzi", "qalampir", "karam", "pomidor"], "steps": ["Un, suv va tuzdan elastik xamir tayyorlab, yog‘lab dam oldiring va qo‘l bilan cho‘zib ugra qiling.", "Mol go‘shtini ingichka to‘g‘rab qizdirilgan qozonda qovuring, piyoz va sabzini qo‘shing.", "Qalampir, karam va pomidorni solib, sabzavotlar rangini saqlagan holda ozroq suv bilan qaynatib oling.", "Cho‘zma lag‘monni alohida qaynatib, suzib oling; ustidan quyuq say va yangi ko‘kat soling."]}, {"id": 11, "name": "Qovurma lag‘mon", "category": "O‘zbek", "time": "45 daqiqa", "ingredients": ["Lag‘mon ugra", "mol go‘shti", "piyoz", "bulg‘or qalampiri", "pomidor", "sarimsoq", "soya sousi"], "steps": ["Qaynatilgan lag‘monni suzib, yopishmasligi uchun ozgina yog‘ bilan aralashtiring.", "Qizigan wokda mol go‘shtini tez qovurib, piyoz va qalampirni qo‘shing.", "Pomidor va sarimsoqni tushirib, soya sousi bilan quyuq qovurma tayyorlang.", "Ugrani wokka qaytarib, kuchli olovda barcha masalliq bilan ikki-uch daqiqa qovuring."]}, {"id": 12, "name": "Dimlama", "category": "O‘zbek", "time": "100 daqiqa", "ingredients": ["Qo‘y go‘shti", "kartoshka", "karam", "sabzi", "pomidor", "piyoz", "bulg‘or qalampiri", "sarimsoq"], "steps": ["Qozon tubiga yog‘sizroq go‘sht bo‘laklarini terib, ustidan piyoz va sabzi qatlamini joylang.", "Kartoshka, pomidor, qalampir va karamni navbatma-navbat zich qilib tering.", "Tuz va ziravorni qatlamlar orasiga tarqating, yarim stakan suv quyib qopqog‘ini mahkam yoping.", "Past olovda o‘z bug‘ida pishiring; tortishda qatlamlarni buzmasdan katta laganga ag‘daring."]}, {"id": 13, "name": "Norin", "category": "O‘zbek", "time": "120 daqiqa", "ingredients": ["Un", "tuxum", "suv", "ot go‘shti", "qazi", "piyoz", "qora murch", "zira"], "steps": ["Ot go‘shti va qazini alohida qaynating, sovigach juda yupqa tolalar qilib kesing.", "Un, tuxum va suvdan qattiq xamir qorib, juda yupqa yoying va uzun tasmalarga kesing.", "Xamir tasmalarini qisqa qaynatib, suzib, sovuq suvda chayib yog‘ bilan ajrating.", "Ugrani go‘sht bilan aralashtirib, piyoz halqasi, zira va qora murch bilan sovuqroq holda torting."]}, {"id": 14, "name": "Qazi", "category": "O‘zbek", "time": "150 daqiqa", "ingredients": ["Ot go‘shti", "ot yog‘i", "ichak", "zira", "qora murch", "tuz"], "steps": ["Ot go‘shti va yog‘ini uzun tasmalarga kesib, zira, murch va tuz bilan bir tekis ziravorlang.", "Tozalangan ichakka go‘sht va yog‘ bo‘laklarini zich, lekin yorilmaydigan qilib joylang.", "Qazini ip bilan bog‘lab, bir necha joyidan igna bilan mayda teshik oching.", "Qaynashni kuchaytirmasdan uzoq pishiring; sovigach yupqa kesib, nonushta yoki norin bilan bering."]}, {"id": 15, "name": "Shashlik", "category": "O‘zbek", "time": "45 daqiqa", "ingredients": ["Qo‘y go‘shti", "dumba", "piyoz", "sirka", "zira", "paprika", "tuz"], "steps": ["Go‘shtni bir xil kubik qilib kesib, piyoz sharbati, sirka, zira va paprika bilan marinadlang.", "Dumba va go‘shtni navbat bilan sixga zichlab tering, ustiga tuz seping.", "Qizigan ko‘mir ustida sixlarni tez-tez aylantirib, tashqi qismini qizartiring.", "Go‘sht ichi shirali qolishi uchun ortiqcha pishirmang; piyoz va sirka bilan dasturxonga qo‘ying."]}, {"id": 16, "name": "Tuxum barak", "category": "O‘zbek", "time": "50 daqiqa", "ingredients": ["Un", "suv", "tuxum", "sut", "piyoz", "sariyog‘", "tuz", "qora murch"], "steps": ["Un va suvdan xamir qorib, yupqa doiralar kesib tayyorlang.", "Tuxum, sut, mayda piyoz, eritilgan sariyog‘ va murchni ko‘pirtirib suyuq ichlik qiling.", "Har bir xamir doirasiga ichlikdan quyib, chetlarini suv bilan namlab tezda choping.", "Qaynayotgan suvda baraklarni ehtiyotkorlik bilan pishirib, sariyog‘ va qatiq bilan torting."]}, {"id": 17, "name": "Ko‘k somsa", "category": "O‘zbek", "time": "60 daqiqa", "ingredients": ["Un", "suv", "ismaloq", "ko‘k piyoz", "kashnich", "yalpiz", "sariyog‘", "tuxum"], "steps": ["Ko‘katlarni mayda to‘g‘rab, ozgina tuz bilan qo‘l orasida yengil uqalang.", "Xamirni yupqa yoyib, sariyog‘ surtib qatlang va sovuting; so‘ng bo‘laklab yoying.", "Ko‘katli ichlikni solib uchburchak somsa qilib yoping, ustiga tuxum surting.", "Qizigan tandir yoki duxovkada qatlamlari qarsildoq bo‘lguncha pishiring."]}, {"id": 18, "name": "Go‘shtli somsa", "category": "O‘zbek", "time": "65 daqiqa", "ingredients": ["Un", "suv", "mol go‘shti", "dumba", "piyoz", "zira", "qora murch", "tuxum"], "steps": ["Mol go‘shti, dumba va piyozni qiymalagichdan o‘tkazmasdan pichoqda mayda choping.", "Ichlikni zira, qora murch va tuz bilan aralashtirib, yog‘i teng tarqalishiga e’tibor bering.", "Yupqa qatlangan xamirga ichlik solib, uchburchak shaklda mahkam yoping.", "Ustiga tuxum surtib, kunjut seping va yuqori haroratda ichi shirali qolguncha pishiring."]}, {"id": 19, "name": "Patir", "category": "O‘zbek", "time": "70 daqiqa", "ingredients": ["Un", "sut", "sariyog‘", "qo‘y yog‘i", "tuz", "kunjut"], "steps": ["Iliq sut, un va tuzdan yumshoq xamir qorib, iliq joyda tindiring.", "Xamirni yoyib, eritilgan sariyog‘ va qo‘y yog‘ini surtib qatlang, keyin yana dumaloqlang.", "Qo‘l bilan qalin patir shaklini bering, chetlarini chimchilab, o‘rtasiga naqsh tushiring.", "Ustiga kunjut sepib, tandir yoki qizigan pechda yuzi qizarib, ichi qatlamli bo‘lguncha pishiring."]}, {"id": 20, "name": "Obi non", "category": "O‘zbek", "time": "50 daqiqa", "ingredients": ["Un", "suv", "xamirturush", "tuz", "qatiq", "kunjut"], "steps": ["Un, iliq suv, xamirturush va tuzdan xamir qorib, hajmi oshguncha dam bering.", "Xamirni bo‘laklarga ajratib, dumaloqlang va ustini yopib yana qisqa tindiring.", "Markazini chekich bilan zich naqshlab, chetlarini qalinroq qoldiring va yuziga qatiq surtib kunjut seping.", "Qizigan tandir devoriga yoki toshga yopishtirib, usti qizarib pishguncha kuzating."]}, {"id": 21, "name": "Moshxo‘rda", "category": "O‘zbek", "time": "60 daqiqa", "ingredients": ["Mosh", "guruch", "mol go‘shti", "sabzi", "piyoz", "pomidor", "zira", "ko‘kat"], "steps": ["Moshni saralab yuvib, alohida yarim yumshaguncha qaynatib qo‘ying.", "Qozonda go‘sht va piyozni qovurib, pomidor hamda sabzini qo‘shing.", "Moshni zirvak bilan birlashtirib, suvini rostlang va guruchni keyinroq soling.", "Guruch yorilib pishgach zira va ko‘kat bilan ta’mini to‘ldirib, quyuq sho‘rva sifatida torting."]}, {"id": 22, "name": "Moshkichiri", "category": "O‘zbek", "time": "70 daqiqa", "ingredients": ["Mosh", "guruch", "mol go‘shti", "piyoz", "sabzi", "o‘simlik yog‘i", "zira", "tuz"], "steps": ["Moshni yuvib, quruq qozonda bir necha daqiqa isitib oling.", "Go‘sht va piyozni yog‘da qovurib, sabzini somoncha shaklida qo‘shing.", "Moshni zirvak bilan aralashtirib, ustidan suv quyib donlari yorila boshlaguncha pishiring.", "Yuvilgan guruchni solib, suvi tortilgach past olovda damlang; zira bilan hidini oching."]}, {"id": 23, "name": "Shivit oshi", "category": "O‘zbek", "time": "65 daqiqa", "ingredients": ["Un", "tuxum", "suv", "ukrop", "qatiq", "mol go‘shti", "piyoz", "sarimsoq"], "steps": ["Un, tuxum, suv va mayda ukropdan yashilroq xamir qorib, yupqa yoying.", "Xamirni ingichka kesib, qaynagan tuzli suvda pishiring va sovuq suvda chaying.", "Mayda go‘sht va piyozni alohida qovurib, sarimsoq bilan xushbo‘ylang.", "Ugrani qatiq bilan aralashtirib, ustidan issiq go‘shtli qovurma solib torting."]}, {"id": 24, "name": "Tandir go‘sht", "category": "O‘zbek", "time": "180 daqiqa", "ingredients": ["Qo‘y soni", "sarimsoq", "zira", "tuz", "piyoz", "kartoshka"], "steps": ["Qo‘y sonini suyak bo‘ylab bir necha joydan tilib, sarimsoq, zira va tuz bilan ishqalang.", "Go‘shtni yopiq idishda bir necha soat marinadlab, tandirni kuchli qizdiring.", "Go‘shtni tandirga osib, tagiga piyoz va kartoshka qo‘yib, issiqlikni barqaror saqlang.", "Tashqi qismi qarsildoq, ichi yumshoq bo‘lgach dam bering va go‘sht sharbatini kartoshkaga shimdiring."]}, {"id": 25, "name": "Kalla-pocha", "category": "O‘zbek", "time": "240 daqiqa", "ingredients": ["Qo‘y kalla go‘shti", "oyoq", "piyoz", "sabzi", "sarimsoq", "murch", "tuz"], "steps": ["Kalla va oyoqlarni yaxshilab tozalab, bir necha marta sovuq suvda yuving.", "Katta qozonda uzoq vaqt juda past olovda qaynatib, yuzaga chiqqan yog‘ni me’yorida oling.", "Piyoz, sabzi va sarimsoqni oxirgi bosqichda qo‘shib, bulonga tabiiy shirinlik bering.", "Go‘sht suyakdan oson ajralgach tuz va murchni rostlab, qaynoq holda torting."]}, {"id": 26, "name": "Qovurdoq", "category": "O‘zbek", "time": "50 daqiqa", "ingredients": ["Qo‘y go‘shti", "piyoz", "pomidor", "bulg‘or qalampiri", "dumba", "zira"], "steps": ["Dumbani mayda kubik qilib eritib, qolgan yog‘ida qo‘y go‘shtini tez qizartiring.", "Piyozni yarim halqa shaklida solib, go‘sht sharbatiga aralashtirib yumshating.", "Pomidor va qalampirni qo‘shib, suvi ozgina bug‘lanib quyuqlashguncha qovuring.", "Zira va tuz sepib, qozonni olovdan olgach besh daqiqa yopiq holda tindiring."]}, {"id": 27, "name": "Jiz", "category": "O‘zbek", "time": "45 daqiqa", "ingredients": ["Mol jigari", "yurak go‘shti", "dumba", "piyoz", "zira", "qora murch"], "steps": ["Jigar va yurakni bir xil mayda bo‘laklarga kesib, alohida tayyorlab qo‘ying.", "Dumba yog‘ini qizdirib avval yurak go‘shtini, keyin jigarni qisqa vaqt qovuring.", "Piyozni yirik halqalarda qo‘shib, chetlari karamellashguncha qizartiring.", "Zira va murchni oxirida seping; jizni darhol issiq non bilan torting."]}, {"id": 28, "name": "Moxora", "category": "O‘zbek", "time": "100 daqiqa", "ingredients": ["No‘xat", "qo‘y go‘shti", "piyoz", "sabzi", "pomidor", "guruch", "zira", "ko‘kat"], "steps": ["Ivitilgan no‘xatni go‘sht bilan birga qaynab, doni yumshay boshlaguncha pishiring.", "Piyoz va sabzini alohida qovurib, pomidor bilan quyuq asos tayyorlang.", "Asosni sho‘rvaga qo‘shib, oz miqdorda guruch tushiring va donlar yorilguncha pishiring.", "Zira va ko‘kat bilan yakunlab, moxorani quyuq, to‘yimli sho‘rva sifatida bering."]}, {"id": 29, "name": "Halisa", "category": "O‘zbek", "time": "240 daqiqa", "ingredients": ["Bug‘doy", "mol go‘shti", "piyoz", "sariyog‘", "zira", "tuz"], "steps": ["Bug‘doyni bir kecha ivitib, suvini almashtirib yuving.", "Mol go‘shtini bug‘doy bilan katta qozonda uzoq qaynatib, donlar yorilishini kuting.", "Aralashmani yog‘och kurak bilan ezib, go‘sht tolalarini bo‘tqaga singdiring.", "Sariyog‘, zira va tuz bilan ta’mni rostlab, juda issiq holda kichik kosalarda torting."]}, {"id": 30, "name": "Sumalak", "category": "O‘zbek", "time": "720 daqiqa", "ingredients": ["Un", "bug‘doy", "suv", "o‘simlik moyi", "toshcha"], "steps": ["Bug‘doyni undirib, yashil nihollarni yuvib maydalang va suv bilan siqib sharbat oling.", "Sharbatni suzib, un bilan silliq aralashtirib katta qozonga quying.", "Qaynash boshlangach moy va toza toshchalarni solib, tagi tutmasligi uchun muntazam kovlang.", "Uzoq vaqt past olovda pishirib, rangi to‘q va quyuq bo‘lganda damga qo‘ying."]}, {"id": 31, "name": "Halva", "category": "O‘zbek", "time": "35 daqiqa", "ingredients": ["Un", "sariyog‘", "shakar", "suv", "yong‘oq", "vanilin"], "steps": ["Sariyog‘ni eritib, unni qo‘shing va past olovda ranggi och jigarrang bo‘lguncha tinimsiz kovlang.", "Alohida idishda shakar va suvdan quyuqroq sirop tayyorlang.", "Issiq siropni unli qorishmaga oz-ozdan qo‘shib, sachramasligi uchun ehtiyotkorlik bilan aralashtiring.", "Yong‘oq va vanilin solib, massa qalinlashgach qolipga bosib sovuting."]}, {"id": 32, "name": "Nisholda", "category": "O‘zbek", "time": "45 daqiqa", "ingredients": ["Tuxum oqi", "shakar", "limon kislotasi", "sovun o‘ti ildizi damlamasi"], "steps": ["Sovun o‘ti ildizidan tayyorlangan damlamani sovitib, mayda elakdan o‘tkazing.", "Tuxum oqini ko‘pirtirib, asta-sekin shakar qo‘shib zich ko‘pik hosil qiling.", "Ildiz damlamasini oz-ozdan qo‘shib, massa oq va ipaksimon bo‘lguncha ko‘pirtiring.", "Limon kislotasi bilan ta’mni muvozanatlab, sovutilgan holda piyolalarda bering."]}, {"id": 33, "name": "Parvarda", "category": "O‘zbek", "time": "40 daqiqa", "ingredients": ["Shakar", "suv", "limon sharbati", "un", "vanilin"], "steps": ["Shakar va suvni qaynating, limon sharbati bilan kristallanishni nazorat qiling.", "Siropni sovuq suvga tomizib qattiq shar shakliga keladigan darajaga yetkazing.", "Issiq massani moylangan yuzaga olib, soviguncha cho‘zib-qatlab oqartiring.", "Uzun tasma qilib kesib, yengil unlab bir xil parvarda bo‘laklariga ajrating."]}, {"id": 34, "name": "Qiyma kabob", "category": "O‘zbek", "time": "35 daqiqa", "ingredients": ["Qo‘y qiymasi", "piyoz", "dumba", "zira", "kashnich", "tuz"], "steps": ["Qiymaga mayda piyoz va maydalangan dumbani qo‘shib, qo‘l bilan uzoq aralashtiring.", "Zira, kashnich va tuz solib, massa yopishqoq bo‘lib qolguncha yana mushtlang.", "Nam qo‘l bilan qiymani yassi sixlarga mahkam yopishtiring.", "Qizigan ko‘mir ustida tez-tez aylantirib pishiring, chetlari qizarishi bilan dasturxonga chiqaring."]}, {"id": 35, "name": "Tovuq shashlik", "category": "O‘zbek", "time": "40 daqiqa", "ingredients": ["Tovuq son go‘shti", "qatiq", "piyoz", "paprika", "sarimsoq", "tuz"], "steps": ["Tovuq sonini terisiz yirik bo‘laklarga kesib, qatiq, paprika va sarimsoq bilan marinadlang.", "Piyoz sharbatini marinadga qo‘shib, kamida bir soat sovuqda ushlang.", "Bo‘laklarni sixga bo‘shroq terib, ko‘mir ustida har tomonni alohida qizartiring.", "Ichki harorat yetarli bo‘lgach olib, besh daqiqa dam berib piyoz bilan torting."]}, {"id": 36, "name": "Qovoqli manti", "category": "O‘zbek", "time": "70 daqiqa", "ingredients": ["Un", "tuxum", "qovoq", "piyoz", "dumba", "zira", "murch"], "steps": ["Qovoqni mayda kubik qilib, piyoz va dumba bilan aralashtiring.", "Zira, murch va tuz qo‘shib, qovoq sharbatini chiqarib yubormasdan ichlikni tayyorlang.", "Yupqa xamir kvadratlariga qovoqli aralashmadan solib, manti shaklida tuging.", "Bug‘qozonda qovoq yumshaguncha pishirib, ustiga qatiq va eritilgan sariyog‘ qo‘ying."]}, {"id": 37, "name": "Kartoshkali somsa", "category": "O‘zbek", "time": "60 daqiqa", "ingredients": ["Un", "suv", "kartoshka", "piyoz", "sariyog‘", "zira", "murch"], "steps": ["Kartoshkani mayda kubik, piyozni esa yarim halqa qilib tayyorlang.", "Kartoshka, piyoz, sariyog‘ va zirani xom holda aralashtirib, ichlikni nam saqlang.", "Qatlangan xamirga ichlikni solib uchburchak yoki to‘rtburchak somsa yoping.", "Ustiga tuxum surtib, kunjut sepib, qizigan pechda kartoshka to‘liq yumshaguncha pishiring."]}, {"id": 38, "name": "Qovoq somsa", "category": "O‘zbek", "time": "55 daqiqa", "ingredients": ["Un", "suv", "qovoq", "piyoz", "dumba", "zira", "qora murch"], "steps": ["Qovoqni yirik qirg‘ichdan chiqarib, ortiqcha suvini qo‘l bilan siqing.", "Piyoz va dumbani mayda chopib, qovoq bilan zira va murchga aralashtiring.", "Xamirni qatlamlab yoyib, ichlikni markazga mo‘l qilib joylashtiring va chetlarini mahkam yoping.", "Yuziga tuxum sarig‘i surtib, yuqori haroratda qarsildoq qobiq hosil bo‘lguncha pishiring."]}, {"id": 39, "name": "Qatiqli osh", "category": "O‘zbek", "time": "50 daqiqa", "ingredients": ["Guruch", "qatiq", "tuxum", "un", "yalpiz", "sariyog‘", "tuz"], "steps": ["Guruchni yuvib, tuzli suvda donlari ochilguncha qaynatib suzib oling.", "Qatiq, tuxum va unni sovuq holda silliq aralashtirib, keyin ozroq iliq suv bilan suyultiring.", "Aralashmani past olovga qo‘yib, tuxum kesilmasligi uchun bir yo‘nalishda kovlab isitib oling.", "Guruchni qo‘shib, sariyog‘ va quruq yalpiz bilan issiq holda torting."]}, {"id": 40, "name": "Achichuk", "category": "O‘zbek", "time": "10 daqiqa", "ingredients": ["Pomidor", "piyoz", "achchiq qalampir", "kashnich", "tuz"], "steps": ["Pomidorlarni juda yupqa yarim oy shaklida kesing.", "Piyozni ingichka halqa qilib, achchiq qalampirni mayda to‘g‘rang.", "Pomidor va piyozni tuz bilan yengil siqib, sharbatini chiqaring.", "Kashnich sepib, osh yoki kabob yonida darhol yangi salat sifatida bering."]}, {"id": 41, "name": "Achchiq-chuchuk salat", "category": "O‘zbek", "time": "15 daqiqa", "ingredients": ["Bodring", "pomidor", "piyoz", "achchiq qalampir", "sirka", "shakar", "tuz"], "steps": ["Bodringni qiya yupqa, pomidorni esa yirikroq bo‘laklarda kesing.", "Piyozni sovuq suvda qisqa chayib, achchiqligini yumshating.", "Sirka, ozgina shakar va tuzdan yengil marinad tayyorlang.", "Sabzavotlarni marinad bilan aralashtirib, o‘n daqiqa sovutib torting."]}, {"id": 42, "name": "Suzma", "category": "O‘zbek", "time": "20 daqiqa", "ingredients": ["Qatiq", "tuz", "ko‘kat", "sarimsoq", "zaytun moyi"], "steps": ["Qatiqni toza dokaga solib, suvi chiqishi uchun bir necha soat osib qo‘ying.", "Quyuqlashgan suzmani kosaga olib, tuz bilan yaxshilab aralashtiring.", "Mayda ukrop va sarimsoq qo‘shib, bir xil massa hosil qiling.", "Ustidan ozgina moy tomizib, non bilan sovuq holda dasturxonga qo‘ying."]}, {"id": 43, "name": "Qatiqli bodring", "category": "O‘zbek", "time": "15 daqiqa", "ingredients": ["Bodring", "qatiq", "sarimsoq", "ukrop", "tuz", "qora murch"], "steps": ["Bodringni mayda kubik qilib, suvli bo‘lsa ortiqcha namini to‘kib tashlang.", "Qatiqni ezilgan sarimsoq va tuz bilan silliqlang.", "Bodring va qatiqni sovuq holda aralashtirib, ukrop qo‘shing.", "Qora murch sepib, muzlatkichda o‘n daqiqa tindirib salqin garnir sifatida bering."]}, {"id": 44, "name": "Beshbarmoq", "category": "Markaziy Osiyo", "time": "110 daqiqa", "ingredients": ["Un", "tuxum", "qo‘y go‘shti", "piyoz", "qora murch", "go‘sht bulyoni"], "steps": ["Qo‘y go‘shtini katta bo‘laklarda sekin qaynatib, bulyonni tiniq saqlang.", "Un va tuxumdan qattiq xamir qorib, yupqa yoyib keng romb shaklida kesing.", "Xamir bo‘laklarini go‘sht bulyonida qisqa pishirib, laganga yoying.", "Ustiga tolalangan go‘sht va bug‘da yumshatilgan piyozni qo‘yib, murch seping."]}, {"id": 45, "name": "Qurdoq", "category": "Qozog‘iston", "time": "55 daqiqa", "ingredients": ["Qo‘y go‘shti", "kartoshka", "piyoz", "sabzi", "dumba", "murch"], "steps": ["Dumbani eritib, qo‘y go‘shti bo‘laklarini yuzasi qizarguncha qovuring.", "Piyoz va sabzini go‘sht yog‘ida navbat bilan yumshating.", "Kartoshkani yirik bo‘laklarda qo‘shib, qozon og‘zini yopib o‘z bug‘ida pishiring.", "Murch va tuzni oxirida rostlab, qozonning tagidagi qovurilgan yog‘ bilan aralashtirib torting."]}, {"id": 46, "name": "Baursak", "category": "Qozog‘iston", "time": "70 daqiqa", "ingredients": ["Un", "sut", "tuxum", "xamirturush", "shakar", "tuz", "yog‘"], "steps": ["Iliq sutga xamirturush va shakar solib, faollashishini kuting.", "Tuxum va un bilan yumshoq xamir qorib, ikki baravar ko‘tarilguncha dam bering.", "Xamirni mayda romblarga kesib, bo‘laklarni qisqa vaqt yana tindiring.", "Qizigan yog‘da bo‘laklarni aylantirib oltinrang qiling va ortiqcha yog‘ini suzdiring."]}, {"id": 47, "name": "Kuurdak", "category": "Qirg‘iziston", "time": "60 daqiqa", "ingredients": ["Qo‘y go‘shti", "kartoshka", "piyoz", "bulg‘or qalampiri", "zira"], "steps": ["Qo‘y go‘shtini qalin qozonda o‘z yog‘ida qizartirib oling.", "Piyoz va qalampirni go‘shtga qo‘shib, kuchli olovda rangini saqlagan holda qovuring.", "Kartoshkani alohida yengil qizartirib, go‘shtli qozonga qaytaring.", "Zira sepib, qopqoq ostida qisqa dam bering; kartoshka shaklini saqlashi kerak."]}, {"id": 48, "name": "Boorsok", "category": "Qirg‘iziston", "time": "65 daqiqa", "ingredients": ["Un", "sut", "sariyog‘", "xamirturush", "tuz", "yog‘"], "steps": ["Iliq sut, xamirturush va sariyog‘dan xamir boshlang‘ichini tayyorlang.", "Un va tuz qo‘shib yumshoq xamir qorib, issiq joyda ko‘taring.", "Xamirni yoyib kichik to‘rtburchaklarga kesing.", "Bo‘laklarni qizigan yog‘da shishib, ichi pishguncha qovuring; choy bilan bering."]}, {"id": 49, "name": "Lagman qirg‘izcha", "category": "Qirg‘iziston", "time": "85 daqiqa", "ingredients": ["Qo‘l cho‘zma ugra", "mol go‘shti", "piyoz", "rediska", "qalampir", "pomidor"], "steps": ["Ugrani qo‘l bilan cho‘zib, tuzli suvda pishirib sovuq suv bilan chaying.", "Mol go‘shtini ingichka kesib, qozonda piyoz bilan qovuring.", "Rediska, qalampir va pomidorni qo‘shib, ozroq bulyon bilan quyuq say tayyorlang.", "Ugrani say bilan birlashtirib, ustiga ko‘kat va achchiq qalampir soling."]}, {"id": 50, "name": "Manty qirg‘izcha", "category": "Qirg‘iziston", "time": "80 daqiqa", "ingredients": ["Un", "tuxum", "qo‘y go‘shti", "piyoz", "qovoq", "dumba", "zira"], "steps": ["Qo‘y go‘shti va piyozni mayda chopib, qovoq kubiklari bilan aralashtiring.", "Dumbani qo‘shib, zira va tuz bilan ichlikni shirali qiling.", "Yupqa xamirga ichlik solib, to‘rt burchagini markazda birlashtiring.", "Bug‘da uzoqroq pishirib, ustiga eritilgan sariyog‘ va qatiq qo‘ying."]}, {"id": 51, "name": "Ashlan-fu", "category": "Qirg‘iziston", "time": "50 daqiqa", "ingredients": ["Kraxmal", "guruch sirkasi", "lag‘mon ugra", "bodring", "achchiq qalampir", "tuxum"], "steps": ["Kraxmalni suvda pishirib tiniq jele hosil qiling, sovigach ingichka kesing.", "Ugrani alohida qaynatib, sovuq suvda chayib qo‘ying.", "Sirka, qalampir va sarimsoqdan nordon-achchiq sous tayyorlang.", "Bodring, jele va ugrani qatlamlab, sous va yupqa tuxum omletini ustiga qo‘ying."]}, {"id": 52, "name": "Jarkop", "category": "Qirg‘iziston", "time": "65 daqiqa", "ingredients": ["Mol go‘shti", "kartoshka", "piyoz", "sabzi", "pomidor", "qalampir"], "steps": ["Go‘shtni qalin bo‘laklarda qizartirib, piyozni qo‘shib shaffoflashtiring.", "Sabzi va qalampirni tushirib, pomidor bilan qovurma asosini yarating.", "Kartoshkani yirik bo‘laklarda qo‘shib, ozroq suv bilan qopqoq ostida pishiring.", "Suyuqlik deyarli bug‘langach, kartoshka chetlarini qizartirib, issiq holda torting."]}, {"id": 53, "name": "Kymyz bilan baursak nonushtasi", "category": "Qirg‘iziston", "time": "70 daqiqa", "ingredients": ["Un", "sut", "xamirturush", "tuxum", "yog‘", "shakar", "tuz"], "steps": ["Xamirni sut va xamirturush bilan ko‘tarib, tuxum va un bilan boyiting.", "Yumshoq xamirni kichik bo‘laklarga bo‘lib, barmoq bilan yengil yassilang.", "Qizigan yog‘da bo‘laklarni puflab, ichini to‘liq pishiring.", "Issiq boorsokni sovutilgan qimiz va qaymoq bilan nonushtaga bering."]}, {"id": 54, "name": "Oromo", "category": "Qirg‘iziston", "time": "100 daqiqa", "ingredients": ["Un", "suv", "kartoshka", "piyoz", "sabzi", "qiyma", "zira"], "steps": ["Un va suvdan yupqa xamir qorib, katta to‘rtburchak qilib yoying.", "Kartoshka, piyoz, sabzi va qiymani juda mayda to‘g‘rab xamir yuziga bir tekis tarqating.", "Xamirni uzun rulet qilib o‘rab, bo‘laklarga kesing va bug‘qozonga tik joylang.", "Bug‘da qatlamlari pishguncha dimlab, bo‘laklarni ustma-ust emas, alohida torting."]}, {"id": 55, "name": "Kesme", "category": "Qozog‘iston", "time": "70 daqiqa", "ingredients": ["Un", "tuxum", "mol go‘shti", "piyoz", "sabzi", "kartoshka", "bulyon"], "steps": ["Mol go‘shtini suyakli bulyonda qaynatib, go‘shtni ajrating.", "Xamirni yoyib, pichoq bilan notekis keng lentalarga kesing.", "Sabzi va kartoshkani bulyonda navbat bilan yumshating, so‘ng kesmani tushiring.", "Xamir pishgach go‘shtni qaytaring va ustiga piyoz hamda ko‘kat soling."]}, {"id": 56, "name": "Basma", "category": "Turkmaniston", "time": "120 daqiqa", "ingredients": ["Qo‘y go‘shti", "karam", "kartoshka", "sabzi", "piyoz", "pomidor", "qalampir"], "steps": ["Qalin qozon tagiga qo‘y go‘shtini joylab, ustidan piyoz qatlamini qo‘ying.", "Sabzi, kartoshka, pomidor va qalampirni suv qo‘shmasdan navbat bilan tering.", "Eng ustini butun karam barglari bilan yopib, qozon qopqog‘ini juda mahkam berkiting.", "Past olovda sabzavotlarning o‘z bug‘ida pishiring va katta laganga qatlamlab ag‘daring."]}, {"id": 57, "name": "Dog‘rama", "category": "Turkmaniston", "time": "80 daqiqa", "ingredients": ["Qo‘y go‘shti", "non", "piyoz", "pomidor", "qalampir", "bulyon"], "steps": ["Qo‘y go‘shtini bulyonda yumshaguncha qaynatib, go‘shtni tolalang.", "Yupqa nonni mayda bo‘laklab katta kosaga joylashtiring.", "Issiq bulyonni non ustiga quyib, go‘sht va qovurilgan piyozni qo‘shing.", "Pomidor va qalampir bilan bezab, non suyuqlikni shimishi bilan torting."]}, {"id": 58, "name": "Chorek", "category": "Turkmaniston", "time": "65 daqiqa", "ingredients": ["Un", "suv", "xamirturush", "tuz", "kunjut", "sariyog‘"], "steps": ["Un, suv, xamirturush va tuzdan zich xamir qorib, iliq joyda ko‘taring.", "Xamirni tekis doira qilib yoyib, chetini qalinroq qoldiring.", "Markazini chekich bilan naqshlab, sariyog‘ surting va kunjut seping.", "Qizigan tandirda tagi qizarguncha pishirib, issiq holda bo‘lib bering."]}, {"id": 59, "name": "Manti turkmancha", "category": "Turkmaniston", "time": "80 daqiqa", "ingredients": ["Un", "tuxum", "qo‘y go‘shti", "piyoz", "qovoq", "zira"], "steps": ["Qattiq xamirni tuxum bilan qorib, dam bergach juda yupqa yoying.", "Qo‘y go‘shti va qovoqni mayda chopib, piyoz hamda zira bilan aralashtiring.", "Ichlikni katta kvadratlarga solib, uchlarini xaltacha kabi birlashtiring.", "Bug‘da pishirib, qovoq shirinligi ochilgach sarimsoqli qatiq bilan bering."]}, {"id": 60, "name": "Unash", "category": "Turkmaniston", "time": "75 daqiqa", "ingredients": ["Un", "tuxum", "qo‘y go‘shti", "piyoz", "sabzi", "kartoshka"], "steps": ["Xamirni tuxum bilan qorib, yupqa yoying va mayda tasmalarga kesing.", "Qo‘y go‘shtini piyoz bilan qovurib, sabzi va kartoshka qo‘shing.", "Suv quyib sabzavotlar yarim pishganda xamir tasmasini sho‘rvaga tushiring.", "Xamir yumshagach tuz va murchni rostlab, bulyoni bilan kosalarga suzing."]}, {"id": 61, "name": "Yarma", "category": "Turkmaniston", "time": "60 daqiqa", "ingredients": ["Bug‘doy yormasi", "qo‘y go‘shti", "piyoz", "sabzi", "sariyog‘", "tuz"], "steps": ["Bug‘doy yormasini chayib, qo‘y go‘shti bulyonida yumshating.", "Piyoz va sabzini sariyog‘da sekin qovurib, yormaga qo‘shing.", "Aralashmani past olovda suyuqligi kamayib quyuqlashguncha dimlang.", "Go‘shtni tolalab ustiga joylang va issiq bo‘tqa sifatida torting."]}, {"id": 62, "name": "Etli borek", "category": "Turkiya", "time": "55 daqiqa", "ingredients": ["Yufka xamiri", "mol qiymasi", "piyoz", "petrushka", "tuxum", "yog‘"], "steps": ["Qiymani piyoz bilan qovurib, suvi bug‘langach petrushka qo‘shing.", "Yufka qatlamiga ichlikni ingichka yoyib, rulon qilib o‘rang.", "Rulonlarni spiral yoki patnisga aylana shaklida joylashtiring.", "Tuxum va yog‘ aralashmasini surtib, usti qatlamli va qarsildoq bo‘lguncha pishiring."]}, {"id": 63, "name": "Çäk-çäk", "category": "Tatariston", "time": "55 daqiqa", "ingredients": ["Un", "tuxum", "asal", "shakar", "sariyog‘"], "steps": ["Tuxum va undan qattiq xamir qorib, mayda ipchalar yoki no‘xatcha bo‘laklar kesing.", "Bo‘laklarni qizigan yog‘da tez qovurib, oltinrang bo‘lganda suzib oling.", "Asal va shakarni birga isitib, yopishqoq sirop tayyorlang.", "Qovurilgan xamirni sirop bilan aralashtirib, nam qo‘l bilan uyum shaklida zichlang."]}, {"id": 64, "name": "Echpochmak", "category": "Tatariston", "time": "75 daqiqa", "ingredients": ["Un", "mol go‘shti", "kartoshka", "piyoz", "sariyog‘", "tuxum"], "steps": ["Xamirturushli xamirni yumshoq qorib, ikki baravar ko‘tarilguncha tindiring.", "Mol go‘shti, kartoshka va piyozni mayda kubiklarda aralashtiring.", "Xamir doirasiga ichlik solib, uch burchagini birlashtirib uchburchak pirog yoping.", "Ustiga tuxum surtib pishiring; oxirida markaziy teshigidan ozgina bulyon quyib yana qizdiring."]}, {"id": 65, "name": "Kystyby", "category": "Tatariston", "time": "50 daqiqa", "ingredients": ["Un", "sut", "kartoshka", "sariyog‘", "piyoz", "tuz"], "steps": ["Kartoshkani qaynatib, sariyog‘ va qovurilgan piyoz bilan silliq pyure qiling.", "Un va sutdan xamirturushsiz yumshoq xamir qorib, yupqa doiralar yoying.", "Doiralarni quruq tovda ikki tomondan dog‘lang.", "Bir tomoniga kartoshka solib yarim oy qilib yoping, ustini sariyog‘ bilan yaltiroq qiling."]}, {"id": 66, "name": "Peremech", "category": "Tatariston", "time": "65 daqiqa", "ingredients": ["Un", "xamirturush", "mol qiymasi", "piyoz", "sut", "yog‘"], "steps": ["Sutli xamirturushli xamir tayyorlab, yumshoq va elastik holga keltiring.", "Qiymani piyoz, tuz va murch bilan nam ichlik qiling.", "Xamir bo‘lagini yassilab, o‘rtasiga qiymani qo‘ying va chetlarini burmali qilib qoldiring.", "Yog‘da avval qiymali tomoni pastga qarab, keyin aylantirib qovuring."]}, {"id": 67, "name": "Plov tatar", "category": "Tatariston", "time": "90 daqiqa", "ingredients": ["Guruch", "mol go‘shti", "sabzi", "piyoz", "mayiz", "zira"], "steps": ["Mol go‘shtini piyoz bilan qovurib, sabzi va mayizni qo‘shing.", "Ziravorli go‘shtli asosni ozroq suv bilan yumshating.", "Guruchni ustiga tekis yoyib, qaynoq suv bilan namlang va donlarni aralashtirmang.", "Suv tortilgach teshiklar ochib, past olovda damlang va mayizni ustiga chiqaring."]}, {"id": 68, "name": "Orochka", "category": "Tatariston", "time": "45 daqiqa", "ingredients": ["Kartoshka", "bodring", "tuxum", "qatiq", "ko‘k piyoz", "ukrop", "tuz"], "steps": ["Kartoshka va tuxumni alohida qaynatib, sovigach kubiklang.", "Bodring va ko‘k piyozni maydalab, qaynatilgan mahsulotlarga qo‘shing.", "Qatiqni sovuq suv bilan suyultirib, tuz va ukrop bilan aralashtiring.", "Suyuq asosni salatga quyib, muzlatkichda sovutib torting."]}, {"id": 69, "name": "Kazan kabob tatar", "category": "Tatariston", "time": "80 daqiqa", "ingredients": ["Mol go‘shti", "kartoshka", "piyoz", "dumba", "paprika", "murch"], "steps": ["Dumbani qozonda eritib, mol go‘shtini kuchli olovda qizartiring.", "Kartoshkani yirik bo‘laklarda alohida qizarib olguncha qovuring.", "Go‘shtga piyoz va paprika qo‘shib, qovurilgan kartoshkani qaytaring.", "Qopqoq ostida qisqa dimlab, qora murch bilan issiq holda torting."]}, {"id": 70, "name": "Mantı tatar", "category": "Tatariston", "time": "80 daqiqa", "ingredients": ["Un", "tuxum", "mol go‘shti", "piyoz", "kartoshka", "sariyog‘"], "steps": ["Xamirni tuxum bilan qorib, yupqa yoying va katta kvadratlarga kesing.", "Mol go‘shti, kartoshka va piyozni mayda kubiklarda birlashtiring.", "Ichlikni xamirga solib, qarama-qarshi burchaklarni biriktirib tuging.", "Bug‘da pishirib, har bir mantining ustiga kichik sariyog‘ bo‘lagini qo‘ying."]}, {"id": 71, "name": "Köfte", "category": "Turkiya", "time": "45 daqiqa", "ingredients": ["Mol qiymasi", "piyoz", "non uvog‘i", "tuxum", "zira", "petrushka"], "steps": ["Qiymaga ivitilgan non uvog‘i, tuxum va maydalangan piyozni qo‘shing.", "Petrushka, zira va tuz solib, massa bir xil bo‘lguncha qo‘l bilan aralashtiring.", "Uzunchoq köfte shakllantirib, tovaga ozroq yog‘ solib ikki tomonini qizartiring.", "Ichini to‘liq pishirish uchun qopqoq ostida bir necha daqiqa dimlang."]}, {"id": 72, "name": "Menemen", "category": "Turkiya", "time": "20 daqiqa", "ingredients": ["Tuxum", "pomidor", "yashil qalampir", "sariyog‘", "piyoz", "tuz"], "steps": ["Sariyog‘da piyoz va yashil qalampirni yumshaguncha qovuring.", "Po‘sti archilgan pomidorlarni maydalab qo‘shib, suvi quyuqlashguncha pishiring.", "Tuxumlarni alohida ko‘pirtirmasdan pomidorli asosga sindiring.", "Sarig‘ini biroz suyuq qoldirib, to‘g‘ridan-to‘g‘ri tovasi bilan issiq non yonida torting."]}, {"id": 73, "name": "Gözleme", "category": "Turkiya", "time": "45 daqiqa", "ingredients": ["Un", "suv", "ismaloq", "oq pishloq", "piyoz", "yog‘"], "steps": ["Un va suvdan elastik xamir qorib, kichik bo‘laklarga ajrating.", "Ismaloq va piyozni qisqa qovurib, sovigach oq pishloq bilan aralashtiring.", "Xamirni juda yupqa yoyib, ichlikni yarim yuziga solib yoping.", "Quruq yoki juda oz yog‘li tovda ikki tomonini dog‘lab, issiq paytda sariyog‘ surting."]}, {"id": 74, "name": "Imam bayildi", "category": "Turkiya", "time": "60 daqiqa", "ingredients": ["Baqlajon", "piyoz", "pomidor", "sarimsoq", "zaytun moyi", "petrushka"], "steps": ["Baqlajonlarni uzun kesib, tuzlab achchiq suvini chiqarib quriting.", "Piyozni zaytun moyida sekin karamellab, pomidor va sarimsoq bilan shirin ichlik qiling.", "Baqlajonlarni qizartirib, o‘rtasini ochib piyozli aralashma bilan to‘ldiring.", "Past haroratda pomidor sharbati singguncha dimlab, petrushka bilan sovuq yoki iliq torting."]}, {"id": 75, "name": "Dolma", "category": "Turkiya", "time": "90 daqiqa", "ingredients": ["Uzum bargi", "guruch", "mol qiymasi", "piyoz", "yalpiz", "limon"], "steps": ["Uzum barglarini qaynoq suvda qisqa yumshatib, tomirli qismini tekislang.", "Guruch, qiymа, piyoz, yalpiz va limondan xom ichlik tayyorlang.", "Barglarga kichik miqdorda ichlik solib, ikki yonini bukib zich rulon qiling.", "Dolmalarni qozonga zich terib, ustiga limon va suv quyib past olovda dimlang."]}, {"id": 76, "name": "Lahmacun", "category": "Turkiya", "time": "50 daqiqa", "ingredients": ["Un", "xamirturush", "mol qiymasi", "pomidor", "qalampir", "piyoz", "petrushka"], "steps": ["Xamirturushli xamirni yumshoq qorib, yupqa dumaloqlar qilib yoying.", "Qiymani pomidor, piyoz, qalampir va petrushka bilan xom holda juda mayda aralashtiring.", "Aralashmani xamir yuziga chetigacha yupqa surtib chiqing.", "Juda qizigan pechda qisqa pishirib, issiq paytda limon va ko‘kat bilan o‘rang."]}, {"id": 77, "name": "Pide", "category": "Turkiya", "time": "55 daqiqa", "ingredients": ["Un", "xamirturush", "mol qiymasi", "piyoz", "pomidor", "pishloq", "tuxum"], "steps": ["Xamirni ko‘tarib, uzun qayiq shaklida yoying va chetlarini qalinroq qoldiring.", "Qiymali ichlikni piyoz va pomidor bilan tayyorlab xamirga soling.", "Ba’zi pidelarga pishloq va tuxum qo‘shib, chetlariga sariyog‘ surting.", "Toshdek qizigan pechda tagi qarsildoq, usti pishguncha pishiring."]}, {"id": 78, "name": "Moussaka", "category": "Gretsiya", "time": "90 daqiqa", "ingredients": ["Baqlajon", "mol qiymasi", "pomidor", "piyoz", "kartoshka", "sut", "un", "pishloq"], "steps": ["Baqlajon va kartoshka bo‘laklarini alohida qizartirib, ortiqcha yog‘ini shimdiring.", "Qiymani piyoz va pomidor bilan dimlab, dolchin va murch bilan xushbo‘ylang.", "Un, sut va pishloqdan quyuq bechamel tayyorlang.", "Qolipda kartoshka, baqlajon, qiymali sous va bechamelni qatlab, yuzini tillarang qiling."]}, {"id": 79, "name": "Gyro pita", "category": "Gretsiya", "time": "40 daqiqa", "ingredients": ["Pita noni", "tovuq", "qatiq", "bodring", "pomidor", "piyoz", "oregano"], "steps": ["Tovuqni qatiq, oregano, sarimsoq va limon bilan marinadlab, ingichka qovuring.", "Bodring va qatiqdan tzatziki tayyorlab, sarimsoq va tuz bilan ta’mini rostlang.", "Pita nonini qizdirib, markaziga tovuq, pomidor va piyoz joylang.", "Tzatziki solib, nonni zich o‘rang va darhol issiq holda bering."]}, {"id": 80, "name": "Spanakopita", "category": "Gretsiya", "time": "70 daqiqa", "ingredients": ["Filo xamiri", "ismaloq", "feta pishlog‘i", "tuxum", "ukrop", "sariyog‘"], "steps": ["Ismaloqni quruq tovda suvini chiqarguncha dimlab, sovitib siqing.", "Feta, tuxum, ukrop va ismaloqni maydalab ichlik qiling.", "Filo qatlamlarini sariyog‘ bilan navbatlab surib, ichlikni o‘rtaga joylang.", "Ustki qatlamlarni ham sariyog‘lab, qizarguncha pishiring va kesishdan oldin tindiring."]}, {"id": 81, "name": "Ratatouille", "category": "Fransiya", "time": "65 daqiqa", "ingredients": ["Baqlajon", "kabachki", "pomidor", "bulg‘or qalampiri", "piyoz", "sarimsoq", "timyan"], "steps": ["Piyoz va sarimsoqni zaytun moyida yumshatib, pomidor sousining asosini yarating.", "Baqlajon, kabachki va qalampirni alohida yengil qizartirib, namligini kamaytiring.", "Sabzavotlarni pomidor sousiga aralashtirib, timyan bilan sekin dimlang.", "Har bir sabzavot shakli saqlanadigan paytda olovdan olib, iliq garnir sifatida torting."]}, {"id": 82, "name": "Beef bourguignon", "category": "Fransiya", "time": "180 daqiqa", "ingredients": ["Mol go‘shti", "sabzi", "piyoz", "qo‘ziqorin", "mol bulyoni", "tomat pastasi", "kekik"], "steps": ["Mol go‘shtini quritib, qalin qozonda partiyalab qizartiring.", "Piyoz va sabzini go‘sht qoldig‘i ustida yumshatib, tomat pastasi bilan qovuring.", "Bulyon va kekik qo‘shib, go‘shtni past haroratda uzoq dimlang.", "Oxirida qo‘ziqorinni alohida qizartirib soling va sous quyuqlashgach torting."]}, {"id": 83, "name": "Quiche Lorraine", "category": "Fransiya", "time": "75 daqiqa", "ingredients": ["Un", "sariyog‘", "tuxum", "qaymoq", "dudlangan go‘sht", "pishloq"], "steps": ["Un va sovuq sariyog‘dan uvoqli xamir qorib, qolipga bosib sovuting.", "Xamirni bo‘sh holda oldindan pishirib, tagi namlanmasligini ta’minlang.", "Tuxum, qaymoq va pishloqni aralashtirib, qovurilgan dudlangan go‘shtni qo‘shing.", "Ichlikni qobiqka quyib, markazi qotguncha, lekin qurib ketmasdan pishiring."]}, {"id": 84, "name": "Ravioli", "category": "Italiya", "time": "65 daqiqa", "ingredients": ["Un", "tuxum", "rikotta", "ismaloq", "parmesan", "sariyog‘"], "steps": ["Un va tuxumdan elastik pasta xamiri qorib, juda yupqa yoying.", "Rikotta, ismaloq va parmesandan quyuq ichlik tayyorlang.", "Ichlikni xamirga kichik uyumlar qilib qo‘yib, ikkinchi qatlam bilan yopib chetlarini bosing.", "Raviolini qaynoq suvda pishirib, jigarrang sariyog‘ va parmesan bilan torting."]}, {"id": 85, "name": "Lasagna", "category": "Italiya", "time": "110 daqiqa", "ingredients": ["Lasagna varaqlari", "mol qiymasi", "pomidor", "piyoz", "sut", "un", "mozzarella"], "steps": ["Qiymani piyoz bilan qovurib, pomidor sousida uzoqroq dimlang.", "Sariyog‘, un va sutdan silliq bechamel tayyorlab, yengil tuzlang.", "Qolipga sous, pasta, qiymali aralashma va bechamelni qatlamlab joylang.", "Mozzarella sepib, avval yopiq, keyin ochiq holda pishirib ustini qizartiring."]}, {"id": 86, "name": "Risotto ai funghi", "category": "Italiya", "time": "45 daqiqa", "ingredients": ["Arborio guruchi", "qo‘ziqorin", "piyoz", "sariyog‘", "parmesan", "sabzavot bulyoni"], "steps": ["Qo‘ziqorinlarni quruqroq tovda qizartirib, alohida olib qo‘ying.", "Piyozni sariyog‘da yumshatib, Arborio guruchini solib donlarini yaltiratib oling.", "Issiq bulyonni cho‘michlab, har safar suyuqlik singgach keyingisini qo‘shing.", "Oxirida qo‘ziqorin, parmesan va sovuq sariyog‘ bilan risottoni kuchli aralashtirib kremsimon qiling."]}, {"id": 87, "name": "Gnocchi", "category": "Italiya", "time": "60 daqiqa", "ingredients": ["Kartoshka", "un", "tuxum", "parmesan", "sariyog‘", "adaçayı"], "steps": ["Kartoshkani po‘sti bilan pishirib, issiq paytda ezib bug‘ini chiqaring.", "Tuxum va oz un bilan yumshoq xamir tayyorlab, ortiqcha qorib yubormang.", "Xamirni arqoncha qilib cho‘zib, mayda bo‘laklarga kesing va vilka bilan iz tushiring.", "Gnocchini yuzaga chiqquncha qaynatib, adaçayı qo‘shilgan sariyog‘da qizartiring."]}, {"id": 88, "name": "Tiramisu", "category": "Italiya", "time": "30 daqiqa", "ingredients": ["Savoyardi pechenyesi", "mascarpone", "tuxum", "shakar", "espresso", "kakao"], "steps": ["Tuxum sarig‘i va shakarni oqarib quyuqlashguncha ko‘pirtiring.", "Mascarponeni ehtiyotkor aralashtirib, alohida ko‘pirtirilgan oqni havodor kremga qo‘shing.", "Savoyardini sovigan espressoga tez botirib, qolipga bir qatlam qilib tering.", "Kremni ustiga yoyib, ikkinchi qatlamni takrorlang va kakao sepib sovuting."]}, {"id": 89, "name": "Chicken parmigiana", "category": "Italiya", "time": "55 daqiqa", "ingredients": ["Tovuq filesi", "pomidor sousi", "mozzarella", "parmesan", "tuxum", "non uvog‘i"], "steps": ["Tovuq filesini yupqalatib, tuz va murch seping.", "Tuxumga botirib non uvog‘iga belab, tovda ikki tomonini qizartiring.", "Pomidor sousini qolip tagiga surtib, tovuq bo‘laklarini ustiga joylang.", "Mozzarella va parmesan bilan yopib, pishloq erib qizarib ketguncha pechda pishiring."]}, {"id": 90, "name": "Paella", "category": "Ispaniya", "time": "70 daqiqa", "ingredients": ["Bomba guruchi", "tovuq", "krevetka", "bulg‘or qalampiri", "pomidor", "za’faron", "bulyon"], "steps": ["Paella tovasi keng yuzasida tovuq bo‘laklarini qizartirib oling.", "Qalampir va pomidorni qo‘shib sofrito asosini pishiring.", "Guruchni solib, za’faronli issiq bulyon bilan bir marta aralashtirib tekislang.", "Keyin aralashtirmasdan suvi tortilguncha pishiring; oxirida krevetka va qarsildoq socarrat hosil qiling."]}, {"id": 91, "name": "Tortilla española", "category": "Ispaniya", "time": "45 daqiqa", "ingredients": ["Kartoshka", "tuxum", "piyoz", "zaytun moyi", "tuz"], "steps": ["Kartoshkani yupqa yarim oy qilib, zaytun moyida yumshoq qovuring.", "Piyozni qo‘shib sekin karamellang, so‘ng aralashmani yog‘dan suzib oling.", "Tuxumlarni ko‘pirtirib kartoshka-piyoz bilan aralashtiring.", "Tovaga qaytarib ikki tomonni ehtiyotkor ag‘daring; markazini yumshoq qoldiring."]}, {"id": 92, "name": "Gazpacho", "category": "Ispaniya", "time": "15 daqiqa", "ingredients": ["Pomidor", "bodring", "bulg‘or qalampiri", "sarimsoq", "zaytun moyi", "sirka", "non"], "steps": ["Pomidor, bodring va qalampirni yirik bo‘laklarda blenderga soling.", "Sarimsoq, namlangan non va sirka qo‘shib, bir xil krem bo‘lguncha maydalang.", "Zaytun moyini blender ishlayotgan paytda ingichka oqimda kiriting.", "Muzlatkichda yaxshilab sovitib, mayda bodring va qalampir bilan bezang."]}, {"id": 93, "name": "Empanada", "category": "Ispaniya", "time": "65 daqiqa", "ingredients": ["Un", "sariyog‘", "mol qiymasi", "piyoz", "paprika", "tuxum"], "steps": ["Un va sariyog‘dan uvoqli xamir tayyorlab, sovuting.", "Qiymani piyoz va paprika bilan qovurib, ichlikni to‘liq soviting.", "Xamir doiralariga ichlik solib, chetlarini burab mahkamlang.", "Tuxum sarig‘i surtib, qizarguncha pishiring."]}, {"id": 94, "name": "Tacos al pastor", "category": "Meksika", "time": "60 daqiqa", "ingredients": ["Tortilla", "cho‘chqa go‘shti", "ananas", "piyoz", "chili", "achchiq qalampir"], "steps": ["Go‘shtni ingichka kesib, chili, paprika, sirka va sarimsoq bilan marinadlang.", "Marinadlangan bo‘laklarni juda qizigan tovda qatlamlab qovuring, chetlarini karamellang.", "Ananas bo‘laklarini alohida qizartirib, go‘sht bilan mayda choping.", "Issiq tortillaga go‘sht, ananas, piyoz va kashnich solib, limon bilan torting."]}, {"id": 95, "name": "Enchiladas", "category": "Meksika", "time": "70 daqiqa", "ingredients": ["Tortilla", "tovuq", "pomidor", "chili", "piyoz", "pishloq", "qaymoq"], "steps": ["Tovuqni qaynatib tolalang, piyoz va ziravor bilan aralashtiring.", "Pomidor va chili bilan silliq qizil sous tayyorlang.", "Tortillalarni sousga tez botirib, ichiga tovuq solib rulon qiling.", "Rulonlarni qolipga terib, qolgan sous va pishloq bilan yopib pishiring."]}, {"id": 96, "name": "Guacamole", "category": "Meksika", "time": "15 daqiqa", "ingredients": ["Avokado", "laym", "pomidor", "qizil piyoz", "kashnich", "chili", "tuz"], "steps": ["Avokadoni vilka bilan bir xil ezmasdan, mayda bo‘laklari qoladigan darajada ezing.", "Laym sharbatini darhol qo‘shib rangining qorayishini sekinlashtiring.", "Pomidor, qizil piyoz, chili va kashnichni mayda to‘g‘rab aralashtiring.", "Tuzni oxirida rostlab, nachos yoki tortilla bilan yangi holda bering."]}, {"id": 97, "name": "Chili con carne", "category": "Meksika", "time": "80 daqiqa", "ingredients": ["Mol qiymasi", "qizil loviya", "pomidor", "piyoz", "chili", "paprika", "sarimsoq"], "steps": ["Qiymani quruqroq qozonda mayda donachalarga ajratib qizartiring.", "Piyoz va sarimsoqni qo‘shib, paprika hamda chili bilan yog‘ini xushbo‘ylang.", "Pomidor va loviyani tushirib, quyuq sous hosil bo‘lguncha sekin qaynatib boring.", "Chili qalinlashgach olovdan olib, ustiga yangi piyoz yoki smetana qo‘shib torting."]}, {"id": 98, "name": "Sushi roll", "category": "Yaponiya", "time": "70 daqiqa", "ingredients": ["Sushi guruchi", "nori", "bodring", "avokado", "losos", "guruch sirkasi"], "steps": ["Guruchni bir necha marta yuvib, yopiq qozonda pishiring va sirka-shakar aralashmasi bilan soviting.", "Nori varag‘ini bambuk gilamchaga qo‘yib, ustiga yupqa guruch qatlami yoying.", "Losos, bodring va avokadoni markazga chiziq qilib joylashtiring.", "Gilamcha yordamida zich rulon o‘rang, nam pichoq bilan bir xil bo‘laklarga kesing."]}, {"id": 99, "name": "Okonomiyaki", "category": "Yaponiya", "time": "35 daqiqa", "ingredients": ["Karam", "un", "tuxum", "dashi", "yashil piyoz", "bekon", "mayonez"], "steps": ["Karamni mayda to‘g‘rab, un, tuxum va dashi bilan yopishqoq massa qiling.", "Bekonni quruq tovaga yoyib, ustidan karamli aralashmani qalin doira qilib quying.", "Ikki tomonini sekin pishirib, markazi ham qotganini tekshiring.", "Ustiga yapon mayonezi, okonomiyaki sousi va yashil piyoz qo‘ying."]}, {"id": 100, "name": "Ramen", "category": "Yaponiya", "time": "90 daqiqa", "ingredients": ["Ramen ugra", "tovuq bulyoni", "soya sousi", "tuxum", "qo‘ziqorin", "yashil piyoz"], "steps": ["Tovuq suyaklaridan boy bulyon tayyorlab, soya sousi bilan sho‘rligini rostlang.", "Tuxumni alohida qaynatib, sarig‘ini biroz kremli qoldiring.", "Ramen ugrani alohida pishirib, kosaga issiq holda joylashtiring.", "Ustiga bulyon, qo‘ziqorin, tuxum va yashil piyozni tartibli qo‘yib darhol torting."]}, {"id": 101, "name": "Gyoza", "category": "Yaponiya", "time": "55 daqiqa", "ingredients": ["Gyoza xamiri", "cho‘chqa qiymasi", "karam", "piyoz", "zanjabil", "soya sousi"], "steps": ["Karamni tuzlab suvini siqib, qiymaga mayda piyoz va zanjabil bilan qo‘shing.", "Ichlikni soya sousi bilan ta’mlab, xamir doiralariga oz-ozdan joylashtiring.", "Chetlarini suv bilan namlab burmali qilib yoping.", "Tovada tagini qizartirib, ozgina suv qo‘shib qopqoq ostida bug‘lang va yana qarsildating."]}, {"id": 102, "name": "Bibimbap", "category": "Koreya", "time": "50 daqiqa", "ingredients": ["Guruch", "mol go‘shti", "sabzi", "ismaloq", "qo‘ziqorin", "tuxum", "gochujang"], "steps": ["Guruchni donador pishirib, iliq holda ushlab turing.", "Sabzi, ismaloq va qo‘ziqorinni alohida-alohida qisqa qovurib, ranglarini saqlang.", "Mol go‘shtini ingichka kesib, soya sousi va sarimsoq bilan tez qovuring.", "Guruchni kosaga solib, sabzavot va go‘shtni radial tartibda joylashtiring; ustiga tuxum va gochujang qo‘ying."]}, {"id": 103, "name": "Kimchi jjigae", "category": "Koreya", "time": "45 daqiqa", "ingredients": ["Kimchi", "tofu", "cho‘chqa go‘shti", "piyoz", "yashil piyoz", "chili"], "steps": ["Cho‘chqa go‘shtini qozonda qizartirib, nordon kimchini qo‘shib birga qovuring.", "Kimchi sharbati va suv quyib, chili bilan achchiq bulyon hosil qiling.", "Tofu kubiklari va piyozni tushirib, tofu qiziguncha sekin qaynatib boring.", "Yashil piyozni eng oxirida solib, guruch yonida qaynoq holda torting."]}, {"id": 104, "name": "Pad thai", "category": "Tailand", "time": "35 daqiqa", "ingredients": ["Guruch noodli", "krevetka", "tuxum", "tamarind", "baliq sousi", "loviya niholi", "yer yong‘oq"], "steps": ["Noodlini iliq suvda yumshatib, ortiqcha suvini to‘kib qo‘ying.", "Tamarind, baliq sousi va shakarni alohida aralashtirib nordon-shirin sous qiling.", "Wokda krevetkani qizartirib, tuxumni chetga surib qovuring va noodlini qo‘shing.", "Sousni quyib kuchli olovda aralashtiring; loviya niholi va yer yong‘og‘i bilan yakunlang."]}, {"id": 105, "name": "Tom yum", "category": "Tailand", "time": "35 daqiqa", "ingredients": ["Krevetka", "limon o‘ti", "galangal", "limon bargi", "qo‘ziqorin", "laym", "chili"], "steps": ["Suvda limon o‘ti, galangal va limon bargini qaynatib aromatik bulyon yarating.", "Qo‘ziqorin va chili qo‘shib, hidlari chiqguncha qisqa qaynatib oling.", "Krevetkani tushirib, rangi o‘zgargach olovni baland ushlamang.", "Laym sharbati va baliq sousini olovdan keyin qo‘shib, nordon-achchiq ta’mni saqlang."]}, {"id": 106, "name": "Green curry", "category": "Tailand", "time": "45 daqiqa", "ingredients": ["Tovuq", "yashil curry pastasi", "kokos suti", "baqlajon", "rayhon", "laym"], "steps": ["Curry pastasini kokos sutining quyuq qismida yog‘i ajralguncha qizdiring.", "Tovuq bo‘laklarini qo‘shib, pasta bilan to‘liq qoplanguncha qovuring.", "Qolgan kokos suti va baqlajonni solib, tovuq pishguncha sekin qaynatib boring.", "Rayhon va laym bilan yakunlab, bug‘langan guruch ustida bering."]}, {"id": 107, "name": "Butter chicken", "category": "Hindiston", "time": "70 daqiqa", "ingredients": ["Tovuq", "qatiq", "pomidor", "sariyog‘", "qaymoq", "garam masala", "sarimsoq"], "steps": ["Tovuqni qatiq, sarimsoq va garam masalada marinadlab, tandir yoki tovda qizartiring.", "Pomidorni sariyog‘da ziravor bilan uzoq pishirib, silliq sousga aylantiring.", "Sousni elakdan o‘tkazib, qizartirilgan tovuqni qaytaring.", "Qaymoq va oz sariyog‘ qo‘shib, qaynatmasdan isitib naan bilan torting."]}, {"id": 108, "name": "Palak paneer", "category": "Hindiston", "time": "45 daqiqa", "ingredients": ["Ismaloq", "paneer", "piyoz", "pomidor", "sarimsoq", "zanjabil", "qaymoq"], "steps": ["Ismaloqni qisqa blansh qilib muzli suvda soviting va yorqin rangini saqlang.", "Ismaloqni sarimsoq va zanjabil bilan blenderda silliq pyure qiling.", "Piyoz va pomidorni alohida qovurib, pyure bilan birlashtiring.", "Qizartirilgan paneer kubiklari va qaymoqni qo‘shib, bir necha daqiqa dimlang."]}, {"id": 109, "name": "Biryani", "category": "Hindiston", "time": "100 daqiqa", "ingredients": ["Basmati guruchi", "tovuq", "yogurt", "piyoz", "za’faron", "kardamon", "dolchin"], "steps": ["Tovuqni yogurt, zanjabil, sarimsoq va garam masala bilan marinadlang.", "Piyozni ingichka kesib qarsildoq karamellang va yarmini ajratib qo‘ying.", "Basmati guruchini yarim pishirib suzing; marinadlangan tovuqni qalin qozon tagiga qo‘ying.", "Guruch, za’faronli sut va qovurilgan piyozni qatlab, qopqoq ostida dimlang."]}, {"id": 110, "name": "Samosa", "category": "Hindiston", "time": "60 daqiqa", "ingredients": ["Un", "kartoshka", "no‘xat", "zira", "koriander", "yashil chili", "yog‘"], "steps": ["Kartoshkani qaynatib, no‘xat va ziravorlar bilan donador ichlik tayyorlang.", "Un, yog‘ va suvdan qattiq xamir qorib, kichik sharlar qiling.", "Xamirni yoyib konus shaklida oching va kartoshkali ichlik bilan to‘ldiring.", "Pastroq haroratdagi yog‘da sekin qovurib, qobig‘ini pufakchali va qarsildoq qiling."]}, {"id": 111, "name": "Dal tadka", "category": "Hindiston", "time": "40 daqiqa", "ingredients": ["Qizil yasmiq", "piyoz", "pomidor", "sarimsoq", "zira", "sariyog‘", "chili"], "steps": ["Yasmiqni yuvib, yumshaguncha suvda qaynatib silliq bo‘lmagan pyure holiga keltiring.", "Piyoz va pomidorni alohida qovurib, qaynatilgan yasmiqqa qo‘shing.", "Sariyog‘ni kichik tovda qizdirib, zira, chili va sarimsoqni tez qizartiring.", "Issiq tadkani dal ustiga quyib, qopqog‘ini bir daqiqaga yopib aromatini ushlang."]}, {"id": 112, "name": "Falafel", "category": "Yaqin Sharq", "time": "45 daqiqa", "ingredients": ["Nohat", "piyoz", "sarimsoq", "petrushka", "koriander", "zira", "kunjut"], "steps": ["Quruq no‘xatni bir kecha ivitib, qaynatmasdan suvini to‘kib quriting.", "No‘xatni piyoz, sarimsoq va ko‘katlar bilan donador massa bo‘lguncha maydalang.", "Zira, koriander va tuz qo‘shib, massa dam olishi uchun sovuting.", "Mayda sharlar yasab, qizigan yog‘da ichi pishib, tashqi qobig‘i qarsillaguncha qovuring."]}, {"id": 113, "name": "Hummus", "category": "Yaqin Sharq", "time": "20 daqiqa", "ingredients": ["Nohat", "tahini", "limon", "sarimsoq", "zaytun moyi", "tuz"], "steps": ["Qaynatilgan no‘xatni iliq holida po‘stidan imkon qadar tozalang.", "Tahini, limon va sarimsoqni alohida aralashtirib emulsiya hosil qiling.", "No‘xatni oz-ozdan suv qo‘shib blenderda ipakdek silliq qiling.", "Tahini aralashmasini qo‘shib, keng tarelkaga yoying va zaytun moyi bilan bezang."]}, {"id": 114, "name": "Shakshuka", "category": "Yaqin Sharq", "time": "30 daqiqa", "ingredients": ["Tuxum", "pomidor", "bulg‘or qalampiri", "piyoz", "chili", "zira", "sarimsoq"], "steps": ["Piyoz va qalampirni tovda yumshatib, sarimsoq va zira bilan qizdiring.", "Pomidorni maydalab qo‘shib, suyuqligi kamayguncha achchiq sousga aylantiring.", "Sousda chuqurchalar ochib, tuxumlarni bittadan sindiring.", "Qopqoqni yopib oqi qotguncha, sarig‘i esa yumshoq qolguncha pishiring."]}, {"id": 115, "name": "Couscous royal", "category": "Marokash", "time": "90 daqiqa", "ingredients": ["Kuskus", "tovuq", "qo‘y go‘shti", "no‘xat", "sabzi", "qovoq", "mayiz"], "steps": ["Tovuq va qo‘y go‘shtini piyoz bilan qozonda qizartirib, ziravorli bulyon yarating.", "No‘xat, sabzi va qovoqni go‘sht bilan navbatma-navbat pishiring.", "Kuskusni alohida bug‘da yumshatib, sanchqi bilan donalarini ajrating.", "Kuskusni katta laganga uyib, go‘sht va sabzavotlarni markazga joylashtirib bulyon bilan namlang."]}, {"id": 116, "name": "Tagine", "category": "Marokash", "time": "120 daqiqa", "ingredients": ["Qo‘y go‘shti", "quritilgan o‘rik", "bodom", "piyoz", "dolchin", "zanjabil"], "steps": ["Qo‘y go‘shtini piyoz bilan tagine idishida sekin qizartiring.", "Dolchin va zanjabil qo‘shib, ozgina suv bilan go‘shtni yopiq holda uzoq dimlang.", "Quritilgan o‘rikni alohida iliq suvda yumshatib, oxirgi qismda go‘shtga soling.", "Qovurilgan bodom bilan bezab, sousi quyuqlashgach kuskus yoki non bilan bering."]}, {"id": 117, "name": "Pho bo", "category": "Vetnam", "time": "180 daqiqa", "ingredients": ["Mol suyagi", "guruch noodli", "mol go‘shti", "piyoz", "zanjabil", "dolchin", "yulduz anis"], "steps": ["Mol suyaklarini qisqa qaynatib, suvini almashtiring va yangi suvda tiniq bulyon qiling.", "Piyoz va zanjabilni quruq tovda kuydirib, dolchin va anis bilan bulyonga qo‘shing.", "Noodlini alohida yumshatib, kosaga joylashtiring va ustiga juda yupqa xom mol go‘shti qo‘ying.", "Qaynoq bulyonni bevosita go‘sht ustidan quyib pishiring; laym va ko‘kat bilan torting."]}, {"id": 118, "name": "Banh mi", "category": "Vetnam", "time": "35 daqiqa", "ingredients": ["Baget", "cho‘chqa go‘shti", "bodring", "sabzi", "daikon", "sirka", "mayonez"], "steps": ["Sabzi va daikonni sirka, shakar va tuzda tez marinadlang.", "Cho‘chqa go‘shtini sarimsoq va soya sousi bilan qizartirib, yupqa kesing.", "Bagetni qizdirib, ichiga mayonez va chili sousini yengil surting.", "Go‘sht, marinadlangan sabzavot va bodringni qatlab, non qarsildoq paytda bering."]}, {"id": 119, "name": "Pelmeni", "category": "Rossiya", "time": "70 daqiqa", "ingredients": ["Un", "tuxum", "mol qiymasi", "piyoz", "sariyog‘", "smetana"], "steps": ["Un va tuxumdan zich xamir qorib, yupqa qatlam qilib yoying.", "Mol qiymasiga mayda piyoz, tuz va murch qo‘shib, kichik ichlik sharlar tayyorlang.", "Xamirni doira qilib kesib, ichlikni joylashtiring va yarim oy qilib yopib uchlarini birlashtiring.", "Pelmenini qaynagan sho‘r suvda yuzaga chiqqach yana bir necha daqiqa pishirib, sariyog‘ va smetana bilan torting."]}, {"id": 120, "name": "Borscht", "category": "Ukraina", "time": "100 daqiqa", "ingredients": ["Lavlagi", "karam", "mol go‘shti", "kartoshka", "sabzi", "piyoz", "pomidor", "smetana"], "steps": ["Mol go‘shtidan bulyon tayyorlab, go‘shtni ajratib oling.", "Lavlagini sirka bilan alohida dimlab rangini saqlang, piyoz va sabzini boshqa tovda qovuring.", "Kartoshka va karamni bulyonga solib yumshating, keyin lavlagi hamda pomidorni qo‘shing.", "Go‘shtni qaytarib, ta’mini rostlang va smetana bilan chuqur kosada torting."]}, {"id": 121, "name": "Syrniki", "category": "Rossiya", "time": "30 daqiqa", "ingredients": ["Tvorog", "tuxum", "un", "shakar", "vanilin", "yog‘"], "steps": ["Tvorogni elakdan o‘tkazib, tuxum va shakar bilan bir xil massa qiling.", "Unni oz-ozdan qo‘shib, qo‘lga juda yopishmaydigan yumshoq xamir tayyorlang.", "Yassi kotletchalar shakllantirib, tashqi yuzasini un bilan yengil qoplang.", "Tovada pastroq olovda ikki tomonini tillarang qiling va smetana bilan bering."]}, {"id": 122, "name": "Blini", "category": "Rossiya", "time": "35 daqiqa", "ingredients": ["Un", "sut", "tuxum", "shakar", "sariyog‘", "tuz"], "steps": ["Tuxum, sut va unni ko‘pikchalar qolmaydigan suyuq xamirga aylantiring.", "Sariyog‘ni eritib xamirga oz miqdorda qo‘shing va dam bering.", "Tovani juda yupqa yog‘lab, xamirni aylantirib yupqa qatlam qilib pishiring.", "Har bir blinini issiq holda taxlab, asal, smetana yoki murabbo bilan torting."]}, {"id": 123, "name": "Solyanka", "category": "Rossiya", "time": "75 daqiqa", "ingredients": ["Mol go‘shti", "dudlangan go‘sht", "tuzlangan bodring", "pomidor", "piyoz", "zaytun"], "steps": ["Mol bulyonini tayyorlab, go‘shtni mayda bo‘laklarga ajrating.", "Piyoz va pomidorni qovurib, tuzlangan bodringni mayda kubiklarda qo‘shing.", "Dudlangan go‘shtlarni solib, bulyon bilan birga nordon asosni qaynatib oling.", "Zaytun va limonni oxirida qo‘shib, sho‘rvani juda qaynatmasdan issiq torting."]}, {"id": 124, "name": "Khachapuri adjaruli", "category": "Gruziya", "time": "60 daqiqa", "ingredients": ["Un", "xamirturush", "suluguni", "mozzarella", "tuxum", "sariyog‘"], "steps": ["Xamirturushli xamirni ko‘tarib, ikki uchini cho‘zilgan qayiq shaklida tayyorlang.", "Pishloqlarni maydalab aralashtirib, xamir markaziga qalin qilib soling.", "Qayiq chetlarini qizartirib, pishloq pufakchali bo‘lguncha pishiring.", "Oxirida markaziga tuxum sindirib yana qisqa pishiring va ustiga sariyog‘ qo‘ying."]}, {"id": 125, "name": "Khinkali", "category": "Gruziya", "time": "80 daqiqa", "ingredients": ["Un", "suv", "mol va qo‘y qiymasi", "piyoz", "kashnich", "murch"], "steps": ["Qattiq xamir qorib, kichik bo‘laklarga ajrating va juda yupqa doiralar yoying.", "Qiymaga ko‘p mayda piyoz va suv qo‘shib, ichida bulyon hosil bo‘ladigan aralashma qiling.", "Ichlikni xamirga qo‘yib, chetlarini ko‘p burma qilib yuqorida tuging.", "Qaynayotgan sho‘r suvda xinkalini aylantirmasdan pishirib, faqat murch bilan issiq bering."]}, {"id": 126, "name": "Lobio", "category": "Gruziya", "time": "75 daqiqa", "ingredients": ["Qizil loviya", "piyoz", "yong‘oq", "koriander", "sarimsoq", "ko‘kat"], "steps": ["Loviyani bir kecha ivitib, yumshaguncha alohida qaynatib oling.", "Piyozni yumshatib, loviyaning bir qismini qoshiq bilan ezib qo‘shing.", "Yong‘oq, sarimsoq va korianderdan quyuq aralashma tayyorlab, loviyaga singdiring.", "Past olovda bir necha daqiqa damlab, issiq non bilan torting."]}, {"id": 127, "name": "Arepas", "category": "Venesuela", "time": "35 daqiqa", "ingredients": ["Makkajo‘xori uni", "suv", "tuz", "pishloq", "avokado", "tovuq"], "steps": ["Makkajo‘xori unini iliq suv va tuz bilan qorib, yumshoq xamir qiling.", "Xamirni qalin disklar shaklida yassilab, quruq tovda tashqi qobig‘ini hosil qiling.", "Arepalarni pechda ichigacha pishirib, so‘ng bir yonidan kesing.", "Ichiga pishirilgan tovuq, avokado va pishloq solib, iliq holda bering."]}, {"id": 128, "name": "Ceviche", "category": "Peru", "time": "25 daqiqa", "ingredients": ["Oq baliq", "laym", "qizil piyoz", "chili", "kashnich", "makkajo‘xori"], "steps": ["Juda yangi oq baliqni mayda kubiklarga kesib sovuq idishga soling.", "Laym sharbatini quyib, baliq yuzasi oqarib ketguncha qisqa marinadlang.", "Qizil piyoz, chili va kashnichni qo‘shib ehtiyotkor aralashtiring.", "Tuzni tortish oldidan solib, shirin makkajo‘xori bilan sovuq holda bering."]}, {"id": 129, "name": "Feijoada", "category": "Braziliya", "time": "150 daqiqa", "ingredients": ["Qora loviya", "mol go‘shti", "dudlangan kolbasa", "piyoz", "sarimsoq", "dafna"], "steps": ["Qora loviyani ivitib, kolbasa va go‘sht bilan birga yumshaguncha qaynatib oling.", "Piyoz va sarimsoqni alohida qovurib, loviyali qozonga qo‘shing.", "Dafna bargi bilan past olovda sous quyuqlashguncha dimlang.", "Guruch va apelsin bo‘lagi bilan tortib, sho‘r ta’mni meva bilan muvozanatlang."]}, {"id": 130, "name": "Pav bhaji", "category": "Hindiston", "time": "45 daqiqa", "ingredients": ["Kartoshka", "gulkaram", "no‘xat", "pomidor", "piyoz", "sariyog‘", "pav bhaji masalasi"], "steps": ["Kartoshka, gulkaram va no‘xatni yumshaguncha qaynatib, qo‘pol ezib qo‘ying.", "Piyozni sariyog‘da qovurib, pomidor va pav bhaji masalasini qo‘shing.", "Sabzavot pyuresini sousga solib, qoshiq bilan tov tagida ezib birlashtiring.", "Pav nonini sariyog‘da qizartirib, bhaji bilan ko‘k piyoz va limon yonida bering."]}, {"id": 131, "name": "Aloo paratha", "category": "Hindiston", "time": "45 daqiqa", "ingredients": ["Un", "kartoshka", "yashil chili", "koriander", "zira", "sariyog‘"], "steps": ["Kartoshkani qaynatib ezib, chili, koriander va zira bilan quruq ichlik tayyorlang.", "Bug‘doy unidan yumshoq xamir qorib, kichik sharlar tayyorlang.", "Xamirni yoyib kartoshkali ichlikni o‘rtaga joylang, yopib yana yupqa yoying.", "Tavada sariyog‘ bilan ikki tomonini dog‘lab, qatiq bilan issiq torting."]}, {"id": 132, "name": "Naan", "category": "Hindiston", "time": "45 daqiqa", "ingredients": ["Un", "yogurt", "xamirturush", "sut", "sarimsoq", "koriander"], "steps": ["Yogurt va sutli xamirni xamirturush bilan qorib, hajmi oshguncha dam bering.", "Xamirni cho‘zib yassi oval shakl bering va yuziga sarimsoq hamda koriander bosing.", "Juda qizigan pech yoki tovada bir tomonini tez pishiring.", "Yuzi pufakchali bo‘lgach chiqarib, ustiga sariyog‘ surting."]}, {"id": 133, "name": "Koshari", "category": "Misr", "time": "70 daqiqa", "ingredients": ["Guruch", "yasmiq", "makaron", "no‘xat", "pomidor", "piyoz", "sarimsoq"], "steps": ["Guruch va yasmiqni alohida pishirib, donalarini haddan tashqari yumshatmang.", "Makaronni qisqa qaynatib, suzib yog‘ bilan ajrating.", "Pomidor, sarimsoq va sirka bilan nordon sous tayyorlang.", "Piyozni yupqa kesib qarsildoq qovuring; guruch, yasmiq, makaron va no‘xatni qatlab, sous va piyoz bilan torting."]}, {"id": 134, "name": "Baklava", "category": "Turkiya", "time": "90 daqiqa", "ingredients": ["Filo xamiri", "pista", "yong‘oq", "sariyog‘", "shakar", "limon"], "steps": ["Yong‘oq va pistani mayda maydalab, ichlik uchun aralashtiring.", "Filo qatlamlarini sariyog‘ bilan navbatlab qolipga joylashtiring.", "Yong‘oqli qatlamni o‘rtaga solib, qolgan filo bilan yopib romb shaklida kesing.", "Pishirgach sovuq siropni issiq baklavaga quyib, to‘liq shimishini kuting."]}, {"id": 135, "name": "Künefe", "category": "Turkiya", "time": "45 daqiqa", "ingredients": ["Kadayif xamiri", "mozzarella", "sariyog‘", "shakar", "limon", "pista"], "steps": ["Kadayif xamirini mayda ajratib eritilgan sariyog‘ bilan yaxshilab aralashtiring.", "Qolip tagiga xamirning yarmini zich bosib, o‘rtaga mozzarella qatlamini qo‘ying.", "Qolgan xamir bilan pishloqni yopib, yuzasini tekislang va qizarguncha pishiring.", "Issiq kunefega limonli sovuq sirop quyib, pista sepib darhol torting."]}, {"id": 136, "name": "Mochi", "category": "Yaponiya", "time": "40 daqiqa", "ingredients": ["Guruch uni", "shakar", "suv", "kraxmal", "qizil loviya pastasi"], "steps": ["Guruch unini shakar va suv bilan aralashtirib, bug‘da yopiq holda pishiring.", "Issiq yopishqoq massani kraxmallangan yuzaga chiqarib, qo‘lga yopishmasligi uchun kukun seping.", "Mochini kichik bo‘laklarga ajratib, har birini yassi disk qiling.", "Markaziga qizil loviya pastasi solib, chetlarini yopib dumaloqlang."]}, {"id": 137, "name": "Cheesecake", "category": "AQSh", "time": "90 daqiqa", "ingredients": ["Krem pishloq", "pechenye", "sariyog‘", "tuxum", "shakar", "vanilin"], "steps": ["Pechenyeni maydalab eritilgan sariyog‘ bilan aralashtirib qolip tagiga zich bosing.", "Krem pishloqni shakar bilan silliqlab, tuxumlarni bittadan qo‘shing.", "Vanilin solib massani qobiq ustiga sekin quying va past haroratda pishiring.", "Pechni o‘chirib eshigini biroz ochiq qoldirib sovuting, keyin muzlatkichda tindiring."]}, {"id": 138, "name": "Apple pie", "category": "AQSh", "time": "80 daqiqa", "ingredients": ["Un", "sariyog‘", "olma", "shakar", "dolchin", "limon"], "steps": ["Sovuq sariyog‘ va undan qatlamli pirog xamiri tayyorlab, yarmini qolipga joylashtiring.", "Olmalarni tilimlab shakar, dolchin va limon bilan aralashtiring.", "Olmali ichlikni xamir ichiga joylashtirib, ikkinchi xamir qatlamini ustiga yoping.", "Bug‘ chiqishi uchun kesiklar ochib, qobiq oltinrang bo‘lguncha pishiring."]}, {"id": 139, "name": "Pancakes", "category": "AQSh", "time": "25 daqiqa", "ingredients": ["Un", "sut", "tuxum", "shakar", "sariyog‘", "qabartma"], "steps": ["Un, qabartma va shakarni quruq aralashtirib, markazida chuqurcha oching.", "Sut va tuxumni alohida ko‘pirtirib, quruq aralashmaga ortiqcha aralashtirmasdan qo‘shing.", "Tovani yengil yog‘lab, qalin xamirni kichik doira qilib quying.", "Yuzida pufakchalar paydo bo‘lgach ag‘daring; asal va meva bilan bering."]}, {"id": 140, "name": "Mac and cheese", "category": "AQSh", "time": "35 daqiqa", "ingredients": ["Makaron", "cheddar", "sut", "sariyog‘", "un", "parmesan"], "steps": ["Makaronni al dente qaynatib, suvini to‘kib qo‘ying.", "Sariyog‘ va undan roux tayyorlab, sutni oz-ozdan qo‘shib quyuqlashtiring.", "Cheddar va parmesanni issiq sousga eritib, makaron bilan aralashtiring.", "Qolipga solib ustini pishloq bilan yopib qisqa qizartiring."]}, {"id": 141, "name": "Chicken pot pie", "category": "AQSh", "time": "90 daqiqa", "ingredients": ["Tovuq", "sabzi", "no‘xat", "piyoz", "qaymoq", "un", "puff pastry"], "steps": ["Tovuqni pishirib tolalang, sabzi va no‘xatni yumshoq holga keltiring.", "Piyozni qovurib un bilan quyuqlashtiring, qaymoq qo‘shib oq sous tayyorlang.", "Tovuq va sabzavotlarni sousga aralashtirib, qolipga quying.", "Puff pastry bilan yopib, bug‘ chiqishi uchun kesik oching va yuzini qizartiring."]}, {"id": 142, "name": "Chow mein", "category": "Xitoy", "time": "35 daqiqa", "ingredients": ["Bug‘doy noodli", "tovuq", "karam", "sabzi", "yashil piyoz", "soya sousi"], "steps": ["Noodlini qaynatib, sovuq suvda chayib yog‘ bilan ajrating.", "Tovuqni wokda kuchli olovda qizartirib, sabzi va karamni qo‘shing.", "Noodlini wokka tushirib, soya sousi va ozgina kunjut yog‘i bilan aralashtiring.", "Yashil piyozni eng oxirida solib, noodlni qarsildoq chetlari paydo bo‘lguncha qovuring."]}, {"id": 143, "name": "Fried rice", "category": "Xitoy", "time": "25 daqiqa", "ingredients": ["Sovutilgan guruch", "tuxum", "sabzi", "no‘xat", "yashil piyoz", "soya sousi"], "steps": ["Sovigan guruch donalarini qo‘l bilan ajratib, quruq tuting.", "Wokda tuxumni tez qovurib bo‘laklang va chetga suring.", "Sabzi va no‘xatni kuchli olovda qizdirib, guruchni qo‘shing.", "Soya sousini chetidan quyib bug‘latib, tuxum va yashil piyoz bilan yakunlang."]}, {"id": 144, "name": "Dumplings", "category": "Xitoy", "time": "55 daqiqa", "ingredients": ["Un", "cho‘chqa qiymasi", "karam", "zanjabil", "sarimsoq", "soya sousi"], "steps": ["Un va suvdan elastik xamir qorib, dam bergach kichik disklar yoying.", "Qiymani karam, zanjabil va sarimsoq bilan aralashtirib, soya sousi qo‘shing.", "Har bir diskka ichlik solib, chetlarini yarim oy qilib yopib buring.", "Qaynayotgan suvda yoki bug‘da pishirib, soya-sirka sousi bilan torting."]}, {"id": 145, "name": "Mapo tofu", "category": "Xitoy", "time": "35 daqiqa", "ingredients": ["Tofu", "mol qiymasi", "doubanjiang", "sarimsoq", "zanjabil", "yashil piyoz", "sichuan murchi"], "steps": ["Qiymani qizdirilgan yog‘da mayda bo‘laklarga ajratib qovuring.", "Doubanjiang, sarimsoq va zanjabilni qo‘shib qizil yog‘ chiqarguncha qovuring.", "Tofu kubiklarini ehtiyotkor tushirib, ozgina bulyonda qisqa dimlang.", "Sichuan murchi va yashil piyoz bilan yakunlab, bug‘langan guruchga qo‘ying."]}, {"id": 146, "name": "Adobo flakes", "category": "Filippin", "time": "75 daqiqa", "ingredients": ["Tovuq", "sirka", "soya sousi", "sarimsoq", "dafna", "shakar"], "steps": ["Tovuqni sirka, soya sousi, sarimsoq va dafna bilan yumshaguncha dimlang.", "Go‘shtni suzib olib, sovigach tolalarga ajrating.", "Sousni yana qozonda qaynatib quyuqlashtiring va tovuq tolalarini qaytaring.", "Suyuqlik bug‘lanib, go‘sht chetlari qarsildoq bo‘lguncha qovuring."]}, {"id": 147, "name": "Nasi goreng", "category": "Indoneziya", "time": "30 daqiqa", "ingredients": ["Sovutilgan guruch", "tovuq", "tuxum", "kecap manis", "chili", "piyoz", "krevetka"], "steps": ["Tovuq va krevetkani wokda alohida qizartirib oling.", "Piyoz va chili pastasini qizdirib, tuxumni qo‘shib maydalang.", "Sovuq guruchni solib kuchli olovda donalar ajralguncha qovuring.", "Kecap manisni chetidan quyib karamellang, go‘shtni qaytaring va yashil piyoz bilan tugating."]}, {"id": 148, "name": "Gado-gado", "category": "Indoneziya", "time": "40 daqiqa", "ingredients": ["Kartoshka", "loviya niholi", "karam", "bodring", "tofu", "yeryong‘oq", "chili"], "steps": ["Kartoshkani qaynatib bo‘laklang, karam va nihollarni qisqa blansh qiling.", "Yeryong‘oq, chili, sarimsoq va shakarni maydalab, iliq suv bilan sous qiling.", "Tofuni qizartirib, sabzavotlarni katta laganga alohida guruhlang.", "Yeryong‘oq sousini ustidan quyib, qaynatilgan tuxum bo‘laklari bilan bezang."]}, {"id": 149, "name": "Rendang", "category": "Indoneziya", "time": "180 daqiqa", "ingredients": ["Mol go‘shti", "kokos suti", "limon o‘ti", "galangal", "chili", "sarimsoq", "zanjabil"], "steps": ["Ziravorlar, limon o‘ti va sarimsoqni maydalab xushbo‘y pasta tayyorlang.", "Mol go‘shtini pasta bilan qizdirib, kokos sutini qo‘shing.", "Past olovda suyuqlik kamayib, kokos yog‘i ajralguncha uzoq dimlang.", "Go‘sht qoramtir, yumshoq va ziravorlar yopishgan holga kelganda guruch bilan torting."]}, {"id": 150, "name": "Soto ayam", "category": "Indoneziya", "time": "65 daqiqa", "ingredients": ["Tovuq", "zarchava", "limon o‘ti", "vermishel", "karam", "tuxum", "yashil piyoz"], "steps": ["Tovuqni limon o‘ti va zarchava bilan qaynatib, xushbo‘y bulyon tayyorlang.", "Tovuqni ajratib tolalang, bulyonni suzib tiniqlang.", "Vermishel va karamni kosalarga joylashtirib, ustiga tovuq soling.", "Qaynoq bulyon quyib, tuxum, yashil piyoz va laym bilan torting."]}, {"id": 151, "name": "Bakso", "category": "Indoneziya", "time": "70 daqiqa", "ingredients": ["Mol qiymasi", "tapioka kraxmali", "sarimsoq", "bulyon", "noodle", "ko‘k piyoz"], "steps": ["Mol qiymasi, kraxmal va sarimsoqni muzdek suv bilan elastik massa bo‘lguncha aralashtiring.", "Nam qo‘l bilan bir xil go‘sht sharchalari yasang.", "Sharchalarni qaynashni kuchaytirmagan bulyonda yuzaga chiqquncha pishiring.", "Noodleni kosaga solib, bakso va bulyon bilan to‘ldiring; ko‘k piyoz sepib bering."]}, {"id": 152, "name": "Martabak", "category": "Indoneziya", "time": "60 daqiqa", "ingredients": ["Un", "tuxum", "mol qiymasi", "piyoz", "yashil piyoz", "yog‘"], "steps": ["Un, tuxum va suvdan elastik yupqa xamir qorib, yog‘lab dam oldiring.", "Qiymani piyoz va yashil piyoz bilan qovurib, soviting.", "Xamirni juda yupqa yoyib, tuxumli go‘shtli ichlikni markazga qo‘ying va to‘rt tomondan buking.", "Yassi tovda ko‘p yog‘ bilan ikki tomonini qarsildoq qiling."]}, {"id": 153, "name": "Nasi lemak", "category": "Malayziya", "time": "60 daqiqa", "ingredients": ["Guruch", "kokos suti", "pandan bargi", "tuxum", "bodring", "yer yong‘oq", "sambal"], "steps": ["Guruchni kokos suti, suv va pandan bargi bilan yumshoq donador pishiring.", "Yer yong‘oqni quruq tovda qizartirib, sovuting.", "Achchiq sambalni alohida tayyorlab, pomidor va piyoz bilan quyuqlashtiring.", "Guruchni banan bargi yoki likopchaga solib, tuxum, bodring, yeryong‘oq va sambal bilan bering."]}, {"id": 154, "name": "Laksa", "category": "Malayziya", "time": "55 daqiqa", "ingredients": ["Guruch noodle", "kokos suti", "krevetka", "laksa pastasi", "tofu", "loviya niholi"], "steps": ["Laksa pastasini qozonda qizdirib, kokos sutining bir qismini qo‘shing.", "Krevetka va tofu solib, qisqa qaynatib dengiz mahsulotini qattiqlashtirmang.", "Guruch noodlini alohida pishirib kosalarga bo‘ling.", "Issiq laksa sho‘rvasini quyib, loviya niholi va laym bilan yakunlang."]}, {"id": 155, "name": "Char kway teow", "category": "Malayziya", "time": "30 daqiqa", "ingredients": ["Guruch noodle", "krevetka", "tuxum", "loviya niholi", "soya sousi", "kolbasa"], "steps": ["Keng wokni juda qizdirib, tuxumni tez qovurib bo‘laklang.", "Krevetka va kolbasani yuqori olovda qizartirib, soya sousi bilan qoplang.", "Guruch noodlini qo‘shib, wokni silkitib bir tekis qovuring.", "Loviya niholini oxirida solib, qarsilligini saqlagan holda darhol torting."]}, {"id": 156, "name": "Sinigang", "category": "Filippin", "time": "65 daqiqa", "ingredients": ["Cho‘chqa go‘shti", "tamarind", "pomidor", "turp", "ismaloq", "yashil loviya"], "steps": ["Cho‘chqa go‘shtini pomidor bilan yumshaguncha qaynatib, sho‘rva asosini yarating.", "Tamarind pulpasini suzib qo‘shib, nordonlikni bosqichma-bosqich rostlang.", "Turp va yashil loviyani tushirib, sabzavotlar pishguncha qaynatib oling.", "Ismaloqni eng oxirida solib, bir daqiqada olovni o‘chiring."]}, {"id": 157, "name": "Pancit", "category": "Filippin", "time": "35 daqiqa", "ingredients": ["Guruch noodle", "tovuq", "karam", "sabzi", "yashil loviya", "soya sousi"], "steps": ["Tovuqni mayda bo‘laklarda qovurib, chetga oling.", "Sabzi, karam va yashil loviyani wokda rangini yo‘qotmasdan qizdiring.", "Guruch noodlini va tovuqni qo‘shib, soya hamda sitrus sharbati bilan namlang.", "Noodl yumshoq, sabzavot esa qarsildoq qolganida yashil piyoz bilan torting."]}, {"id": 158, "name": "Lumpia", "category": "Filippin", "time": "55 daqiqa", "ingredients": ["Yupqa xamir", "karam", "sabzi", "mol qiymasi", "sarimsoq", "piyoz"], "steps": ["Qiymani sarimsoq va piyoz bilan qovurib, karam va sabzi qo‘shing.", "Ichlikning barcha suyuqligini bug‘latib, sovishini kuting.", "Yupqa xamirga ichlikni ingichka silindr qilib qo‘yib, chetlarini mahkam o‘rang.", "Qizigan yog‘da rulonlarni qarsildoq bo‘lguncha qovuring va shirin chili sousi bilan bering."]}, {"id": 159, "name": "Bibingka", "category": "Filippin", "time": "50 daqiqa", "ingredients": ["Guruch uni", "kokos suti", "tuxum", "shakar", "pishloq", "kokos"], "steps": ["Guruch unini kokos suti, tuxum va shakar bilan quyuq xamir qiling.", "Qolipni banan bargi bilan qoplab, xamirni ichiga quying.", "Ustiga pishloq bo‘laklari solib, yuqori haroratda pishiring.", "Yuziga kokos sepib, issiq yoki iliq holda bo‘laklab torting."]}, {"id": 160, "name": "Jollof rice", "category": "Nigeriya", "time": "80 daqiqa", "ingredients": ["Guruch", "pomidor", "qizil qalampir", "piyoz", "tovuq", "zanjabil", "sarimsoq"], "steps": ["Pomidor, qalampir, piyoz, zanjabil va sarimsoqni blenderda silliq qilib, yog‘da uzoq qovuring.", "Tovuq bo‘laklarini alohida qizartirib, pomidorli asosga qo‘shing.", "Yuvilgan guruchni sousga solib, issiq suv bilan namlang va qopqog‘ini mahkam yoping.", "Past olovda bug‘da donador pishirib, qopqoqni ochmasdan dam bering."]}, {"id": 161, "name": "Suya", "category": "Nigeriya", "time": "35 daqiqa", "ingredients": ["Mol go‘shti", "yeryong‘oq kukuni", "paprika", "zanjabil", "chili", "piyoz"], "steps": ["Mol go‘shtini juda yupqa kesib, paprika, chili va zanjabil bilan aralashtiring.", "Yeryong‘oq kukunini ziravorlarga qo‘shib quruq qoplama tayyorlang.", "Go‘sht bo‘laklarini sixga tekis terib, qoplamaga bosing.", "Ko‘mir ustida tez-tez aylantirib, chetlarini qarsildoq qiling va xom piyoz bilan bering."]}, {"id": 162, "name": "Egusi soup", "category": "Nigeriya", "time": "75 daqiqa", "ingredients": ["Egusi urug‘i", "mol go‘shti", "ismaloq", "pomidor", "piyoz", "chili"], "steps": ["Mol go‘shtini piyoz bilan qovurib, ozroq bulyonda yumshating.", "Egusi urug‘ini maydalab, pomidorli asos bilan alohida qovuring.", "Egusi aralashmasini go‘shtli qozonga solib, quyuq sho‘rva hosil qiling.", "Ismaloqni oxirida qo‘shib, yashil rangini saqlagan holda qisqa pishiring."]}, {"id": 163, "name": "Puff puff", "category": "Nigeriya", "time": "45 daqiqa", "ingredients": ["Un", "xamirturush", "shakar", "suv", "muskat", "yog‘"], "steps": ["Un, xamirturush, shakar va suvdan yopishqoq xamir tayyorlang.", "Muskat qo‘shib, xamirni issiq joyda pufakchali bo‘lguncha ko‘taring.", "Nam qo‘l bilan kichik sharlar uzib qizigan yog‘ga tushiring.", "Sharlarni aylantirib, bir tekis jigarrang bo‘lgach suzib oling."]}, {"id": 164, "name": "Mujaddara", "category": "Yaqin Sharq", "time": "60 daqiqa", "ingredients": ["Yasmiq", "guruch", "piyoz", "zira", "zaytun moyi"], "steps": ["Yasmiqni yarim pishirib, suvini saqlab qo‘ying.", "Piyozni juda yupqa kesib, zaytun moyida qoramtir qarsildoq bo‘lguncha qovuring.", "Guruch va yasmiqni piyoz yog‘ida zira bilan birlashtirib, yasmiq suvini qo‘shing.", "Qopqoq ostida damlab, qarsildoq piyozni ustiga mo‘l qilib yoying."]}, {"id": 165, "name": "Tabbouleh", "category": "Yaqin Sharq", "time": "20 daqiqa", "ingredients": ["Bulg‘ur", "petrushka", "pomidor", "bodring", "yalpiz", "limon", "zaytun moyi"], "steps": ["Bulg‘urni oz miqdor iliq suv bilan yumshatib, ortiqcha namini siqing.", "Petrushka va yalpizni juda mayda chopib, pomidor hamda bodring bilan aralashtiring.", "Limon sharbati va zaytun moyidan yengil nordon dressing tayyorlang.", "Bulg‘urni sabzavotlarga qo‘shib, dressing bilan aralashtirib sovuq holda torting."]}, {"id": 166, "name": "Fattoush", "category": "Yaqin Sharq", "time": "25 daqiqa", "ingredients": ["Lavash", "pomidor", "bodring", "salat bargi", "turp", "sumak", "limon"], "steps": ["Lavash bo‘laklarini pechda qarsildoq qilib pishirib sovuting.", "Pomidor, bodring, turp va salat barglarini yirikroq kesing.", "Limon, zaytun moyi va sumakdan nordon dressing tayyorlang.", "Lavashni tortish oldidan salatga qo‘shib, qarsillog‘ini saqlagan holda aralashtiring."]}, {"id": 167, "name": "Kibbeh", "category": "Yaqin Sharq", "time": "80 daqiqa", "ingredients": ["Bulg‘ur", "qo‘y qiymasi", "piyoz", "qarag‘ay yong‘og‘i", "zira"], "steps": ["Bulg‘urni iliq suvda yumshatib, bir qismini qo‘y qiymasi bilan birga ezib xamirga aylantiring.", "Ichlik uchun qolgan qiymani piyoz va qarag‘ay yong‘og‘i bilan qovuring.", "Bulg‘ur xamiridan yupqa qobiq yasab, ichiga qovurilgan qiymani joylang va cho‘zinchoq shakl bering.", "Kibbehlarni qizigan yog‘da tashqi qobig‘i qattiq bo‘lguncha qovuring."]}, {"id": 168, "name": "Manakish zaatar", "category": "Yaqin Sharq", "time": "35 daqiqa", "ingredients": ["Un", "xamirturush", "zaatar", "zaytun moyi", "suv", "tuz"], "steps": ["Xamirturushli xamirni yumshoq qorib, kichik doiralar qilib dam bering.", "Zaatarni zaytun moyi bilan quyuq pasta holiga keltiring.", "Xamir doiralarini yassilab, ustiga zaatar aralashmasini yupqa surting.", "Juda qizigan pechda chetlari qizarib, markazi yumshoq qolguncha pishiring."]}, {"id": 169, "name": "Shish tawook", "category": "Yaqin Sharq", "time": "45 daqiqa", "ingredients": ["Tovuq", "yogurt", "limon", "sarimsoq", "paprika", "zaytun moyi"], "steps": ["Tovuqni yogurt, limon, sarimsoq va paprika bilan marinadlang.", "Tovuqni bir xil bo‘laklarda sixlarga terib, marinadni yupqa qoldiring.", "Ko‘mir yoki grillda har tomonini qizartirib, ichini shirali pishiring.", "Dam bergach, pita, sarimsoqli sous va yangi sabzavot bilan torting."]}, {"id": 170, "name": "Musakhan", "category": "Falastin", "time": "90 daqiqa", "ingredients": ["Tovuq", "sumak", "piyoz", "tabun noni", "zaytun moyi", "qarag‘ay yong‘og‘i"], "steps": ["Tovuqni zaytun moyi, sumak va tuz bilan ishqalab pechda qizartiring.", "Piyozni ko‘p zaytun moyida juda sekin yumshatib, sumak bilan nordonlang.", "Tabun nonini piyozli yog‘ bilan namlab, ustiga tovuq bo‘laklarini joylashtiring.", "Qarag‘ay yong‘og‘ini qizartirib sepib, non yog‘ni shimishi bilan torting."]}, {"id": 171, "name": "Maqluba", "category": "Falastin", "time": "100 daqiqa", "ingredients": ["Guruch", "baqlajon", "tovuq", "pomidor", "kartoshka", "dolchin"], "steps": ["Baqlajon va kartoshka bo‘laklarini qizartirib, yog‘ini shimdiring.", "Tovuqni piyoz va dolchin bilan qovurib, qisman pishiring.", "Qalin qozonga pomidor, baqlajon, tovuq va guruchni qatlamlab joylashtiring.", "Bulyon quyib guruch pishguncha dimlang, so‘ng katta laganga ehtiyotkor ag‘daring."]}, {"id": 172, "name": "Shawarma", "category": "Yaqin Sharq", "time": "50 daqiqa", "ingredients": ["Tovuq", "yogurt", "tahini", "pita", "pomidor", "bodring", "piyoz"], "steps": ["Tovuqni yogurt, limon, sarimsoq va ziravorlarda marinadlab, yupqa qovuring.", "Tahini, limon va suvdan quyuq sous tayyorlang.", "Pita noniga tahini surtib, tovuq, bodring, pomidor va piyozni uzun qilib joylang.", "Nonni pastki qismidan bukib zich o‘rang va qizigan tovda ikki tomonini yengil qizdiring."]}, {"id": 173, "name": "Arayes", "category": "Yaqin Sharq", "time": "35 daqiqa", "ingredients": ["Pita", "qo‘y qiymasi", "piyoz", "pomidor", "petrushka", "ziravor"], "steps": ["Qo‘y qiymasini piyoz, pomidor va petrushka bilan xom holda aralashtiring.", "Pita nonini yarmiga kesib, qiymali aralashmani juda yupqa qatlam qilib ichiga surting.", "Pitaning tashqi yuziga zaytun moyi surting va qiyma bilan yopishguncha bosing.", "Grilda har ikki tomonini qizartirib, ichidagi go‘sht pishganini tekshirib torting."]}, {"id": 174, "name": "Baba ghanoush", "category": "Yaqin Sharq", "time": "35 daqiqa", "ingredients": ["Baqlajon", "tahini", "limon", "sarimsoq", "zaytun moyi", "tuz"], "steps": ["Baqlajonlarni ochiq olovda po‘sti kuyib, ichi juda yumshaguncha pishiring.", "Po‘stini archib, go‘shtini elakda ortiqcha suvidan xalos qiling.", "Tahini, limon va sarimsoq bilan baqlajonni qo‘pol ezib aralashtiring.", "Tarelkaga yoyib, zaytun moyi va paprika bilan bezang."]}, {"id": 175, "name": "Manakish cheese", "category": "Yaqin Sharq", "time": "40 daqiqa", "ingredients": ["Un", "xamirturush", "mozzarella", "feta", "zaytun moyi", "oregano"], "steps": ["Xamirturushli xamirni tayyorlab, yumaloq bo‘laklarga ajrating.", "Feta va mozzarellani oregano bilan aralashtirib pishloqli ichlik qiling.", "Xamir doiralariga pishloqni markazga qalin solib, chetlarini ochiq qoldiring.", "Pishloq pufakchali bo‘lib eriguncha qizigan pechda pishiring."]}, {"id": 176, "name": "Qovoqli bo‘tqa", "category": "O‘zbek", "time": "40 daqiqa", "ingredients": ["Qovoq", "guruch", "sut", "sariyog‘", "shakar", "dolchin"], "steps": ["Qovoqni kubik qilib, ozgina suvda yumshaguncha dimlang.", "Yuvilgan guruchni qo‘shib, suvi kamayguncha pishiring.", "Issiq sutni oz-ozdan quyib, guruch kremdek bo‘lguncha sekin pishiring.", "Sariyog‘, shakar va dolchin bilan shirinlikni rostlab, iliq holda bering."]}, {"id": 177, "name": "Guruchli köfte sho‘rva", "category": "O‘zbek", "time": "65 daqiqa", "ingredients": ["Mol qiymasi", "guruch", "piyoz", "sabzi", "kartoshka", "pomidor", "ko‘kat"], "steps": ["Qiymaga yarim pishgan guruch, piyoz, tuz va murch qo‘shib kichik köftelar yasang.", "Qozonda piyoz va sabzini qovurib, pomidor bilan sho‘rva asosini tayyorlang.", "Kartoshka va suv qo‘shib qaynatgach, köftelarni birma-bir tushiring.", "Köftelar yuzaga chiqqach yana pishirib, ko‘kat bilan yakunlang."]}, {"id": 178, "name": "Karamli pirog", "category": "O‘zbek", "time": "80 daqiqa", "ingredients": ["Un", "xamirturush", "karam", "piyoz", "tuxum", "sariyog‘"], "steps": ["Xamirturushli xamirni qorib, ikki baravar ko‘tarilguncha tindiring.", "Karamni piyoz bilan sekin qovurib, suvi bug‘langach sovuting.", "Xamirning bir qismini qolipga yoyib, karamli ichlikni soling va ustini ikkinchi qatlam bilan yoping.", "Tuxum surtib, ustidan kichik kesiklar ochib, qizarguncha pishiring."]}, {"id": 179, "name": "Go‘shtli pirog", "category": "O‘zbek", "time": "90 daqiqa", "ingredients": ["Un", "sariyog‘", "mol qiymasi", "piyoz", "kartoshka", "tuxum"], "steps": ["Sovuq sariyog‘ va un bilan uvoqli xamir tayyorlab, yarmisini qolipga bosib sovuting.", "Mol qiymasini piyoz va kartoshka kubiklari bilan qovuring.", "Ichlikni xamirga solib, qolgan xamir bilan yoping va bug‘ chiqishi uchun teshik oching.", "Tuxum sarig‘i surtib, qatlamlari qizarguncha pishiring."]}, {"id": 180, "name": "Olma murabbosi", "category": "O‘zbek", "time": "60 daqiqa", "ingredients": ["Olma", "shakar", "limon", "dolchin", "suv"], "steps": ["Olmalarni po‘stidan tozalab yupqa bo‘laklarga kesing.", "Shakar va oz suvni qizdirib sirop boshlang‘ichini tayyorlang.", "Olmalarni siropga tushirib, bo‘laklari shaffoflashguncha past olovda pishiring.", "Limon sharbati va dolchin qo‘shib, issiq murabboni toza bankalarga soling."]}, {"id": 181, "name": "O‘rik murabbosi", "category": "O‘zbek", "time": "65 daqiqa", "ingredients": ["O‘rik", "shakar", "suv", "limon"], "steps": ["Pishgan, lekin qattiqroq o‘riklarni ikkiga bo‘lib danagini ajrating.", "Shakar va suvdan yengil sirop tayyorlab, o‘riklarni unga ehtiyotkor tushiring.", "Past olovda meva shaklini saqlagan holda bir necha qaynatish bosqichida pishiring.", "Limon sharbati qo‘shib, sirop ipdek quyuqlashgach bankalarga joylang."]}, {"id": 182, "name": "Mevali kompot", "category": "O‘zbek", "time": "25 daqiqa", "ingredients": ["Olma", "nok", "olxo‘ri", "shakar", "suv", "dolchin"], "steps": ["Mevalarni yuvib, qattiq po‘stli qismlarini kesib yirik bo‘laklang.", "Suvni dolchin bilan qaynatib, avval olma va nokni tushiring.", "Bir necha daqiqadan so‘ng olxo‘rini qo‘shib, mevalar ezilmasdan pishiring.", "Shakarni oxirgi daqiqalarda rostlab, kompotni sovitib mevalari bilan torting."]}, {"id": 183, "name": "Limonli qora choy", "category": "O‘zbek", "time": "10 daqiqa", "ingredients": ["Qora choy", "limon", "asal", "suv", "yalpiz"], "steps": ["Choynakni qaynoq suv bilan isitib, qora choy barglarini soling.", "Qaynoq suvni quyib, barglarni ortiqcha damlatmasdan besh daqiqacha kuting.", "Piyolalarga limon bo‘lagi va bir necha yalpiz bargi joylashtiring.", "Choyni suzib quyib, asalni alohida yoki ichimlik biroz sovigach qo‘shing."]}, {"id": 184, "name": "Qarsildoq kartoshka", "category": "O‘zbek", "time": "35 daqiqa", "ingredients": ["Kartoshka", "kraxmal", "paprika", "sarimsoq", "yog‘", "tuz"], "steps": ["Kartoshkani uzun bo‘laklarga kesib, kraxmalini chiqarish uchun sovuq suvda iviting.", "Yaxshilab quritib, kraxmal va paprika bilan yupqa qoplang.", "Qizigan yog‘da birinchi marta yumshaguncha pishirib, suzib oling.", "Ikkinchi marta kuchliroq olovda qarsildoq qiling va sarimsoqli tuz seping."]}, {"id": 185, "name": "Tovuq kotleti", "category": "O‘zbek", "time": "40 daqiqa", "ingredients": ["Tovuq qiymasi", "non", "sut", "tuxum", "piyoz", "sariyog‘"], "steps": ["Nonni sutda yumshatib, ortiqcha sutini siqing va tovuq qiymasiga qo‘shing.", "Piyozni mayda maydalab, tuxum va sariyog‘ bilan birga massa qiling.", "Kotletlarni nam qo‘l bilan yassi shakllantirib, non uvog‘iga yengil bosing.", "Tovada ikki tomonini qizartirib, qopqoq ostida ichini yumshoq pishiring."]}, {"id": 186, "name": "Baliq kotleti", "category": "O‘zbek", "time": "35 daqiqa", "ingredients": ["Oq baliq filesi", "kartoshka", "tuxum", "piyoz", "ukrop", "non uvog‘i"], "steps": ["Baliq filesini bug‘da yoki suvda pishirib, sovigach mayda parchalang.", "Qaynatilgan kartoshkani ezib, baliq, piyoz, tuxum va ukrop bilan aralashtiring.", "Massadan yassi kotletlar shakllantirib, non uvog‘iga bosing.", "Oz yog‘da ikki tomonini tillarang qiling va limon bilan torting."]}, {"id": 187, "name": "Grechka kotleti", "category": "O‘zbek", "time": "45 daqiqa", "ingredients": ["Grechka", "piyoz", "tuxum", "sabzi", "non uvog‘i", "qora murch"], "steps": ["Grechkani yumshoq pishirib, sovitib qo‘ying.", "Piyoz va sabzini mayda qovurib, grechka bilan aralashtiring.", "Tuxum va murch qo‘shib massa hosil qiling, qo‘l bilan yassi kotletlar yasang.", "Non uvog‘iga belab, tovda ikki tomonini qizartiring."]}, {"id": 188, "name": "Makaron qovurma", "category": "O‘zbek", "time": "30 daqiqa", "ingredients": ["Makaron", "mol go‘shti", "piyoz", "sabzi", "pomidor", "sarimsoq"], "steps": ["Makaronni yarim pishirib suzib, yopishmasligi uchun ozgina yog‘lang.", "Mol go‘shtini piyoz bilan qizartirib, sabzi va pomidorni qo‘shing.", "Sarimsoq bilan qovurma asosini xushbo‘ylab, makaronni qozonga qaytaring.", "Kuchli olovda makaronni sous bilan qoplab, chetlarini yengil qovuring."]}, {"id": 189, "name": "Tandir kartoshka", "category": "O‘zbek", "time": "55 daqiqa", "ingredients": ["Kartoshka", "qo‘y yog‘i", "zira", "paprika", "sarimsoq", "tuz"], "steps": ["Kartoshkalarni yirik bo‘laklab, qaynagan suvda besh daqiqa blansh qiling.", "Qo‘y yog‘i, zira va paprika bilan aralashtirib, yuzasini yog‘lang.", "Tandir yoki juda qizigan pechda kartoshkani bir qatlam qilib pishiring.", "Chetlari qarsildoq bo‘lgach sarimsoq va tuz sepib, go‘shtli taom yonida torting."]}, {"id": 190, "name": "Qatiqli kabob", "category": "O‘zbek", "time": "45 daqiqa", "ingredients": ["Mol go‘shti", "qatiq", "piyoz", "paprika", "zira", "limon"], "steps": ["Mol go‘shtini qatiq, limon va paprika bilan marinadlang.", "Piyozni maydalab sharbatini chiqarib, marinadga aralashtiring.", "Go‘shtni sixga terib, ortiqcha marinadni silkiting.", "Ko‘mir ustida aylantirib pishirib, zira sepib issiq holda torting."]}, {"id": 191, "name": "Qovurilgan jigar", "category": "O‘zbek", "time": "20 daqiqa", "ingredients": ["Mol jigari", "piyoz", "un", "paprika", "murch", "yog‘"], "steps": ["Jigarni yupqa tilimlab, parda qismlarini olib tashlang.", "Bo‘laklarni un, paprika va murch aralashmasiga yengil belab chiqing.", "Qizigan yog‘da har tomonini juda qisqa qovuring, ichini quritmang.", "Alohida qovurilgan piyoz bilan aralashtirib, darhol issiq non bilan bering."]}, {"id": 192, "name": "Shurpo", "category": "O‘zbek", "time": "90 daqiqa", "ingredients": ["Qo‘y go‘shti", "kartoshka", "sabzi", "piyoz", "no‘xat", "pomidor", "zira"], "steps": ["Qo‘y go‘shtini suyakli holda qaynatib, tiniq bulyon hosil qiling.", "Ivitilgan no‘xatni qo‘shib, go‘sht yumshashiga qadar sekin pishiring.", "Kartoshka, sabzi va pomidorni yirik bo‘laklarda solib, shaklini saqlang.", "Zira va tuz bilan ta’mni rostlab, piyola ustiga ko‘kat sepib torting."]}, {"id": 193, "name": "Shalg‘am sho‘rva", "category": "O‘zbek", "time": "60 daqiqa", "ingredients": ["Sholg‘om", "mol go‘shti", "kartoshka", "sabzi", "piyoz", "pomidor", "kashnich"], "steps": ["Mol go‘shtini piyoz bilan qovurib, sholg‘omning bir qismini ham yengil qizartiring.", "Qaynoq suv quyib go‘shtni yumshatib, sabzi va pomidorni qo‘shing.", "Kartoshka va qolgan sholg‘omni tushirib, sabzavotlar pishguncha qaynatib boring.", "Kashnich bilan yakunlab, sholg‘omning shirin-nordon ta’mini issiq bulyonda saqlang."]}, {"id": 194, "name": "Karam sho‘rva", "category": "O‘zbek", "time": "55 daqiqa", "ingredients": ["Karam", "mol go‘shti", "kartoshka", "sabzi", "piyoz", "pomidor", "sarimsoq"], "steps": ["Mol go‘shtini piyoz bilan qovurib, pomidor bilan sho‘rva asosini yarating.", "Sabzi va kartoshkani qo‘shib, ustidan bulyon quying.", "Karamni yirik bo‘laklarda solib, barglari yumshaguncha qaynating.", "Sarimsoq va murchni oxirida qo‘shib, qopqoq ostida besh daqiqa tindiring."]}, {"id": 195, "name": "Moshli dimlama", "category": "O‘zbek", "time": "85 daqiqa", "ingredients": ["Mosh", "qo‘y go‘shti", "kartoshka", "sabzi", "karam", "piyoz", "pomidor"], "steps": ["Moshni yuvib, alohida yarim pishirib suvini to‘king.", "Qozon tubiga go‘sht va piyozni joylab, ustidan sabzi va kartoshka qatlang.", "Mosh, pomidor va karamni qo‘shib, juda oz suv bilan qopqoqni mahkam yoping.", "Past olovda bug‘da pishirib, qatlamlarni aralashtirmasdan laganga ag‘daring."]}, {"id": 196, "name": "Karam dolma", "category": "O‘zbek", "time": "90 daqiqa", "ingredients": ["Karam bargi", "mol qiymasi", "guruch", "piyoz", "pomidor", "sarimsoq"], "steps": ["Karam boshini qaynoq suvga tushirib, barglarini birma-bir yumshating.", "Qiyma, yarim pishgan guruch va piyozdan ichlik tayyorlang.", "Bargning qalin tomirini yupqatib, ichlikni o‘rab kichik dolmalar yasang.", "Dolmalarni pomidorli suvga zich terib, past olovda guruch pishguncha dimlang."]}, {"id": 197, "name": "Lavashli rulet", "category": "O‘zbek", "time": "25 daqiqa", "ingredients": ["Lavash", "tovuq", "pishloq", "bodring", "pomidor", "mayonez", "ko‘kat"], "steps": ["Tovuqni mayda bo‘laklarda qovurib, sovitib qo‘ying.", "Lavashga mayonez va ko‘katli sousni yupqa surting.", "Tovuq, bodring, pomidor va pishloqni bir tekis qatlam qilib joylashtiring.", "Lavashni mahkam o‘rab, ikki uchini ichkariga buking va diagonal kesib torting."]}, {"id": 198, "name": "Qaymoqli tovuq", "category": "O‘zbek", "time": "35 daqiqa", "ingredients": ["Tovuq filesi", "qaymoq", "piyoz", "sarimsoq", "qo‘ziqorin", "sariyog‘"], "steps": ["Tovuq filesini medalon qilib kesib, sariyog‘da ikki tomonini qizartiring.", "Tovuqni olib, o‘sha tovda piyoz va qo‘ziqorinni yumshating.", "Sarimsoq va qaymoq qo‘shib, tov tagidagi qizarib qolgan ta’mni sousga singdiring.", "Tovuqni qaytarib, sous quyuqlashguncha past olovda pishiring."]}, {"id": 199, "name": "Sabzavotli dimlama", "category": "O‘zbek", "time": "65 daqiqa", "ingredients": ["Baqlajon", "kabachki", "kartoshka", "pomidor", "karam", "sabzi", "piyoz"], "steps": ["Qozon tubiga piyoz va sabzi qatlamini joylashtirib, ustidan kartoshka tering.", "Baqlajon va kabachkini yirik bo‘laklarda qo‘shib, pomidor bilan yoping.", "Tuz va ko‘katni qatlamlar orasiga tarqating, yarim stakan suv quyib berkiting.", "Past olovda sabzavotlar o‘z sharbatida pishguncha dimlab, non bilan torting."]}, {"id": 200, "name": "Tandir tovuq", "category": "O‘zbek", "time": "85 daqiqa", "ingredients": ["Butun tovuq", "qatiq", "sarimsoq", "paprika", "zira", "limon"], "steps": ["Tovuqni qatiq, limon, sarimsoq va paprika bilan ichidan-tashqarisidan ishqalang.", "Son qismlarini ip bilan bog‘lab, marinadni bir necha soat shimdiring.", "Tovuqni qizigan tandir yoki pechda ko‘krak qismi qurib ketmasligi uchun vaqti-vaqti bilan yog‘lang.", "Teri qarsildoq va go‘sht pishganida olib, o‘n daqiqa dam berib bo‘laklang."]}];
-
-const grid = document.getElementById('grid');
-const empty = document.getElementById('empty');
-const search = document.getElementById('search');
-const category = document.getElementById('category');
-const resultCount = document.getElementById('resultCount');
-const clearFilters = document.getElementById('clearFilters');
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modalImg');
-const modalTitle = document.getElementById('modalTitle');
-const modalCategory = document.getElementById('modalCategory');
-const modalTime = document.getElementById('modalTime');
-const modalIngredients = document.getElementById('modalIngredients');
-const modalSteps = document.getElementById('modalSteps');
-const favoriteBtn = document.getElementById('favoriteBtn');
-
-const categories = [...new Set(recipes.map(r => r.category))];
-categories.forEach(c => {
-  const o = document.createElement('option');
-  o.value = c; o.textContent = c;
-  category.appendChild(o);
-});
-
-const imageCache = new Map();
-
-function imagePlaceholder(name) {
-  const safe = String(name).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650">
-    <rect width="900" height="650" fill="#f1f5f9"/>
-    <text x="450" y="315" text-anchor="middle" font-family="Arial" font-size="30" font-weight="700" fill="#166534">${safe}</text>
-    <text x="450" y="355" text-anchor="middle" font-family="Arial" font-size="18" fill="#64748b">Rasm yuklanmoqda...</text>
-  </svg>`;
-  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
-}
-
-async function findExactDishImage(recipe) {
-  if (imageCache.has(recipe.id)) return imageCache.get(recipe.id);
-
-  const cacheKey = `dish-image-${recipe.id}`;
-  try {
-    const saved = localStorage.getItem(cacheKey);
-    if (saved && saved.startsWith("http")) {
-      imageCache.set(recipe.id, saved);
-      return saved;
-    }
-  } catch (_) {}
-
-  const queries = [`${recipe.name} food`, recipe.name, `${recipe.name} dish`];
-
-  for (const q of queries) {
-    try {
-      const api =
-        "https://commons.wikimedia.org/w/api.php?action=query" +
-        "&generator=search&gsrnamespace=6&gsrlimit=5" +
-        "&prop=imageinfo&iiprop=url&iiurlwidth=900&format=json&origin=*" +
-        "&gsrsearch=" + encodeURIComponent(q);
-
-      const response = await fetch(api);
-      const data = await response.json();
-      const pages = data.query?.pages ? Object.values(data.query.pages) : [];
-      const page = pages.find(p => p.imageinfo?.[0]?.thumburl || p.imageinfo?.[0]?.url);
-
-      if (page) {
-        const image = page.imageinfo[0].thumburl || page.imageinfo[0].url;
-        imageCache.set(recipe.id, image);
-        try { localStorage.setItem(cacheKey, image); } catch (_) {}
-        return image;
-      }
-    } catch (_) {}
-  }
-
-  /* Wikimedia'da topilmasa, aynan taom nomi bo'yicha qidiriladigan
-     zaxira ishlatiladi. Random lock yo'q. */
-  const fallback = "https://loremflickr.com/900/650/" + encodeURIComponent(recipe.name + ",food");
-  imageCache.set(recipe.id, fallback);
-  return fallback;
-}
-
-function imageFor(recipe) {
-  return imagePlaceholder(recipe.name);
-}
-
-function loadDishImage(img, recipe) {
-  if (!img || img.dataset.loaded === "1") return;
-  findExactDishImage(recipe).then(url => {
-    if (url) {
-      img.src = url;
-      img.dataset.loaded = "1";
-    }
+  // Scroll nav bg
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
   });
-}
 
-function setupDishImages() {
-  const imgs = document.querySelectorAll("img[data-dish-id]");
-  if (!("IntersectionObserver" in window)) {
-    imgs.forEach(img => {
-      const r = recipes.find(x => x.id === Number(img.dataset.dishId));
-      if (r) loadDishImage(img, r);
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+
+  // FAQ toggle
+  function toggleFaq(el){
+    const item = el.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
     });
-    return;
+    if(!wasOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const img = entry.target;
-      const r = recipes.find(x => x.id === Number(img.dataset.dishId));
-      if (r) loadDishImage(img, r);
-      observer.unobserve(img);
+  // Public booking form -> saves into same storage the admin panel reads
+  document.getElementById('publicBookingForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('pbName').value;
+    const phone = document.getElementById('pbPhone').value;
+    const date = document.getElementById('pbDate').value;
+    const hall = document.getElementById('pbHall').value;
+    const note = document.getElementById('pbNote').value;
+
+    let requests = JSON.parse(localStorage.getItem('shukrona_requests')) || [];
+    requests.push({
+      id: Date.now(),
+      name, phone, date, hall, note,
+      status: 'yangi'
     });
-  }, { rootMargin: "500px" });
+    localStorage.setItem('shukrona_requests', JSON.stringify(requests));
 
-  imgs.forEach(img => observer.observe(img));
-}
+    document.getElementById('publicBookingForm').style.display='none';
+    document.getElementById('pbSuccess').style.display='block';
+  });
 
-function render(list) {
-  grid.innerHTML = list.map(r => `
-    <article class="recipe-card group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-soft" data-id="${r.id}">
-      <div class="relative overflow-hidden">
-        <img loading="lazy" class="card-img h-48 w-full object-cover" src="${imageFor(r)}" data-dish-id="${r.id}" alt="${r.name}">
-        <div class="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-green-700 backdrop-blur">${r.category}</div>
-        <div class="absolute bottom-3 right-3 rounded-full bg-slate-950/75 px-3 py-1 text-xs font-semibold text-white"><i class="fa-regular fa-clock mr-1"></i>${r.time}</div>
-      </div>
-      <div class="p-5">
-        <div class="flex items-start justify-between gap-2">
-          <h3 class="line-clamp-2 text-lg font-black text-slate-900">${r.name}</h3>
-          <span class="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-green-50 text-green-600"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
-        </div>
-        <p class="mt-3 line-clamp-2 text-sm leading-6 text-slate-500">${r.ingredients.join(', ')}</p>
-        <button class="openRecipe mt-5 w-full rounded-xl bg-green-600 px-4 py-3 text-sm font-bold text-white transition hover:bg-green-700"><i class="fa-solid fa-utensils mr-2"></i>Retseptni ko‘rish</button>
-      </div>
-    </article>`).join('');
-  resultCount.textContent = list.length;
-  empty.classList.toggle('hidden', list.length !== 0);
-  grid.classList.toggle('hidden', list.length === 0);
-  setupDishImages();
-}
-
-function filter() {
-  const q = search.value.trim().toLowerCase();
-  const c = category.value;
-  const list = recipes.filter(r =>
-    (c === 'all' || r.category === c) &&
-    (!q || (r.name + ' ' + r.ingredients.join(' ')).toLowerCase().includes(q))
-  );
-  render(list);
-  clearFilters.classList.toggle('hidden', !q && c === 'all');
-}
-
-function openRecipe(id) {
-  const r = recipes.find(x => x.id === id);
-  if (!r) return;
-  modalImg.src = imagePlaceholder(r.name);
-  modalImg.alt = r.name;
-  findExactDishImage(r).then(url => { if (url) modalImg.src = url; });
-  modalTitle.textContent = r.name;
-  modalCategory.textContent = r.category;
-  modalTime.textContent = r.time;
-  modalIngredients.innerHTML = r.ingredients.map(i => `<li class="flex gap-3 rounded-xl bg-slate-50 p-3 text-sm"><span class="mt-1 text-green-600"><i class="fa-solid fa-circle-check"></i></span><span>${i}</span></li>`).join('');
-  modalSteps.innerHTML = r.steps.map((s,i) => `<li class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-green-100 text-sm font-black text-green-700">${i+1}</span><p class="pt-1 text-sm leading-6 text-slate-600">${s}</p></li>`).join('');
-  favoriteBtn.dataset.id = r.id;
-  updateFavorite();
-  modal.classList.remove('hidden'); modal.classList.add('flex');
-  document.body.classList.add('no-scroll');
-}
-
-function closeRecipe() {
-  modal.classList.add('hidden'); modal.classList.remove('flex');
-  document.body.classList.remove('no-scroll');
-}
-
-function getFavorites() {
-  try { return JSON.parse(localStorage.getItem('uyTaomFavorites') || '[]'); } catch { return []; }
-}
-function updateFavorite() {
-  const id = Number(favoriteBtn.dataset.id);
-  const yes = getFavorites().includes(id);
-  favoriteBtn.innerHTML = yes ? '<i class="fa-solid fa-heart mr-2"></i>Saqlangan' : '<i class="fa-regular fa-heart mr-2"></i>Sevimli';
-  favoriteBtn.classList.toggle('text-red-600', yes);
-}
-favoriteBtn.addEventListener('click', () => {
-  const id = Number(favoriteBtn.dataset.id);
-  let fav = getFavorites();
-  fav = fav.includes(id) ? fav.filter(x => x !== id) : [...fav, id];
-  localStorage.setItem('uyTaomFavorites', JSON.stringify(fav));
-  updateFavorite();
-});
-
-search.addEventListener('input', filter);
-category.addEventListener('change', filter);
-clearFilters.addEventListener('click', () => { search.value=''; category.value='all'; filter(); });
-document.getElementById('closeModal').addEventListener('click', closeRecipe);
-modal.addEventListener('click', e => { if (e.target === modal) closeRecipe(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRecipe(); });
-grid.addEventListener('click', e => {
-  const btn = e.target.closest('.openRecipe');
-  const card = e.target.closest('[data-id]');
-  if (btn && card) openRecipe(Number(card.dataset.id));
-});
-
-render(recipes);
+  // Min date = today
+  document.getElementById('pbDate').min = new Date().toISOString().split('T')[0];
 </script>
+
 </body>
 </html>
